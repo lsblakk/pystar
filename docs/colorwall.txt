@@ -9,7 +9,8 @@ During this workshop, you will write your own ColorWall and design effects for i
 
 You can also see the ColorWall in action here: http://vimeo.com/16522975.
 
-=== Layout ===
+Layout
+--------
 
 The ColorWall code consists of 3 files:
 
@@ -17,7 +18,8 @@ The ColorWall code consists of 3 files:
 - wall.py -- the logic behind the matrix of squares that make up the wall. This file has a comment block at the top that summarize the interface that you will use when programming your own effects.
 - effects.py -- where effects live. This is the main file that you'll be editing during the workshop.
 
-=== Resources ===
+Resources
+-----------
 
 - http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall
 - https://github.com/jesstess/ColorWall ColorWall code on GitHub
