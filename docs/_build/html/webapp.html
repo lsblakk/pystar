@@ -1,0 +1,955 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Intro to Programming Python: Web App &mdash; PyStar: Programming Workshops for Women and Their Friends</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pystar_flaming_32_150px.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="top" title="PyStar: Programming Workshops for Women and Their Friends" href="index.html" />
+    <link rel="next" title="Intro to Programming Python: Color Wall" href="colorwall.html" />
+    <link rel="prev" title="Getting Ready" href="friday.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+          <p class="logo"><a href="index.html">
+            <img class="logo" src="_static/pystar_flaming_160_150px.png" alt="Logo"/>
+          </a></p>
+        <h1><a href="index.html">PyStar: Programming Workshops for Women and Their Friends</a></h1>
+        <div class="rel">
+          <a href="friday.html" title="Getting Ready"
+             accesskey="P">previous</a> |
+          <a href="colorwall.html" title="Intro to Programming Python: Color Wall"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="intro-to-programming-python-web-app">
+<span id="webapp-label"></span><h1>Intro to Programming Python: Web App<a class="headerlink" href="#intro-to-programming-python-web-app" title="Permalink to this headline">¶</a></h1>
+<p>This section will look at writing and deploying a web application.
+The app is an online poll where visitors can view choices
+(a bit of text, plus an image) and vote the option up and down.
+We will cover local deployment as well as deploying your web application to the world,
+where other people can play with it, and where you can modify it.</p>
+<p>This is based &#8216;&#8217;heavily&#8217;&#8217; on the official tutorial for the Django web programming framework
+as well as the Ruby on Rails for Women web app tutorial.</p>
+<div class="section" id="writing-your-first-django-app-part-1">
+<h2>Writing your first Django app, part 1<a class="headerlink" href="#writing-your-first-django-app-part-1" title="Permalink to this headline">¶</a></h2>
+<p>Let’s learn by example.</p>
+<p>This tutorial walks you through the creation of a basic poll application.</p>
+<p>It’ll consist of two parts:</p>
+<ul class="simple">
+<li>A public site that lets people view polls and vote in them.</li>
+<li>An admin site that lets you add, change and delete polls.</li>
+</ul>
+<div class="section" id="switch-to-the-right-directory">
+<h3>Switch to the right directory<a class="headerlink" href="#switch-to-the-right-directory" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">In a terminal (or GitBash), get into the django_projects directory we created in the Friday setup portion of the tutorial. You can do that by typing this into your terminal:</p>
+<div class="highlight-python"><pre>cd Desktop
+cd django_projects</pre>
+</div>
+</li>
+</ul>
+<p>In the Friday setup portion of the workshop, you already saw how to use the &#8216;&#8217;django-admin.py&#8217;&#8217; command to start a project. The workshop coordinators already created a project, and you already &#8216;&#8217;fork&#8217;&#8216;ed it on Github. So now, you&#8217;ll clone that to your computer.</p>
+<ul>
+<li><p class="first">Go to <a class="reference external" href="http://github.com/">http://github.com/</a></p>
+</li>
+<li><p class="first">Find your clone of workshop_mysite. Find the &#8216;&#8217;&#8216;SSH&#8217;&#8216;&#8217; URL for it, and copy that to the clipboard.</p>
+</li>
+<li><p class="first">In the terminal, type: &lt;tt&gt;git clone&lt;/tt&gt; followed by the URL for your personal fork of the workshop_mysite repository.</p>
+</li>
+<li><p class="first">Make sure you can &#8220;cd&#8221; into it:</p>
+<div class="highlight-python"><pre>cd workshop_mysite</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="look-at-the-files">
+<h3>Look at the files<a class="headerlink" href="#look-at-the-files" title="Permalink to this headline">¶</a></h3>
+<p>Let’s look at files in the project:</p>
+<div class="highlight-python"><pre>workshop_mysite/
+   public/
+   README.mediawiki
+   __init__.py
+   manage.py
+   settings.py
+   urls.py</pre>
+</div>
+<p>These files are:</p>
+<ul class="simple">
+<li>README.mediawiki: Many projects come with &#8216;&#8217;README&#8217;&#8217; files that, well, you should read. This one does, too.</li>
+<li>public/: This directory contains files the instructors put together so you can easily deploy your web app to Alwaysdata.com.</li>
+<li>__init__.py: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, you can use &#8216;&#8217;import&#8217;&#8217; to &#8216;&#8217;import workshop_mysite&#8217;&#8216;.</li>
+<li>manage.py: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.</li>
+<li>settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.</li>
+<li>urls.py: The URL declarations for this Django project; a &#8220;table of contents&#8221; of your Django-powered site. You can read more about URLs in URL dispatcher.</li>
+</ul>
+</div>
+<div class="section" id="the-development-server">
+<h3>The development server<a class="headerlink" href="#the-development-server" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s verify this worked. Run the command:</p>
+<div class="highlight-python"><pre>python manage.py runserver</pre>
+</div>
+<p>You&#8217;ll see the following output on the command line:</p>
+<div class="highlight-python"><pre>Validating models...
+0 errors found.
+
+Django version 1.2, using settings 'mysite.settings'
+Development server is running at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.</pre>
+</div>
+<p>You&#8217;ve started the Django development server, a lightweight Web server written purely in Python. The Django maintainers include this web server, but on a &#8220;deployment&#8221; like alwaysdata.com, you typically tie Django into an existing server like Apache.</p>
+<p>Now that the server&#8217;s running, visit <a class="reference external" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a> with your Web browser. You&#8217;ll see a &#8220;Welcome to Django&#8221; page, in pleasant, light-blue pastel. It worked!</p>
+<p>Exit the server by pressing CONTROL-C on your keyboard.</p>
+</div>
+<div class="section" id="fixing-security-settings">
+<h3>Fixing security settings<a class="headerlink" href="#fixing-security-settings" title="Permalink to this headline">¶</a></h3>
+<p>Right now, everyone in the workshop has the same &#8216;&#8217;&#8216;SECRET_KEY&#8217;&#8216;&#8217;. According to the Django documentation, that is bad. So open up settings.py in your editor (for example, Komodo Edit).</p>
+<p>&#8216;&#8217;&#8216;settings.py&#8217;&#8216;&#8217; is a Python script that only contains variable definitions. (Django looks at the values of these variables when it runs your web app.)</p>
+<p>Find the variable named &lt;tt&gt;SECRET_KEY&lt;/tt&gt; and set it to whatever string you want. Go on, we&#8217;ll wait.</p>
+</div>
+<div class="section" id="database-setup">
+<h3>Database setup<a class="headerlink" href="#database-setup" title="Permalink to this headline">¶</a></h3>
+<p>Keep looking at settings.py: The DATABASES variable is a dictionary with one key: &#8216;&#8217;&#8216;default&#8217;&#8216;&#8217;.</p>
+<p>The value is itself another dictionary with information about the site&#8217;s default database. You can see from the &#8216;&#8217;NAME&#8217;&#8217; that the Django project uses a file called &#8216;&#8217;database.db&#8217;&#8217; to store information.</p>
+<p>&#8216;&#8217;&#8216;Pop quiz&#8217;&#8216;&#8217;: Does database.db exist right now?</p>
+<p>While you&#8217;re editing settings.py, take note of the INSTALLED_APPS setting towards the bottom of the file. That variable holds the names of all Django applications that are activated in this Django instance. Apps can be used in multiple projects, and you can package and distribute them for use by others in their projects.</p>
+<p>By default, INSTALLED_APPS contains the following apps, all of which come with Django:</p>
+<ul class="simple">
+<li>django.contrib.auth &#8211; An authentication system.</li>
+<li>django.contrib.contenttypes &#8211; A framework for content types.</li>
+<li>django.contrib.sessions &#8211; A session framework.</li>
+<li>django.contrib.sites &#8211; A framework for managing multiple sites with one Django installation.</li>
+<li>django.contrib.messages &#8211; A messaging framework.</li>
+</ul>
+<p>These applications are included by default as a convenience.</p>
+<p>Each of these applications makes use of at least one database table, so we need to create the tables in the database before we can use them. To do that, run the following command:</p>
+<div class="highlight-python"><pre>python manage.py syncdb</pre>
+</div>
+<p>The syncdb command looks at the INSTALLED_APPS setting and creates any necessary database tables according to the database settings in your settings.py file. You&#8217;ll see a message for each database table it creates, and you&#8217;ll get a prompt asking you if you&#8217;d like to create a superuser account for the authentication system. Go ahead and do that.</p>
+</div>
+</div>
+<div class="section" id="part-1-5-creating-polls">
+<h2>Part 1.5: Creating polls<a class="headerlink" href="#part-1-5-creating-polls" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-models">
+<h3>Creating models<a class="headerlink" href="#creating-models" title="Permalink to this headline">¶</a></h3>
+<p>Now that your environment &#8211; a &#8220;project&#8221; &#8211; is set up, you&#8217;re set to start building the poll.</p>
+<p>Each application you write in Django consists of a Python package, somewhere on your Python path, that follows a certain convention. Django comes with a utility that automatically generates the basic directory structure of an app, so you can focus on writing code rather than creating directories.</p>
+</div>
+<div class="section" id="projects-vs-apps">
+<h3>Projects vs. apps<a class="headerlink" href="#projects-vs-apps" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ve talked a little about Django &#8216;&#8217;apps&#8217;&#8217; and &#8216;&#8217;projects&#8217;&#8216;. You might be wondering what the difference is.</p>
+<p>Here are the things to know:</p>
+<ul class="simple">
+<li>An &#8216;&#8217;app&#8217;&#8217; is component of a website that does something. For example, the &#8216;&#8217;Django administration&#8217;&#8217; app is something you&#8217;ll see later in this tutorial.</li>
+<li>A &#8216;&#8217;project&#8217;&#8217; corresponds to a website: it contains a &#8216;&#8217;&#8216;settings.py&#8217;&#8216;&#8217; file, so it has a corresponding database.</li>
+</ul>
+<p>Django apps can live anywhere on the &#8220;Python path.&#8221; That just means that you have to be able to &#8216;&#8217;import&#8217;&#8217; them when your Django project runs.</p>
+<p>In this tutorial, we&#8217;ll create our poll app in the workshop_mysite directory for simplicity. In the future, when you decide that the world needs to be able to use your poll app and plug it into their own projects, you can publish that directory separately.</p>
+<p>To create your app, make sure you&#8217;re in the workshop_mysite directory and type this command:</p>
+<div class="highlight-python"><pre>python manage.py startapp polls</pre>
+</div>
+<p>That&#8217;ll create a directory polls, which is laid out like this:</p>
+<div class="highlight-python"><pre>polls/
+   __init__.py
+   models.py
+   tests.py
+   views.py</pre>
+</div>
+<p>This directory structure will house the poll application.</p>
+<p>The first step in writing a database Web app in Django is to define your models &#8211; essentially, your database layout, with additional metadata.</p>
+</div>
+<div class="section" id="django-philosophy">
+<h3>Django Philosophy<a class="headerlink" href="#django-philosophy" title="Permalink to this headline">¶</a></h3>
+<p>A model is the single, definitive source of data about your data. It contains the essential fields and behaviors of the data you&#8217;re storing. Django follows the DRY (&#8220;Don&#8217;t Repeat Yourself&#8221;) Principle. The goal is to define your data model in one place and automatically derive things from it.</p>
+<p>(If you&#8217;ve used SQL before, you might be interested to know that each Django &#8216;&#8217;model&#8217;&#8217; corresponds to a SQL &#8216;&#8217;table&#8217;&#8216;.)</p>
+<p>In our simple poll app, we&#8217;ll create two models: polls and choices. A poll has a question and a publication date. A choice has two fields: the text of the choice and a vote tally. Each choice is associated with a poll. (FIXME: Add image to Choice.)</p>
+<p>These concepts are represented by Python classes. Edit the polls/models.py file so it looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Poll</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Choice</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">poll</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Poll</span><span class="p">)</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Save the models.py file.</p>
+<p>All models in Django code are represented by a class that subclasses django.db.models.Model. Each model has a number of class variables, each of which represents a database field in the model.</p>
+<p>Each field is represented by an instance of a Field class &#8211; e.g., CharField for character fields and DateTimeField for datetimes. This tells Django what type of data each field holds.</p>
+<p>The name of each Field instance (e.g. question or pub_date) is the field&#8217;s name, in machine-friendly format. You&#8217;ll use this value in your Python code, and your database will use it as the column name.</p>
+<p>Some Field classes have required elements. CharField, for example, requires that you give it a max_length. That&#8217;s used not only in the database schema, but in validation, as we&#8217;ll soon see.</p>
+<p>Finally, note a relationship is defined, using ForeignKey. That tells Django each Choice is related to a single Poll. Django supports all the common database relationships: many-to-ones, many-to-manys and one-to-ones.</p>
+</div>
+<div class="section" id="activating-models">
+<h3>Activating models<a class="headerlink" href="#activating-models" title="Permalink to this headline">¶</a></h3>
+<p>That small bit of model code gives Django a lot of information. With it, Django is able to:</p>
+<ul class="simple">
+<li>Create a database schema (CREATE TABLE statements) for this app.</li>
+<li>Create a Python database-access API for accessing Poll and Choice objects.</li>
+</ul>
+<p>But first we need to tell our project that the polls app is installed.</p>
+</div>
+<div class="section" id="id1">
+<h3>Django Philosophy<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Django apps are &#8220;pluggable&#8221;: You can use an app in multiple projects, and you can distribute apps, because they don&#8217;t have to be tied to a given Django installation.</p>
+<p>Edit the settings.py file again, and change the INSTALLED_APPS setting to include the string &#8216;polls&#8217;. So it&#8217;ll look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.sites&#39;</span><span class="p">,</span>
+    <span class="s">&#39;polls&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Save the settings.py file.</p>
+<p>Now Django knows to include the polls app.</p>
+<p>If you care about SQL, you can try the following command:</p>
+<div class="highlight-python"><pre>* python manage.py sql polls</pre>
+</div>
+<p>For now, let&#8217;s just Django&#8217;s &#8216;&#8217;syncdb&#8217;&#8217; tool to create the database tables for Poll objects:</p>
+<div class="highlight-python"><pre>python manage.py syncdb</pre>
+</div>
+<p>The syncdb looks for &#8216;&#8217;apps&#8217;&#8217; that have not yet been set up. To set them up, it runs the necessary SQL commands against your database. This creates all the tables, initial data and indexes for any apps you have added to your project since the last time you ran syncdb. syncdb can be called as often as you like, and it will only ever create the tables that don&#8217;t exist.</p>
+<p>Read the django-admin.py documentation for full information on what the manage.py utility can do.</p>
+</div>
+<div class="section" id="playing-with-the-api">
+<h3>Playing with the API<a class="headerlink" href="#playing-with-the-api" title="Permalink to this headline">¶</a></h3>
+<p>Now, let&#8217;s hop into the interactive Python shell and play around with the free API Django gives you. To invoke the Python shell, use this command:</p>
+<div class="highlight-python"><pre>python manage.py shell</pre>
+</div>
+<p>We&#8217;re using this instead of simply typing &#8220;python&#8221;, because manage.py sets up the project&#8217;s environment for you. &#8220;Setting up the environment&#8221; involves two things:</p>
+<p># Making sure &#8216;&#8217;polls&#8217;&#8217; is on the right path to be imported.
+# Setting the DJANGO_SETTINGS_MODULE environment variable, which gives Django the path to your settings.py file.</p>
+<p>Once you&#8217;re in the shell, explore the database API:</p>
+<p>Let&#8217;s import the model classes we just wrote:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Poll</span><span class="p">,</span> <span class="n">Choice</span>
+</pre></div>
+</div>
+<p>To list all the current Polls:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+<p>It is an empty list because there are no polls. Let&#8217;s add one!</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Poll</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="s">&quot;What&#39;s up?&quot;</span><span class="p">,</span> <span class="n">pub_date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Then we&#8217;ll save the object into the database. You have to call save() explicitly.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Great. Now, because it&#8217;s been saved, it has an ID in the database. You can see that by typing this into the Python shell:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">id</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>You can also access the database columns (Fields, in Django parlance) as Python attributes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">question</span>
+<span class="go">&quot;What&#39;s up?&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">pub_date</span>
+<span class="go">datetime.datetime(2007, 7, 15, 12, 00, 53)</span>
+</pre></div>
+</div>
+<p>We can time travel back in time! Or at least, we can send the Poll back in time:</p>
+<div class="highlight-python"><pre># Change values by changing the attributes, then calling save().
+&gt;&gt;&gt; p.pub_date = datetime.datetime(2007, 4, 1, 0, 0)
+&gt;&gt;&gt; p.save()</pre>
+</div>
+<p>Finally, we can also ask Django to show a list of all the Poll objects available:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[&lt;Poll: Poll object&gt;]</span>
+</pre></div>
+</div>
+<p>Wait a minute. &lt;Poll: Poll object&gt; is an utterly unhelpful representation of this object. Let&#8217;s fix that by editing the polls model
+Use your &#8216;&#8217;&#8216;text editor&#8217;&#8216;&#8217; to open the polls/models.py file and adding a __unicode__() method to both Poll and Choice:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Poll</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">question</span>
+
+<span class="k">class</span> <span class="nc">Choice</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span>
+</pre></div>
+</div>
+<p>It&#8217;s important to add __unicode__() methods to your models, not only for your own sanity when dealing with the interactive prompt, but also because objects&#8217; representations are used throughout Django&#8217;s automatically-generated admin.</p>
+<p>(If you&#8217;re using to Python programming from a time in the past, you might have seen __str__(). Django prefers you use __unicode__() instead.)</p>
+<p>Note these are normal Python methods. Let&#8217;s add a custom method, just for demonstration:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="c"># ...</span>
+<span class="k">class</span> <span class="nc">Poll</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="k">def</span> <span class="nf">was_published_today</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pub_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note the addition of import datetime to reference Python&#8217;s standard datetime module.
+FIXME: add explanation of why we did this</p>
+<p>Save these changes to the models.py file, and then start a new Python interactive shell by running python manage.py shell again:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Poll</span><span class="p">,</span> <span class="n">Choice</span>
+</pre></div>
+</div>
+<p>Check it out: our __unicode__() addition worked:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[&lt;Poll: What&#39;s up?&gt;]</span>
+</pre></div>
+</div>
+<p>If you want to search your database, you can do it using the &#8216;&#8217;&#8216;filter&#8217;&#8216;&#8217; method on the &#8216;&#8217;objects&#8217;&#8217; attribute of Poll. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">polls</span> <span class="o">=</span> <span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="s">&quot;What&#39;s up?&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">polls</span>
+<span class="go">[&lt;Poll: What&#39;s up?&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">polls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>If you try to search for a poll that does not exist, &#8216;&#8217;filter&#8217;&#8217; will give you the empty list. The &#8216;&#8217;&#8216;get&#8217;&#8216;&#8217; method will always return one hit, or raise an exception.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="s">&quot;What time is it?&quot;</span><span class="p">)</span>
+<span class="go">[]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&lt;Poll: What&#39;s up?&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">DoesNotExist</span>: <span class="n">Poll matching query does not exist.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-choices">
+<h3>Adding choices<a class="headerlink" href="#adding-choices" title="Permalink to this headline">¶</a></h3>
+<p>Right now, we have a Poll in the database, but it has no Choices. See:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">choice_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+<p>So let&#8217;s create three choices:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">choice_set</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">choice</span><span class="o">=</span><span class="s">&#39;Not much&#39;</span><span class="p">,</span> <span class="n">votes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">&lt;Choice: Not much&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">choice_set</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">choice</span><span class="o">=</span><span class="s">&#39;The sky&#39;</span><span class="p">,</span> <span class="n">votes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">&lt;Choice: The sky&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">choice_set</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">choice</span><span class="o">=</span><span class="s">&#39;Just hacking again&#39;</span><span class="p">,</span> <span class="n">votes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span>
+<span class="go">&lt;Choice: Just hacking again&gt;</span>
+</pre></div>
+</div>
+<p>Every Choice can find the Poll that it belongs to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">poll</span>
+<span class="go">&lt;Poll: What&#39;s up?&gt;</span>
+</pre></div>
+</div>
+<p>We just used this, but now I&#8217;ll explain it: Because a Poll can have more than one Choice, Django creates the &#8216;&#8217;&#8216;choice_set&#8217;&#8216;&#8217; attribute on each Poll. You can use that to look at the list of available Choices, or to create them.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">choice_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[&lt;Choice: Not much&gt;, &lt;Choice: The sky&gt;, &lt;Choice: Just hacking again&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">choice_set</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="visualize-the-database-in-sqlite-manager">
+<h3>Visualize the database in SQLite Manager<a class="headerlink" href="#visualize-the-database-in-sqlite-manager" title="Permalink to this headline">¶</a></h3>
+<p>When you call &#8216;&#8217;.save()&#8217;&#8217; on a model instance, Django saves that to the database. (Remember, Django is a web programming framework built around the idea of saving data in a SQL database.)</p>
+<p>Where &#8216;&#8217;is&#8217;&#8217; that database? Take a look at &#8216;&#8217;&#8216;settings.py&#8217;&#8216;&#8217; in your text editor. You can see that &#8216;&#8217;database.db&#8217;&#8217; is the filename. In &#8216;&#8217;&#8216;settings.py&#8217;&#8216;&#8217; Python calculates the path to the current file.</p>
+<p>So now:</p>
+<ul class="simple">
+<li>Open up Firefox</li>
+<li>Find SQLite Manager in &#8216;&#8217;&#8216;Tools&#8217;&#8216;&#8217;-&gt;&#8217;&#8216;&#8217;SQLite Manager&#8217;&#8216;&#8217;</li>
+<li>In the SQLite Manager menus, choose: &#8216;&#8217;&#8216;Database&#8217;&#8216;&#8217;-&gt;&#8217;&#8216;&#8217;Connect Database&#8217;&#8216;&#8217;</li>
+<li>Find the &#8216;&#8217;&#8216;workshop_mysite/database.db&#8217;&#8216;&#8217; file.</li>
+</ul>
+<p>Browse your tables! This is another way of looking at the data you just created.</p>
+<p>&#8216;&#8217;&#8216;Note&#8217;&#8216;&#8217;: In order to find the &#8216;&#8217;database.db&#8217;&#8217; file, you might need to ask SQLite Manager to show you all files, not just the &#8216;&#8217;<a href="#id2"><span class="problematic" id="id3">*</span></a>.sqlite&#8217;&#8217; files.</p>
+<p>I (the author of this tutorial) think it&#8217;s really important that you be able to find this database file. So go ahead and do this step. Browse around! Hooray.</p>
+<p>When you&#8217;re satisfied with your Poll data, you can close it.</p>
+</div>
+<div class="section" id="save-and-share-our-work">
+<h3>Save and share our work<a class="headerlink" href="#save-and-share-our-work" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ve done something! Let&#8217;s share it with the world.</p>
+<p>We&#8217;ll do that with &#8216;&#8217;git&#8217;&#8217; and &#8216;&#8217;Github&#8217;&#8216;. On your own computer, get to a Terminal or a GitBash.</p>
+<p>Use &#8216;&#8217;&#8216;cd&#8217;&#8216;&#8217; to get into the &#8216;&#8217;&#8216;workshop_mysite&#8217;&#8216;&#8217; directory. If it&#8217;s a fresh Terminal, this is what you&#8217;ll do:</p>
+<div class="highlight-python"><pre>cd Desktop
+cd django_projects
+cd workshop_mysite</pre>
+</div>
+<p>Use &#8216;&#8217;git add&#8217;&#8217; to add the content of your files to git:</p>
+<div class="highlight-python"><pre>git add polls/*.py</pre>
+</div>
+<p>And use &#8216;&#8217;git commit&#8217;&#8217; to &#8216;&#8217;commit&#8217;&#8217; those files:</p>
+<div class="highlight-python"><pre>git commit -m "I made these files and this is a message describing them"</pre>
+</div>
+<p>Finally, use &#8216;&#8217;git push&#8217;&#8217; to push those up to your Github repository:</p>
+<div class="highlight-python"><pre>git push</pre>
+</div>
+<p>Go to your Github account. Find the &#8216;&#8217;workshop_mysite&#8217;&#8217; repository. Do you see your files?</p>
+<p>If so, proceed!</p>
+</div>
+<div class="section" id="enough-databases-for-now">
+<h3>Enough databases for now<a class="headerlink" href="#enough-databases-for-now" title="Permalink to this headline">¶</a></h3>
+<p>In the next section of the tutorial, you&#8217;ll write &#8216;&#8217;views&#8217;&#8217; that let other people look at your polls.</p>
+</div>
+</div>
+<div class="section" id="part-2-letting-the-world-see-your-polls-with-views">
+<h2>Part 2: Letting the world see your polls, with views<a class="headerlink" href="#part-2-letting-the-world-see-your-polls-with-views" title="Permalink to this headline">¶</a></h2>
+<p>We have all these polls in our database. However, no one can see them, because we never made any web pages that &#8216;&#8217;render&#8217;&#8217; the polls into HTML.</p>
+<p>Let&#8217;s change that with Django views.</p>
+<div class="section" id="philosophy">
+<h3>Philosophy<a class="headerlink" href="#philosophy" title="Permalink to this headline">¶</a></h3>
+<p>A view is a “type” of Web page in your Django application that generally serves a specific function and has a specific template. For example, in a Weblog application, you might have the following views:</p>
+<ul class="simple">
+<li>Blog homepage – displays the latest few entries.</li>
+<li>Entry “detail” page – permalink page for a single entry.</li>
+<li>Year-based archive page – displays all months with entries in the given year.</li>
+<li>Month-based archive page – displays all days with entries in the given month.</li>
+<li>Day-based archive page – displays all entries in the given day.</li>
+<li>Comment action – handles posting comments to a given entry.</li>
+</ul>
+<p>In our poll application, we’ll have the following four views:</p>
+<ul class="simple">
+<li>Poll “index” page – displays the latest few polls.</li>
+<li>Poll “detail” page – displays a poll question, with no results but with a form to vote.</li>
+<li>Poll “results” page – displays results for a particular poll.</li>
+<li>Vote action – handles voting for a particular choice in a particular poll.</li>
+</ul>
+<p>In Django, each view is represented by a simple Python function.</p>
+</div>
+<div class="section" id="design-your-urls">
+<h3>Design your URLs<a class="headerlink" href="#design-your-urls" title="Permalink to this headline">¶</a></h3>
+<p>The first step of writing views is to design your URL structure. You do this by creating a Python module, called a URLconf. URLconfs are how Django associates a given URL with given Python code.</p>
+<p>When a user requests a Django-powered page, the system looks at the ROOT_URLCONF setting, which contains a string in Python dotted syntax. Django loads that module and looks for a module-level variable called urlpatterns, which is a sequence of tuples in the following format:</p>
+<div class="highlight-python"><pre>(regular expression, Python callback function [, optional dictionary])</pre>
+</div>
+<p>Django starts at the first regular expression and makes its way down the list, comparing the requested URL against each regular expression until it finds one that matches.</p>
+<p>You might ask, &#8220;What&#8217;s a regular expression?&#8221; Regular expressions are patterns for matching text. In this case, we&#8217;re matching the URLs people go to, and using regular expressions to categorize them into different kinds of</p>
+<p>(If (like me) you think regular expressions are intriguing and thrilling, you can read the <a class="reference external" href="http://diveintopython.org/regular_expressions/index.html">Dive into Python guide to regular expressions</a> sometime. Or you can look at this <a class="reference external" href="http://xkcd.com/208/">comic</a>.)</p>
+<p>In addition to &#8216;&#8217;matching&#8217;&#8217; text, regular expressions can &#8216;&#8217;capture&#8217;&#8217; text: regexps use parentheses to wrap the parts they&#8217;re capturing.</p>
+<p>For Django, when a regular expression matches the URL that a web surfer requests, Django extracts the captured values and passes them to a function of your choosing. This is the role of the &#8216;&#8217;callback function&#8217;&#8217; above.</p>
+</div>
+<div class="section" id="adding-urls-to-urls-py">
+<h3>Adding URLs to urls.py<a class="headerlink" href="#adding-urls-to-urls-py" title="Permalink to this headline">¶</a></h3>
+<p>When we ran django-admin.py startproject workshop_mysite to create the project, Django created a default URLconf. Take a look at &#8216;&#8217;&#8216;settings.py&#8217;&#8216;&#8217; for this line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ROOT_URLCONF</span> <span class="o">=</span> <span class="s">&#39;workshop_mysite.urls&#39;</span>
+</pre></div>
+</div>
+<p>That means that the default URLconf is workshop_mysite/urls.py.</p>
+<p>Time for an example. Edit the file workshop_mysite/urls.py so it looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf.urls.defaults</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s">r&#39;^polls/$&#39;</span><span class="p">,</span> <span class="s">&#39;polls.views.index&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">r&#39;^polls/(\d+)/$&#39;</span><span class="p">,</span> <span class="s">&#39;polls.views.detail&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">r&#39;^polls/(\d+)/results/$&#39;</span><span class="p">,</span> <span class="s">&#39;polls.views.results&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">r&#39;^polls/(\d+)/vote/$&#39;</span><span class="p">,</span> <span class="s">&#39;polls.views.vote&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This is worth a review. When somebody requests a page from your Web site &#8211; say, &#8220;/polls/23/&#8221;, Django will load the &#8216;&#8217;urls.py&#8217;&#8217; Python module, because it&#8217;s pointed to by the ROOT_URLCONF setting. It finds the variable named urlpatterns and traverses the regular expressions in order. When it finds a regular expression that matches &#8211; r&#8217;^polls/(d+)/$&#8217; &#8211; it loads the function detail() from polls/views.py. Finally, it calls that detail() function like so:</p>
+<div class="highlight-python"><pre>detail(request=&lt;HttpRequest object&gt;, '23')</pre>
+</div>
+<p>The &#8216;23&#8217; part comes from (d+). Using parentheses around a pattern &#8220;captures&#8221; the text matched by that pattern and sends it as an argument to the view function; the d+ is a regular expression to match a sequence of &#8216;&#8217;digits&#8217;&#8217; (i.e., a number).</p>
+<p>(In Django, you have total control over the way your URLs look. People on the web won&#8217;t see cruft like .py or .php at the end of your URLs.)</p>
+</div>
+<div class="section" id="finally-write-your-first-view">
+<h3>Finally: Write your first view<a class="headerlink" href="#finally-write-your-first-view" title="Permalink to this headline">¶</a></h3>
+<p>Well, we haven&#8217;t created any views yet &#8211; we just have the URLconf. But let&#8217;s make sure Django is following the URLconf properly.</p>
+<p>Fire up the Django development Web server:</p>
+<div class="highlight-python"><pre>python manage.py runserver</pre>
+</div>
+<p>Now go to &#8220;<a class="reference external" href="http://localhost:8000/polls/">http://localhost:8000/polls/</a>&#8221; in your Web browser. You should get a pleasantly-colored error page with the following message:</p>
+<div class="highlight-python"><pre>ViewDoesNotExist at /polls/
+
+Tried index in module polls.views. Error was: 'module'
+object has no attribute 'index'
+
+This error happened because you haven't written a function index() in the module polls/views.py.</pre>
+</div>
+<p>Try &#8220;/polls/23/&#8221;, &#8220;/polls/23/results/&#8221; and &#8220;/polls/23/vote/&#8221;. The error messages tell you which view Django tried (and failed to find, because you haven&#8217;t written any views yet).</p>
+<p>Time to write the first view. Open the file polls/views.py and put the following Python code in it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;Hello, world. You&#39;re at the poll index.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is the simplest view possible. Save the views.py file, then go to &#8220;/polls/&#8221; in your browser, and you should see your text.</p>
+<p>Now let&#8217;s add a few more views by adding to the views.py file. These views are slightly different, because they take an argument (which, remember, is passed in from whatever was captured by the regular expression in the URLconf):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">poll_id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;You&#39;re looking at poll </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="n">poll_id</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">poll_id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;You&#39;re looking at the results of poll </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="n">poll_id</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">poll_id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;You&#39;re voting on poll </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="n">poll_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save the views.py file. Now take a look in your browser at &#8220;/polls/34/&#8221;. It&#8217;ll run the detail() method and display whatever ID you provide in the URL. Try &#8220;/polls/34/results/&#8221; and &#8220;/polls/34/vote/&#8221; too &#8211; these will display the placeholder results and voting pages.</p>
+</div>
+<div class="section" id="write-views-that-actually-do-something">
+<h3>Write views that actually do something<a class="headerlink" href="#write-views-that-actually-do-something" title="Permalink to this headline">¶</a></h3>
+<p>Each view is responsible for doing one of two things: Returning an HttpResponse object containing the content for the requested page, or raising an exception such as Http404. The rest is up to you.</p>
+<p>Your view can read records from a database, or not. It can use a template system such as Django&#8217;s &#8211; or not. It can generate a PDF file, output XML, create a ZIP file on the fly, anything you want, using whatever Python libraries you want.</p>
+<p>All Django wants is that HttpResponse. Or an exception.</p>
+<p>Most of the Django views in the world use Django&#8217;s own database API, which we covered in Tutorial 1. Let&#8217;s do that, too. Here&#8217;s one stab at the index() view, which displays the latest 5 poll questions in the system, separated by commas, according to publication date. Continue editing the file views.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Poll</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_poll_list</span> <span class="o">=</span> <span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-pub_date&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">question</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">latest_poll_list</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now go to &#8220;<a class="reference external" href="http://localhost:8000/polls/">http://localhost:8000/polls/</a>&#8221; in your Web browser. You should see the text of the first poll. There&#8217;s a problem here, though: The page&#8217;s design is hard-coded in the view. If you want to change the way the page looks, you&#8217;ll have to edit this Python code. So let&#8217;s use Django&#8217;s template system to separate the design from Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render_to_response</span>
+<span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Poll</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_poll_list</span> <span class="o">=</span> <span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-pub_date&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;latest_poll_list&#39;</span><span class="p">:</span> <span class="n">latest_poll_list</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;polls/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To recap what this does:</p>
+<ul class="simple">
+<li>Creates a variable called &#8216;&#8217;latest_poll_list&#8217;&#8216;. Django queries the database for &#8216;&#8217;all&#8217;&#8217; Poll objects, ordered by &#8216;&#8217;pub_date&#8217;&#8217; with most recent first, and uses &#8216;&#8217;slicing&#8217;&#8217; to get the first five.</li>
+<li>Creates a variable called &#8216;&#8217;context&#8217;&#8217; that is a dictionary with one key.</li>
+<li>Evaluates the &#8216;&#8217;render_to_response&#8217;&#8217; function with two arguments, and returns whatever that returns.</li>
+</ul>
+<p>&#8216;&#8217;render_to_response&#8217;&#8217; loads the template called &#8220;polls/index.html&#8221; and passes it a value as &#8216;&#8217;context&#8217;&#8216;. The context is a dictionary mapping template variable names to Python objects.</p>
+<p>If you can read this this &#8216;&#8217;view&#8217;&#8217; function without being overwhelmed, then you understand the basics of Django views. Now is a good time to reflect and make sure you do. (If you have questions, ask a volunteer for help.)</p>
+<p>Reload the page. Now you&#8217;ll see an error:</p>
+<div class="highlight-python"><pre>TemplateDoesNotExist at /polls/
+polls/index.html</pre>
+</div>
+<p>Ah. There&#8217;s no template yet. Let&#8217;s make one.</p>
+<p>First, let&#8217;s make a directory where templates will live. We&#8217;ll need a templates directory right alongside the &#8216;&#8217;views.py&#8217;&#8217; for the &#8216;&#8217;polls&#8217;&#8217; app. This is what I would do:</p>
+<div class="highlight-python"><pre>mkdir -p polls/templates/polls</pre>
+</div>
+<p>Within that, create a file called index.html.</p>
+<p>Put the following code in that template:</p>
+<div class="highlight-python"><pre>{% if latest_poll_list %}
+    &lt;ul&gt;
+    {% for poll in latest_poll_list %}
+        &lt;li&gt;&lt;a href="/polls/{{ poll.id }}/"&gt;{{ poll.question }}&lt;/a&gt;&lt;/li&gt;
+    {% endfor %}
+    &lt;/ul&gt;
+{% else %}
+    &lt;p&gt;No polls are available.&lt;/p&gt;
+{% endif %}</pre>
+</div>
+<p>Load the page &#8220;<a class="reference external" href="http://localhost:8000/polls/">http://localhost:8000/polls/</a>&#8221; into your Web browser again, and you should see a bulleted-list containing the &#8220;What&#8217;s up&#8221; poll from Tutorial 1. The link points to the poll&#8217;s detail page.</p>
+</div>
+<div class="section" id="raising-404">
+<h3>Raising 404<a class="headerlink" href="#raising-404" title="Permalink to this headline">¶</a></h3>
+<p>Now, let&#8217;s tackle the poll detail view &#8211; the page that displays the question for a given poll. Continue editing the &#8216;&#8217;views.py&#8217;&#8217; file. This view uses Python &#8216;&#8217;exceptions&#8217;&#8216;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">Http404</span>
+<span class="c"># ...</span>
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">poll_id</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Poll</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">poll_id</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">Poll</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Http404</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;polls/detail.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;poll&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>The new concept here: The view raises the Http404 exception if a poll with the requested ID doesn&#8217;t exist.</p>
+<p>If you&#8217;d like to quickly get the above example working, just create a new template file and name it &#8216;&#8217;detail.html&#8217;&#8216;. Enter in it just one line of code:</p>
+<div class="highlight-python"><pre>{{ poll }}</pre>
+</div>
+<p>to get you started for now.</p>
+<p>Does your detail view work? Try it: <a class="reference external" href="http://127.0.0.1:8000/polls/1/">http://127.0.0.1:8000/polls/1/</a></p>
+<p>You can also try to load a poll page that does not exist, just to test out the pretty 404 error: <a class="reference external" href="http://127.0.0.1:8000/polls/32/">http://127.0.0.1:8000/polls/32/</a></p>
+</div>
+<div class="section" id="adding-more-detail">
+<h3>Adding more detail<a class="headerlink" href="#adding-more-detail" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s give the detail view some more &#8216;&#8217;&#8216;detail&#8217;&#8216;&#8217;.</p>
+<p>We pass in a variable called &#8216;&#8217;&#8216;poll&#8217;&#8216;&#8217; that points to an instance of the Poll class. So you can pull out more information by writing this into the &#8220;polls/detail.html&#8221; template:</p>
+<div class="highlight-python"><pre>&lt;h1&gt;{{ poll.question }}&lt;/h1&gt;
+&lt;ul&gt;
+{% for choice in poll.choice_set.all %}
+    &lt;li&gt;{{ choice.choice }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;</pre>
+</div>
+<p>The template system uses dot-lookup syntax to access variable attributes. Django&#8217;s template language is a bit sloppy: in pure Python, the &#8216;&#8217;&#8216;.&#8217;&#8216;&#8217; (dot) only lets you get attributes from objects. In this example, we are just doing attribute lookup, but in general if you&#8217;re not sure how to get data out of an object in Django, try &#8216;&#8217;&#8216;dot&#8217;&#8216;&#8217;.</p>
+<p>Method-calling happens in the {% for %} loop: poll.choice_set.all is interpreted as the Python code poll.choice_set.all(), which returns a sequence of Choice objects and is suitable for use in the {% for %} tag.</p>
+<p>Load the new detail page in your browser: <a class="reference external" href="http://127.0.0.1:8000/polls/1/">http://127.0.0.1:8000/polls/1/</a>  The poll choices now appear.</p>
+</div>
+<div class="section" id="adding-some-style">
+<h3>Adding some style<a class="headerlink" href="#adding-some-style" title="Permalink to this headline">¶</a></h3>
+<p>The web page looks okay, but it is somewhat drab.</p>
+<p>FIXME: CSS</p>
+</div>
+</div>
+<div class="section" id="part-3-let-people-vote">
+<h2>Part 3: Let people vote<a class="headerlink" href="#part-3-let-people-vote" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="write-a-simple-form">
+<h3>Write a simple form<a class="headerlink" href="#write-a-simple-form" title="Permalink to this headline">¶</a></h3>
+<p>Let’s update our poll detail template (“polls/detail.html”) from the last tutorial so that the template contains an HTML &lt;form&gt; element:</p>
+<div class="highlight-python"><pre>&lt;h1&gt;{{ poll.question }}&lt;/h1&gt;
+
+{% if error_message %}&lt;p&gt;&lt;strong&gt;{{ error_message }}&lt;/strong&gt;&lt;/p&gt;{% endif %}
+
+&lt;form action="/polls/{{ poll.id }}/vote/" method="post"&gt;
+{% csrf_token %}
+{% for choice in poll.choice_set.all %}
+    &lt;input type="radio" name="choice" value="{{ choice.id }}" /&gt;
+    &lt;label&gt;{{ choice.choice }}&lt;/label&gt;&lt;br /&gt;
+{% endfor %}
+&lt;input type="submit" value="Vote" /&gt;
+&lt;/form&gt;</pre>
+</div>
+<p>There is a lot going on there. A quick rundown:</p>
+<ul class="simple">
+<li>The above template displays a radio button for each poll choice. The value of each radio button is the associated poll choice&#8217;s ID. The name of each radio button is &#8220;choice&#8221;. That means, when somebody selects one of the radio buttons and submits the form, the form submission will represent the Python dictionary {&#8216;choice&#8217;: &#8216;3&#8217;}. That&#8217;s the basics of HTML forms; you can learn more about them.</li>
+<li>We set the form&#8217;s action to /polls/{{ poll.id }}/vote/, and we set method=&#8221;post&#8221;. Normal web pages are requested using &#8216;&#8217;GET&#8217;&#8216;, but the standards for HTTP indicate that if you are changing data on the server, you must use the &#8216;&#8217;POST&#8217;&#8217; method. (Whenever you create a form that alters data server-side, use method=&#8221;post&#8221;. This tip isn&#8217;t specific to Django; it&#8217;s just good Web development practice.)</li>
+<li>Since we&#8217;re creating a POST form (which can have the effect of modifying data), we need to worry about Cross Site Request Forgeries. Thankfully, you don&#8217;t have to worry too hard, because Django comes with a very easy-to-use system for protecting against it. In short, all POST forms that are targeted at internal URLs should use the {% csrf_token %} template tag.</li>
+</ul>
+<p>The {% csrf_token %} tag requires information from the request object, which is not normally accessible from within the template context. To fix this, a small adjustment needs to be made to the detail view in the &#8220;views.py&#8221; file, so that it looks like the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+<span class="c"># ...</span>
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">poll_id</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Poll</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">poll_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;polls/detail.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;poll&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">},</span>
+                               <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The details of how this works are explained in the <a class="reference external" href="http://docs.djangoproject.com/en/dev/ref/templates/api/#subclassing-context-requestcontext">documentation for RequestContext</a></p>
+<p>Now, let&#8217;s create a Django view that handles the submitted data and does something with it. Remember, in Tutorial 3, we created a URLconf for the polls application that includes this line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="s">r&#39;^(?P&lt;poll_id&gt;\d+)/vote/$&#39;</span><span class="p">,</span> <span class="s">&#39;vote&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+<p>We also created a dummy implementation of the vote() function. Let&#8217;s create a real version. Add the following to polls/views.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span><span class="p">,</span> <span class="n">render_to_response</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span><span class="p">,</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+<span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Choice</span><span class="p">,</span> <span class="n">Poll</span>
+<span class="c"># ...</span>
+<span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">poll_id</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Poll</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">poll_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">selected_choice</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">choice_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;choice&#39;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="n">Choice</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">):</span>
+        <span class="c"># Redisplay the poll voting form.</span>
+        <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;polls/detail.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s">&#39;poll&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
+            <span class="s">&#39;error_message&#39;</span><span class="p">:</span> <span class="s">&quot;You didn&#39;t select a choice.&quot;</span><span class="p">,</span>
+        <span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">selected_choice</span><span class="o">.</span><span class="n">votes</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">selected_choice</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="c"># Always return an HttpResponseRedirect after successfully dealing</span>
+        <span class="c"># with POST data. This prevents data from being posted twice if a</span>
+        <span class="c"># user hits the Back button.</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;polls.views.results&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">,)))</span>
+</pre></div>
+</div>
+<p>This code includes a few things we haven&#8217;t covered yet in this tutorial:</p>
+<ul class="simple">
+<li>request.POST is a dictionary-like object that lets you access submitted data by key name. In this case, request.POST[&#8216;choice&#8217;] returns the ID of the selected choice, as a string. request.POST values are always strings.</li>
+<li>Note that Django also provides request.GET for accessing GET data in the same way &#8211; but we&#8217;re explicitly using request.POST in our code, to ensure that data is only altered via a POST call.</li>
+<li>request.POST[&#8216;choice&#8217;] will raise KeyError if choice wasn&#8217;t provided in POST data. The above code checks for KeyError and redisplays the poll form with an error message if choice isn&#8217;t given.</li>
+<li>After incrementing the choice count, the code returns an HttpResponseRedirect rather than a normal HttpResponse. HttpResponseRedirect takes a single argument: the URL to which the user will be redirected (see the following point for how we construct the URL in this case).</li>
+</ul>
+<p>As the Python comment above points out, you should always return an HttpResponseRedirect after successfully dealing with POST data. This tip isn&#8217;t specific to Django; it&#8217;s just good Web development practice. That way, if the web surfer hits &#8216;&#8217;reload&#8217;&#8216;, they get the success page again, rather than re-doing the action.</p>
+<p>We are using the reverse() function in the HttpResponseRedirect constructor in this example. This function helps avoid having to hardcode a URL in the view function. It is given the name of the view that we want to pass control to and the variable portion of the URL pattern that points to that view. In this case, using the URLconf we set up in Tutorial 3, this reverse() call will return a string like</p>
+<blockquote>
+<div>&#8216;/polls/3/results/&#8217;</div></blockquote>
+<p>... where the 3 is the value of p.id. This redirected URL will then call the &#8216;results&#8217; view to display the final page. Note that you need to use the full name of the view here (including the prefix).</p>
+<p>After somebody votes in a poll, the vote() view redirects to the results page for the poll. Let&#8217;s write that view:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">poll_id</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Poll</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">poll_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;polls/results.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;poll&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>This is almost exactly the same as the detail() view from Tutorial 3. The only difference is the template name. We&#8217;ll fix this redundancy later.</p>
+<p>Now, create a results.html template:</p>
+<div class="highlight-python"><pre>&lt;h1&gt;{{ poll.question }}&lt;/h1&gt;
+
+&lt;ul&gt;
+{% for choice in poll.choice_set.all %}
+    &lt;li&gt;{{ choice.choice }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
+
+&lt;a href="/polls/{{ poll.id }}/"&gt;Vote again?&lt;/a&gt;</pre>
+</div>
+<p>Now, go to /polls/1/ in your browser and vote in the poll. You should see a results page that gets updated each time you vote. If you submit the form without having chosen a choice, you should see the error message.</p>
+<p>Does it work?! If so, show your neighbor!</p>
+</div>
+</div>
+<div class="section" id="part-3-5-deploy-your-web-app">
+<h2>Part 3.5: Deploy your web app!<a class="headerlink" href="#part-3-5-deploy-your-web-app" title="Permalink to this headline">¶</a></h2>
+<p>You&#8217;ve done a lot of work. It&#8217;s time to share it with the world.</p>
+<p>This workshop follows a workflow very similar to what I personally use in my professional Django projects: using &#8216;&#8217;git&#8217;&#8217; to store the history of my project on my computer, and using that to synchronize with a web server other people can see.</p>
+<p>You&#8217;ve already pushed some work to Github. To get our changes over to alwaysdata. you&#8217;ll:</p>
+<p># Add and commit files on your own computer.
+# Push your changes to Github.
+# Connect to your alwaysdata.com account via SSH/PuTTY
+# Run &#8220;git pull&#8221; to get the latest version to your Alwaysdata account.</p>
+<p>So we&#8217;ll do those steps in order.</p>
+<p>To do the &#8216;&#8217;add and commit&#8217;&#8216;, open up your Terminal or GitBash:</p>
+<div class="highlight-python"><pre>git add .
+git commit -m "More changes"</pre>
+</div>
+<p>To push:</p>
+<div class="highlight-python"><pre>git push</pre>
+</div>
+<p>Now, open up SSH or PuTTY and connect to your alwaysdata.com account.</p>
+<p>Finally, in &#8216;&#8217;&#8216;that&#8217;&#8216;&#8217; terminal:</p>
+<div class="highlight-python"><pre>cd workshop_mysite
+git pull</pre>
+</div>
+<p>Okay, not quite finally. You might need to go to <a class="reference external" href="https://admin.alwaysdata.com/advanced/processes/">https://admin.alwaysdata.com/advanced/processes/</a> and click &#8216;&#8217;Restart my applications&#8217;&#8216;.</p>
+<p>Go to your alwaysdata site&#8217;s /polls/ page. For me, I&#8217;d go to:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://paulproteus.alwaysdata.com/polls/">http://paulproteus.alwaysdata.com/polls/</a></li>
+</ul>
+<p>You should see your poll!</p>
+</div>
+<div class="section" id="part-4-editing-your-polls-in-the-django-admin-interface">
+<h2>Part 4: Editing your polls in the Django admin interface<a class="headerlink" href="#part-4-editing-your-polls-in-the-django-admin-interface" title="Permalink to this headline">¶</a></h2>
+<p>So far, you&#8217;ve been adding data to your database using the &#8216;&#8217;manage.py shell&#8217;&#8216;. This is a flexible way to add data, but it has some drawbacks:</p>
+<ul class="simple">
+<li>It&#8217;s not on the web.</li>
+<li>A fanatical insistence on precision: You have to write Python code to add data, which means that typos or syntax errors could make your life harder.</li>
+<li>An unnecessary lack of color.</li>
+</ul>
+<div class="section" id="background-django-s-built-in-admin-interface">
+<h3>Background: Django&#8217;s built-in admin interface<a class="headerlink" href="#background-django-s-built-in-admin-interface" title="Permalink to this headline">¶</a></h3>
+<p>Generating admin sites for your staff or clients to add, change and delete content is tedious work that doesn’t require much creativity. For that reason, Django entirely automates creation of admin interfaces for models.</p>
+<p>Django was written in a newsroom environment, with a very clear separation between “content publishers” and the “public” site. Site managers use the system to add news stories, events, sports scores, etc., and that content is displayed on the public site. Django solves the problem of creating a unified interface for site administrators to edit content.</p>
+<p>The admin isn’t necessarily intended to be used by site visitors; it’s for site managers.</p>
+</div>
+<div class="section" id="activate-the-admin-site">
+<h3>Activate the admin site<a class="headerlink" href="#activate-the-admin-site" title="Permalink to this headline">¶</a></h3>
+<p>The Django admin site is not activated by default – it’s an opt-in thing. To activate the admin site for your installation, do these three things:</p>
+<ul class="simple">
+<li>Open up &#8216;&#8217;&#8216;workshop_mysite/settings.py&#8217;&#8216;&#8217; and add &#8220;django.contrib.admin&#8221; to your INSTALLED_APPS setting.</li>
+<li>Run python manage.py syncdb. Since you have added a new application to INSTALLED_APPS, the database tables need to be updated.</li>
+<li>Edit your &#8216;&#8217;&#8216;workshop_mysite/urls.py&#8217;&#8216;&#8217; file and uncomment the lines that reference the admin – there are three lines in total to uncomment.</li>
+</ul>
+</div>
+<div class="section" id="start-the-development-server">
+<h3>Start the development server<a class="headerlink" href="#start-the-development-server" title="Permalink to this headline">¶</a></h3>
+<p>Let’s make sure the development server is running and explore the admin site.</p>
+<p>Try going to <a class="reference external" href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a>. If it does not load, make sure you are still running the development server. You can start the development server like so:</p>
+<div class="highlight-python"><pre>python manage.py runserver</pre>
+</div>
+<p><a class="reference external" href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a> should show you the admin site&#8217;s login screen.</p>
+</div>
+<div class="section" id="enter-the-admin-site">
+<h3>Enter the admin site<a class="headerlink" href="#enter-the-admin-site" title="Permalink to this headline">¶</a></h3>
+<p>Now, try logging in. (You created a superuser account earlier, when running &#8216;&#8217;syncdb&#8217;&#8217; for the fist time. If you didn&#8217;t create one or forgot the password you can create another one.) You should see the Django admin index page.</p>
+<p>You should see a few other types of editable content, including groups, users and sites. These are core features Django ships with by default.</p>
+</div>
+<div class="section" id="make-the-poll-app-modifiable-in-the-admin">
+<h3>Make the poll app modifiable in the admin<a class="headerlink" href="#make-the-poll-app-modifiable-in-the-admin" title="Permalink to this headline">¶</a></h3>
+<p>But where&#8217;s our poll app? It&#8217;s not displayed on the admin index page.</p>
+<p>Just one thing to do: We need to tell the admin that Poll objects have an admin interface. To do this, create a file called admin.py in your polls directory, and edit it to look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Poll</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Poll</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You&#8217;ll need to restart the development server to see your changes. Normally, the server auto-reloads code every time you modify a file, but the action of creating a new file doesn&#8217;t trigger the auto-reloading logic. You can stop it by typing &#8216;&#8217;&#8216;Ctrl-C&#8217;&#8216;&#8217; (&#8216;&#8217;&#8216;Ctrl-Break&#8217;&#8216;&#8217; on Windows); then use the &#8216;&#8217;&#8216;up&#8217;&#8216;&#8217; arrow on your keyboard to find the command again, and hit enter.</p>
+</div>
+<div class="section" id="explore-the-free-admin-functionality">
+<h3>Explore the free admin functionality<a class="headerlink" href="#explore-the-free-admin-functionality" title="Permalink to this headline">¶</a></h3>
+<p>Now that we&#8217;ve registered Poll, Django knows that it should be displayed on the admin index page.</p>
+<p>Click &#8220;Polls.&#8221; Now you&#8217;re at the &#8220;change list&#8221; page for polls. This page displays all the polls in the database and lets you choose one to change it. There&#8217;s the &#8220;What&#8217;s up?&#8221; poll we created in the first tutorial.</p>
+<p>Things to note here:</p>
+<ul class="simple">
+<li>The form is automatically generated from the Poll model.</li>
+<li>The different model field types (DateTimeField, CharField) correspond to the appropriate HTML input widget. Each type of field knows how to display itself in the Django admin.</li>
+<li>Each DateTimeField gets free JavaScript shortcuts. Dates get a &#8220;Today&#8221; shortcut and calendar popup, and times get a &#8220;Now&#8221; shortcut and a convenient popup that lists commonly entered times.</li>
+</ul>
+<p>The bottom part of the page gives you a couple of options:</p>
+<ul class="simple">
+<li>Save &#8211; Saves changes and returns to the change-list page for this type of object.</li>
+<li>Save and continue editing &#8211; Saves changes and reloads the admin page for this object.</li>
+<li>Save and add another &#8211; Saves changes and loads a new, blank form for this type of object.</li>
+<li>Delete &#8211; Displays a delete confirmation page.</li>
+</ul>
+<p>Change the &#8220;Date published&#8221; by clicking the &#8220;Today&#8221; and &#8220;Now&#8221; shortcuts. Then click &#8220;Save and continue editing.&#8221; Then click &#8220;History&#8221; in the upper right. You&#8217;ll see a page listing all changes made to this object via the Django admin, with the timestamp and username of the person who made the change:
+History page for poll object</p>
+</div>
+<div class="section" id="adding-related-objects">
+<h3>Adding related objects<a class="headerlink" href="#adding-related-objects" title="Permalink to this headline">¶</a></h3>
+<p>OK, we have our Poll admin page. But a Poll has multiple Choices, and the admin page doesn&#8217;t display choices.</p>
+<p>Yet.</p>
+<p>There are two ways to solve this problem. The first is to register Choice with the admin just as we did with Poll. That&#8217;s easy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Choice</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Choice</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now &#8220;Choices&#8221; is an available option in the Django admin. Check out the &#8216;&#8217;&#8216;Add Choice&#8217;&#8216;&#8217; form.</p>
+<p>In that form, the &#8220;Poll&#8221; field is a select box containing every poll in the database. Django knows that a ForeignKey should be represented in the admin as a &lt;select&gt; box. In our case, only one poll exists at this point.</p>
+<p>Also note the &#8220;Add Another&#8221; link next to &#8220;Poll.&#8221; Every object with a ForeignKey relationship to another gets this for free. When you click &#8220;Add Another,&#8221; you&#8217;ll get a popup window with the &#8220;Add poll&#8221; form. If you add a poll in that window and click &#8220;Save,&#8221; Django will save the poll to the database and dynamically add it as the selected choice on the &#8220;Add choice&#8221; form you&#8217;re looking at.</p>
+<p>But, really, this is an inefficient way of adding Choice objects to the system. It&#8217;d be better if you could add a bunch of Choices directly when you create the Poll object. Let&#8217;s make that happen.</p>
+<p>Remove the register() call for the Choice model. Then, edit the Poll registration code to read:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ChoiceInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">StackedInline</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Choice</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">class</span> <span class="nc">PollAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="n">fieldsets</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="bp">None</span><span class="p">,</span>               <span class="p">{</span><span class="s">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;question&#39;</span><span class="p">]}),</span>
+        <span class="p">(</span><span class="s">&#39;Date information&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;pub_date&#39;</span><span class="p">],</span> <span class="s">&#39;classes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;collapse&#39;</span><span class="p">]}),</span>
+    <span class="p">]</span>
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">ChoiceInline</span><span class="p">]</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Poll</span><span class="p">,</span> <span class="n">PollAdmin</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This tells Django: &#8220;Choice objects are edited on the Poll admin page. By default, provide enough fields for 3 choices.&#8221;</p>
+<p>Load the &#8220;Add poll&#8221; page to see how that looks, you may need to restart your development server:</p>
+<p>It works like this: There are three slots for related Choices &#8211; as specified by extra &#8211; and each time you come back to the &#8220;Change&#8221; page for an already-created object, you get another three extra slots.</p>
+</div>
+<div class="section" id="customize-the-admin-change-list">
+<h3>Customize the admin change list<a class="headerlink" href="#customize-the-admin-change-list" title="Permalink to this headline">¶</a></h3>
+<p>Now that the Poll admin page is looking good, let&#8217;s make some tweaks to the admin &#8220;change list&#8221; page &#8211; the one that displays all the polls in the system.</p>
+<p>By default, Django displays the str() of each object. But sometimes it&#8217;d be more helpful if we could display individual fields. To do that, use the list_display admin option, which is a tuple of field names to display, as columns, on the change list page for the object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">PollAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;question&#39;</span><span class="p">,</span> <span class="s">&#39;pub_date&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Just for good measure, let&#8217;s also include the was_published_today custom method from Tutorial 1:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">PollAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;question&#39;</span><span class="p">,</span> <span class="s">&#39;pub_date&#39;</span><span class="p">,</span> <span class="s">&#39;was_published_today&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, check out the polls list.</p>
+<p>You can click on the column headers to sort by those values &#8211; except in the case of the was_published_today header, because sorting by the output of an arbitrary method is not supported. Also note that the column header for was_published_today is, by default, the name of the method (with underscores replaced with spaces).</p>
+<p>This is shaping up well. Let&#8217;s add some search capability. Add this to &#8216;&#8217;&#8216;class PollAdmin&#8217;&#8216;&#8217;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">PollAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+<span class="c"># ...</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;question&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>That adds a search box at the top of the change list. When somebody enters search terms, Django will search the question field. You can use as many fields as you&#8217;d like &#8211; although because it uses a LIKE query behind the scenes, keep it reasonable, to keep your database happy.</p>
+<p>Finally, because Poll objects have dates, it&#8217;d be convenient to be able to drill down by date. Add this line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">PollAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+<span class="c"># ...</span>
+    <span class="n">date_hierarchy</span> <span class="o">=</span> <span class="s">&#39;pub_date&#39;</span>
+</pre></div>
+</div>
+<p>That adds hierarchical navigation, by date, to the top of the change list page. At top level, it displays all available years. Then it drills down to months and, ultimately, days.</p>
+<p>That&#8217;s the basics of the Django admin interface!</p>
+<p>Create a poll! Create some choices. Find your views, and show them to the world.</p>
+</div>
+</div>
+<div class="section" id="part-4-5-deploy-again-again">
+<h2>Part 4.5: Deploy again, again!<a class="headerlink" href="#part-4-5-deploy-again-again" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="friday.html">Getting Ready</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Intro to Programming Python: Web App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#writing-your-first-django-app-part-1">Writing your first Django app, part 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-1-5-creating-polls">Part 1.5: Creating polls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-2-letting-the-world-see-your-polls-with-views">Part 2: Letting the world see your polls, with views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-3-let-people-vote">Part 3: Let people vote</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-3-5-deploy-your-web-app">Part 3.5: Deploy your web app!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-4-editing-your-polls-in-the-django-admin-interface">Part 4: Editing your polls in the Django admin interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-4-5-deploy-again-again">Part 4.5: Deploy again, again!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="colorwall.html">Intro to Programming Python: Color Wall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brainstorming.html">Brainstorming</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="friday.html" title="Getting Ready"
+             >previous</a> |
+          <a href="colorwall.html" title="Intro to Programming Python: Color Wall"
+             >next</a> |
+          <a href="genindex.html" title="General Index"
+             >index</a>
+            <br/>
+            <a href="_sources/webapp.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+      Last updated on Mar 18, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
