@@ -38,7 +38,7 @@ Contents:
    :maxdepth: 2
 
    about
-   friday
+   setup_machine
    webapp
    colorwall
    datatypes
@@ -46,5 +46,6 @@ Contents:
    Linux Installation <installation/linux>
    Mac Installation <installation/mac>
    Windows Installation <installation/windows>
+
 
 
