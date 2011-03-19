@@ -77,7 +77,7 @@ Other Resources
 
 http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall
 
-https://github.com/jesstess/ColorWall ColorWall code on GitHub
+https://lsblakk@github.com/lsblakk/ColorWall.git ColorWall code on GitHub
 
 http://en.wikipedia.org/wiki/HSL_and_HSV has the
 explanation for what HSV color space means. What it boils down 
