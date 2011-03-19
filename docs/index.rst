@@ -32,9 +32,10 @@ Contents:
    :maxdepth: 2
 
    about
-   friday
+   setup_machine
    webapp
    colorwall
    brainstorming
+
 
 
