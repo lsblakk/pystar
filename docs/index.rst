@@ -43,9 +43,6 @@ Contents:
    colorwall
    datatypes
    brainstorming
-   Linux Installation <installation/linux>
-   Mac Installation <installation/mac>
-   Windows Installation <installation/windows>
 
 
 
