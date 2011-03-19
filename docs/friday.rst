@@ -9,13 +9,20 @@ In its current state it is only an outline, please check back for updates.
 
 Technologies
 -------------
-- virtualenv
-- git & github
-- bashgit
-- geEdit (or text editor of choice)
-- (some deployment solution)
+
+- virtualenv: http://www.virtualenv.org/en/latest/
+- git & github: set up an account at http://github.com
+- bashgit: https://git.wiki.kernel.org/index.php/MSysGit:InstallMSysGit
+- geEdit:
+
+    - http://live.gnome.org/Gedit/Windows
+    - http://projects.gnome.org/gedit/ (for Linux & Mac)
+
+- (some web deployment solution)
 
 Installation Instructions
 -------------------------
 
-coming soon...
+- :doc:`Linux <installation/linux>`
+- :doc:`Windows <installation/windows>`
+- :doc:`Mac OSX <installation/mac>`

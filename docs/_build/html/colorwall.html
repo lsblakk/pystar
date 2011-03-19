@@ -25,7 +25,7 @@
     <link rel="shortcut icon" href="_static/pystar_flaming_32_150px.ico"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="top" title="PyStar: Programming Workshops for Women and Their Friends" href="index.html" />
-    <link rel="next" title="Brainstorming" href="brainstorming.html" />
+    <link rel="next" title="Intro to Data Types" href="datatypes.html" />
     <link rel="prev" title="Intro to Programming Python: Web App" href="webapp.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
         <div class="rel">
           <a href="webapp.html" title="Intro to Programming Python: Web App"
              accesskey="P">previous</a> |
-          <a href="brainstorming.html" title="Brainstorming"
+          <a href="datatypes.html" title="Intro to Data Types"
              accesskey="N">next</a> |
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a>
@@ -56,9 +56,44 @@
             
   <div class="section" id="intro-to-programming-python-color-wall">
 <span id="coiorwall-label"></span><h1>Intro to Programming Python: Color Wall<a class="headerlink" href="#intro-to-programming-python-color-wall" title="Permalink to this headline">¶</a></h1>
-<p>The ColorWall is a framework for implementing and displaying effects for a wall of pixels.
-During this workshop, you will write your own ColorWall and design effects for it.</p>
+<p>The ColorWall is a framework for implementing and displaying
+effects for a wall of pixels. During this workshop, you will write
+your own ColorWall and design effects for it.</p>
+<img alt="_images/rainbow.png" src="_images/rainbow.png" />
+<img alt="_images/matrix.png" src="_images/matrix.png" />
+<img alt="_images/twinkle.png" src="_images/twinkle.png" />
 <p>You can also see the ColorWall in action here: <a class="reference external" href="http://vimeo.com/16522975">http://vimeo.com/16522975</a>.</p>
+<p>Download the files you will need here:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Linux/Mac Users</dt>
+<dd><ul class="first last simple">
+<li><a class="reference download internal" href="_downloads/ColorWall.tar.gz"><tt class="xref download docutils literal"><span class="pre">ColorWall.tar.gz</span></tt></a></li>
+<li><a class="reference download internal" href="_downloads/WorkshopExercises.zip"><tt class="xref download docutils literal"><span class="pre">WorkshopExercises.tar.gz</span></tt></a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Windows Users</dt>
+<dd><ul class="first last simple">
+<li><a class="reference download internal" href="_downloads/ColorWall.zip"><tt class="xref download docutils literal"><span class="pre">ColorWall.zip</span></tt></a></li>
+<li><a class="reference download internal" href="_downloads/WorkshopExercises.tar.gz"><tt class="xref download docutils literal"><span class="pre">WorkshopExercises.zip</span></tt></a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="section" id="basic-programming">
+<h2>Basic Programming<a class="headerlink" href="#basic-programming" title="Permalink to this headline">¶</a></h2>
+<p>First let&#8217;s work through some basic terminal exercises to learn how
+we use Python to work with numbers &amp; text.</p>
+<p><a class="reference internal" href="datatypes.html"><em>Data Types</em></a></p>
+</div>
+<div class="section" id="workshop-exercises">
+<h2>Workshop Exercises<a class="headerlink" href="#workshop-exercises" title="Permalink to this headline">¶</a></h2>
+<p>Unzip/Untar the workshop exercises and go through them.</p>
+</div>
 <div class="section" id="layout">
 <h2>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
 <p>The ColorWall code consists of 3 files:</p>
@@ -68,13 +103,37 @@ During this workshop, you will write your own ColorWall and design effects for i
 <li>effects.py &#8211; where effects live. This is the main file that you&#8217;ll be editing during the workshop.</li>
 </ul>
 </div>
-<div class="section" id="resources">
-<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference external" href="http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall">http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall</a></li>
-<li><a class="reference external" href="https://github.com/jesstess/ColorWall">https://github.com/jesstess/ColorWall</a> ColorWall code on GitHub</li>
-<li>The ColorWall uses the HSV color space. Wikipedia has a <a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a> complicated explanation for what that means, but what it boils down to for the purposes of our project is this: each pixel gets 3 values: hue (e.g. am I red, green, or blue), saturation (am I pale or intense), and value (am I bright or dark). &lt;code&gt;effects.py&lt;/code&gt; has example effects that exercise hue, saturation, and value independently.</li>
-</ul>
+<div class="section" id="run-the-colorwall">
+<h2>Run the ColorWall<a class="headerlink" href="#run-the-colorwall" title="Permalink to this headline">¶</a></h2>
+<p>If you want to try doing a git clone, you can grab
+the ColorWall code from <a class="reference external" href="https://github.com/jesstess/ColorWall">Git Hub</a>
+and run it from there, otherwise go into the directory that was created when
+you unzipped/untarred the ColorWall download.</p>
+<p>Run the example effects:</p>
+<p>On Windows, assuming the ColorWall software was downloaded to C:UsersyourusernameDesktopColorWall</p>
+<div class="highlight-bash"><div class="highlight"><pre>run <span class="se">\P</span>ython27<span class="se">\p</span>ython.exe <span class="s2">&quot;C:\Users\yourusername\Desktop\colorwall\ColorWall\run.py&quot;</span>
+</pre></div>
+</div>
+<p>On OS X, assuming the ColorWall software was downloaded to ~/Desktop/colorwall/ColorWall run</p>
+<div class="highlight-bash"><div class="highlight"><pre>python ~/Desktop/colorwall/ColorWall/run.py
+</pre></div>
+</div>
+<p>On Linux, assuming the ColorWall software was downloaded to ~/Desktop/colorwall/ColorWall run</p>
+<div class="highlight-bash"><div class="highlight"><pre>python ~/Desktop/colorwall/ColorWall/run.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-resources">
+<h2>Other Resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall">http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall</a></p>
+<p><a class="reference external" href="https://github.com/jesstess/ColorWall">https://github.com/jesstess/ColorWall</a> ColorWall code on GitHub</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a> has the
+explanation for what HSV color space means. What it boils down
+to for the purposes of our project is this: each pixel gets 3
+values: hue (e.g. am I red, green, or blue), saturation
+(am I pale or intense), and value (am I bright or dark).
+effects.py has example effects that
+exercise hue, saturation, and value independently.</p>
 </div>
 </div>
 
@@ -90,10 +149,14 @@ During this workshop, you will write your own ColorWall and design effects for i
 <li class="toctree-l1"><a class="reference internal" href="friday.html">Getting Ready</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webapp.html">Intro to Programming Python: Web App</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Intro to Programming Python: Color Wall</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-programming">Basic Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workshop-exercises">Workshop Exercises</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#layout">Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-colorwall">Run the ColorWall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-resources">Other Resources</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Intro to Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="brainstorming.html">Brainstorming</a></li>
 </ul>
 
@@ -117,7 +180,7 @@ During this workshop, you will write your own ColorWall and design effects for i
         <div class="left">
           <a href="webapp.html" title="Intro to Programming Python: Web App"
              >previous</a> |
-          <a href="brainstorming.html" title="Brainstorming"
+          <a href="datatypes.html" title="Intro to Data Types"
              >next</a> |
           <a href="genindex.html" title="General Index"
              >index</a>
@@ -129,7 +192,7 @@ During this workshop, you will write your own ColorWall and design effects for i
         <div class="right">
           
     <div class="footer">
-      Last updated on Mar 18, 2011.
+      Last updated on Mar 19, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
         </div>

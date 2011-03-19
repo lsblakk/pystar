@@ -12,7 +12,8 @@ looking to learn how to program in a friendly non-alpha geek environment.
 PyStar Minneapolis
 ------------------
 
-The Minneapolis PyStar is March 25th (6 - 8pm) and 26th (9am - 4pm) 2011 at Clockwork Active Media Systems:
+The Minneapolis PyStar is March 25th (6 - 8pm) and 26th (9am - 4pm) 2011
+at Clockwork Active Media Systems:
 
 1501 East Hennepin Avenue 
 Minneapolis, MN 55414
@@ -22,8 +23,13 @@ Register here: http://pystar-mpls-1.eventbrite.com/
 PyStar SanFrancisco
 --------------------
 
-TBA!
+Tentative Dates: Friday April  22nd (6 - 8pm) and Saturday 
+April 23rd (9am - 4pm) at the Mozilla office in Mountain View
 
+650 Castro St, Suite 300
+Mountain View, CA 94043
+
+Please check back for confirmation and event registration
 
 Contents:
 -----------
@@ -35,6 +41,10 @@ Contents:
    friday
    webapp
    colorwall
+   datatypes
    brainstorming
+   Linux Installation <installation/linux>
+   Mac Installation <installation/mac>
+   Windows Installation <installation/windows>
 
 
