@@ -10,53 +10,46 @@ virtualenv
 What is ``virtualenv``?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
-virtualenv is
+``virtualenv`` is a tool that creates "new" Python installations that are 
+copies of your installed Python.  These "virtual environments" are clean and 
+consistent.  
 
 .. _dep-virtualenv-why-label:
 
 Why do I need ``virtualenv``?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To...
+To keep work areas clean and consistent, and minimize assumptions about
+what tools are installed where.  This makes it easier to have repeatable,
+consistent builds.
+
 
 .. _dep-virtualenv-how-label:
 
 Get ``virtualenv``!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
-.. _dep-virtualenv-windows-how-label:
-
-windows
-~~~~~~~~~~~~~~~~~~~~~
-
-On windows go to http://example.com/ and get it!
+:: 
+    
+    pip install virtualenv
+    # (optional) pip install virtualenvwrapper
 
 
-.. _dep-virtualenv-Mac OSX-how-label:
-
-Mac OSX
-~~~~~~~~~~~~~~~~~~~~~
-
-On Mac OSX go to http://example.com/ and get it!
-
-
-.. _dep-virtualenv-Linux-how-label:
-
-Linux
-~~~~~~~~~~~~~~~~~~~~~
-
-On Linux go to http://example.com/ and get it!
-
-
-
-
-[some links, install instructions]
-
-.. _virtualenv-verify-label:
+.. _dep-virtualenv-verify-label:
 
 Verify It Works!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-After it installs, run ``some command``
+::
+
+    # assume you have created a directory D and moved to it!
+    virtualenv --no-site-packages testenv
+    . testenv/bin/activate  # windows -> . testenv\Scripts\activate.bat
+    # your prompt should change to say (testenv)
+    deactivate
+    # remove the testenv directory
+
+
+* http://pypi.python.org/pypi/virtualenv
+
+
