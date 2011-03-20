@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PyStar Programming Curriculum'
-copyright = u'2011, Asheesh Laroia, Jessica T McKellar, Lukas Blakk, Gregg Lind'
+copyright = u'2011, Asheesh Laroia, Jessica T McKellar, Lukas Blakk, Gregg Lind, Amanda Nyren'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -142,6 +142,7 @@ html_use_smartypants = True
 
 # If false, no index is generated.
 #html_use_index = True
+html_use_index = False
 
 # If true, the index is split into individual pages for each letter.
 #html_split_index = False
@@ -212,6 +213,6 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'pystarprogrammingcurriculum', u'PyStar Programming Curriculum Documentation',
-     [u'Asheesh Laroia, Jessica T McKellar, Lukas Blakk, Gregg Lind'], 1)
+     [u'Asheesh Laroia, Jessica T McKellar, Lukas Blakk, Gregg Lind, Amanda Nyren'], 1)
 ]
 

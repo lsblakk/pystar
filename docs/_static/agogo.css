@@ -450,3 +450,14 @@ div.viewcode-block:target {
     border-top: 1px solid #ac9;
     border-bottom: 1px solid #ac9;
 }
+
+
+
+
+/* -- code highlighting improvements ---------------------------------------- */
+/* by the PyStar Team */
+div.highlight-python {
+    margin:  10px 0;
+    padding:  10px; 
+    border: 1px dashed #ac9;
+}

@@ -30,7 +30,7 @@ Get ``django``!
 We don't want to install django system wide, but rather in our local
 virtualenv.  
 
-::
+.. code-block:: bash
 
     # In your home directory create and activate a virtualenv
     cd ~
@@ -49,7 +49,7 @@ virtualenv.
 Verify It Works!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
+.. code-block:: bash
 
     $ python
     >>> import django
@@ -60,14 +60,14 @@ Verify It Works!
 .. _django-app-create-label:
 
 Verify you can create a new Django app
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Create a folder on the desktop called django_projects
+Create a folder on the desktop called ``django_projects``
 Open a new Terminal window and type the following: 
 
-.. code-block:: bash
+..  code-block:: bash
 
-    # in your virtualenv:  ~/pystar
+   # with virtualenv pystar activated
    mkdir django_projects
    cd django_projects
    django-admin startproject myproject
@@ -77,8 +77,8 @@ Once that's finished, type the following in the Terminal window:
 
 .. code-block:: bash
 
-   cd myproject
-   python manage.py runserver
+    cd myproject
+    python manage.py runserver
 
     # output should look like this
     Validating models...
@@ -87,19 +87,21 @@ Once that's finished, type the following in the Terminal window:
     Django version 1.2.5, using settings 'myproject.settings'
     Development server is running at http://127.0.0.1:8000/
     Quit the server with CONTROL-C.
-    
-In your browser, go to http://localhost:8000/
+
+
+In your browser, go to http://127.0.0.1:8000/ 
+
+.. code-block:: bash
 
     # in your Terminal window you should see something like:
     [19/Mar/2011 19:19:26] "GET / HTTP/1.1" 200 2057
-    
+
 Back in the Terminal window where you ran python manage.py runserver, 
 type control-c to kill the server. 
 
 Congratulations, you have run your first Django app!
 
-
-The whole process should look something like::
+The whole process should look something like:
 
 .. code-block:: bash
 
@@ -132,8 +134,10 @@ The whole process should look something like::
     python manage.py runserver
     Validating models...
     0 errors found
-
+    
     Django version 1.2.5, using settings 'myproject.settings'
     Development server is running at http://127.0.0.1:8000/
     Quit the server with CONTROL-C.
     [19/Mar/2011 19:19:26] "GET / HTTP/1.1" 200 2057
+
+

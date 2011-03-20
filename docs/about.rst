@@ -34,9 +34,3 @@ future workshops.  There may be a disproportionate amount of
 male teachers at initial workshops which is why encouraging participants
 to continue coming back and taking the lead as soon as they feel ready.
 
-TODO
--------
-
-- put up links for each technology on the friday page
-- installation instructions for each OS & technology that will be used
-- fill out & clean up the webapp and colorwall pages
