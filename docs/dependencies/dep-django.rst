@@ -32,12 +32,17 @@ virtualenv.
 
 ::
 
-    # Create and activate a virtualenv
+    # In your home directory create and activate a virtualenv
+    cd ~
     virtualenv --no-site-packages pystar
-    . testenv/bin/activate  # windows -> . testenv\Scripts\activate.bat
+    cd pystar 
+    source bin/activate  # windows -> pystar\Scripts\activate.bat
+    
     pip install django
 
-
+    # to deactivate the virtualenv you would do
+    # but don't do this now :)
+    deactivate
 
 .. _django-verify-label:
 
@@ -48,8 +53,55 @@ Verify It Works!
 
     $ python
     >>> import django
+    
+    # to quit the python prompt do
+    exit()
+
+.. _django-app-create-label:
+
+Verify you can create a new Django app
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Create a folder on the desktop called django_projects
+Open a new Terminal window and type the following: 
+
+.. code-block:: bash
+
+    # in your virtualenv:  ~/pystar
+   mkdir django_projects
+   cd django_projects
+   django-admin startproject myproject
+
+Both commands should provide no output.
+Once that's finished, type the following in the Terminal window: 
+
+.. code-block:: bash
+
+   cd myproject
+   python manage.py runserver
+
+    # output should look like this
+    Validating models...
+    0 errors found
+
+    Django version 1.2.5, using settings 'myproject.settings'
+    Development server is running at http://127.0.0.1:8000/
+    Quit the server with CONTROL-C.
+    
+In your browser, go to http://localhost:8000/
+
+    # in your Terminal window you should see something like:
+    [19/Mar/2011 19:19:26] "GET / HTTP/1.1" 200 2057
+    
+Back in the Terminal window where you ran python manage.py runserver, 
+type control-c to kill the server. 
+
+Congratulations, you have run your first Django app!
+
 
 The whole process should look something like::
+
+.. code-block:: bash
 
     Gregg-Linds-MacBook-Pro:gits gregg$ pwd
     /Users/gregg/gits
@@ -72,4 +124,16 @@ The whole process should look something like::
     [GCC 4.2.1 (Apple Inc. build 5646)] on darwin
     Type "help", "copyright", "credits" or "license" for more information.
     >>> import django
-    >>> 
+    >>> exit()
+    mkdir django_projects
+    cd django_projects
+    django-admin startproject 
+    cd myproject
+    python manage.py runserver
+    Validating models...
+    0 errors found
+
+    Django version 1.2.5, using settings 'myproject.settings'
+    Development server is running at http://127.0.0.1:8000/
+    Quit the server with CONTROL-C.
+    [19/Mar/2011 19:19:26] "GET / HTTP/1.1" 200 2057
