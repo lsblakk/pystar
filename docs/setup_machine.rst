@@ -14,6 +14,7 @@ of the workshop.
 
 ..  toctree::
     :maxdepth: 1 
+    :numbered:
 
     dependencies/dep-gedit.rst      
     dependencies/dep-git.rst       
