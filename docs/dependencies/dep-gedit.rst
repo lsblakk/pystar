@@ -26,9 +26,8 @@ Get ``gedit``!
 
 .. _dep-gedit-windows-how-label:
 
-
 * Gedit's main site:  http://projects.gnome.org/gedit/ .  Download links are in the upper right corner.
-
+* (alternate) copy the installer from the Group Guide memory stick.
 
 windows
 ~~~~~~~~~~~~~~~~~~~~~
@@ -71,8 +70,14 @@ Suggested configuration:
 
 In the preferences window
 
-* **view**:  display right margin, show matching bracket
-* **font & colors**: 
+* **view**, turn on: 
+    
+    * display line numbers
+    * display right margin
+    * highlight matching bracket
+    * highlight current line
+
+* **font & colors**:
 
     * choose a good monospace editor font
     * choose a color scheme (Gregg likes Cobalt)

@@ -67,10 +67,10 @@ Open a new Terminal window and type the following:
 
 ..  code-block:: bash
 
-   # with virtualenv pystar activated
+   # with virtualenv pystar activated, see above, and the virtualenv page
    mkdir django_projects
    cd django_projects
-   django-admin startproject myproject
+   django-admin.py startproject myproject
 
 Both commands should provide no output.
 Once that's finished, type the following in the Terminal window: 
@@ -129,7 +129,7 @@ The whole process should look something like:
     >>> exit()
     mkdir django_projects
     cd django_projects
-    django-admin startproject 
+    django-admin.py startproject 
     cd myproject
     python manage.py runserver
     Validating models...

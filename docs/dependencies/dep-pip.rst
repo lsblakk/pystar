@@ -26,16 +26,26 @@ To install and manage packages in a consistent way in Python.
 Get ``pip``!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. we need to install ``easy_install`` (the old, deprecated package manager).
-Go to http://pypi.python.org/pypi/setuptools and follow the instructions.
+First, install ``ez_setup`` to get ``easy_install`` (the *old* python
+package managers).  
 
-2. In your prompt::
+#.  Download and save: http://peak.telecommunity.com/dist/ez_setup.py
+#.  Open a terminal, and navigate to where it is downloaded.  
+#.  Install::
 
-    easy_install pip
-
+        python ez_setup.py
+        easy_install pip
+        pip install virtualenv
+        
+        # or if those don't work!
+        
+        sudo python ez_setup.py
+        sudo easy_install pip
+        sudo pip install virtualenv
 
 
 .. _pip-verify-label:
+
 
 Verify It Works!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
