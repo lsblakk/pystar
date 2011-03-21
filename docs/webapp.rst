@@ -10,7 +10,7 @@ The app is an online poll where visitors can view choices
 We will cover local deployment as well as deploying your web application to the world,
 where other people can play with it, and where you can modify it.
 
-This is based ''heavily'' on the official tutorial for the Django web programming framework
+This is based *heavily* on the official tutorial for the Django web programming framework
 as well as the `Ruby on Rails for Women <http://www.wiki.devchix.com/index.php?title=Ruby_and_Rails_workshops_for_women>`_
 workshop.
 
@@ -26,6 +26,26 @@ It’ll consist of two parts:
 * A public site that lets people view polls and vote in them.
 * An admin site that lets you add, change and delete polls.
 
+Create necessary directories, activate virtualenv
+----------------------------------------------------
+
+(You may have already done this!)
+
+In your terminal, starting from somewhere reasonable (here, ``mydir``)
+
+.. code-block:: bash
+    
+    cd mydir
+    mkdir django_projects
+    virtualenv --no-site-packages pystar
+    # New python executable in pystar/bin/python
+    # Installing setuptools............done.
+    source pystar/bin/activate  # windows -> pystar\Scripts\activate.bat 
+    # (pystar)My-MacBook-Pro:mydir $ 
+    # $ ls .
+    # django_projects pystar
+    
+
 Switch to the right directory
 -------------------------------------------
 
@@ -36,16 +56,16 @@ You can do that by typing this into your terminal:
 
 .. code-block:: bash
 
-     cd ~/pystar
-     source bin/activate  # windows -> pystar\Scripts\activate.bat 
-     cd django_projects
+    cd django_projects
+
 
 In the Friday setup portion of the workshop, you already saw how 
-to use the ''django-admin.py'' command to start a project. 
+to use the ``django-admin.py`` command to start a project. 
 Let's go into it and start looking around.
 
 .. code-block:: bash
 
+    django-admin startproject myproject # if you haven't already got a my_project
     cd myproject
 
 Look at the files
@@ -64,12 +84,12 @@ look like this:
 
 These files are:
 
-* __init__.py: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, you can use ''import'' to ''import myproject''.
-* manage.py: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.
-* settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
-* urls.py: The URL declarations for this Django project; a "table of contents" of your Django-powered site. You can read more about URLs in URL dispatcher.
+* ``__init__.py``: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, you can use ``import`` to ``import myproject``.
+* ``manage.py``: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.
+* ``settings.py``: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
+* ``urls.py``: The URL declarations for this Django project; a "table of contents" of your Django-powered site. You can read more about URLs in URL dispatcher.
 
-The development server
+Start the Development (Local) Server
 -------------------------------------
 
 Let's verify this worked. Run the command:
@@ -86,40 +106,63 @@ You'll see the following output on the command line:
     Validating models...
     0 errors found.
     
-    Django version 1.2, using settings 'mysite.settings'
+    Django version 1.2, using settings 'myproject.settings'
     Development server is running at http://127.0.0.1:8000/
     Quit the server with CONTROL-C.
 
 
-You've started the Django development server, a lightweight Web server written purely in 
+You've started the Django development server, a lightweight web server written purely in 
 Python. The Django maintainers include this web server, but on a "deployment" like 
 alwaysdata.com, you typically tie Django into an existing server like Apache.
 
 Now that the server's running, visit http://127.0.0.1:8000/ with your Web browser. 
 You'll see a "Welcome to Django" page, in pleasant, light-blue pastel. It worked!
 
-Exit the server by pressing CONTROL-C on your keyboard.
+Exit the server by pressing CONTROL-C on your keyboard, when back at your 
+terminal.
 
-Fixing security settings
+Fix security settings
 ------------------------------------
 
-Right now, everyone in the workshop has the same '''SECRET_KEY'''. According to the 
-Django documentation, that is bad. So open up settings.py in your editor (for example, Komodo Edit).
+Right now, everyone in the workshop has the same "SECRET_KEY". According to the 
+Django documentation, that is bad. So open up settings.py in your editor.
 
-'''settings.py''' is a Python script that only contains variable definitions. 
+``settings.py`` is a Python script that only contains variable definitions. 
 (Django looks at the values of these variables when it runs your web app.)
 
-Find the variable named `SECRET_KEY` and set it to whatever string 
+Open ``settings.py`` in your text editor.
+Find the variable named ``SECRET_KEY`` and set it to whatever string 
 you want. Go on, we'll wait.
 
-Database setup
+.. code-block:: python
+
+    # change this to something arbitrary.
+    SECRET_KEY = '6yl8d1u0+ogcz!0@3_%au)_&ty$%1jcs2hy-!&v&vv2#@pq^(h'
+
+
+Set up the Database
 ------------------------
 
-Keep looking at settings.py: The DATABASES variable is a dictionary with one key: '''default'''.
+Keep looking at ``settings.py``: The DATABASES variable is a dictionary with one key: default.
+
+.. code-block:: python
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': '',                      # Or path to database file if using sqlite3.
+            'USER': '',                      # Not used with sqlite3.
+            'PASSWORD': '',                  # Not used with sqlite3.
+            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        }
+    }
 
 The value is itself another dictionary with information about the site's default 
-database. We're going to set our app to use an sqlite database which takes the form
-of a file on your system and therefore is really simple to move around with your app.
+database. We're going to set our app to use an ``sqlite`` database.
+Sqlite is great for development because is stores its data in one normal file on 
+your system and therefore is really simple to move around with your app.
+
 Edit the lines in your settings.py to match the lines below:
 
 .. code-block:: bash
@@ -127,17 +170,31 @@ Edit the lines in your settings.py to match the lines below:
     'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
     'NAME': 'database.db', 
     
-You can see from the ''NAME'' that the Django project now uses a file called 
-''database.db'' to store information.
+You can see from the ``NAME`` that the Django project now uses a file called 
+``database.db`` to store information.
 
-'''Pop quiz''': Does database.db exist right now?
+**Pop quiz**: Does database.db exist right now?
 
-While you're editing settings.py, take note of the INSTALLED_APPS setting towards the 
-bottom of the file. That variable holds the names of all Django applications that are 
+While you're editing ``settings.py``, take note of the ``INSTALLED_APPS`` setting towards the 
+bottom of the file. That variable (a tuple) holds the names of all Django applications that are 
 activated in this Django instance. Apps can be used in multiple projects, and you can 
 package and distribute them for use by others in their projects.
 
-By default, INSTALLED_APPS contains the following apps, all of which come with Django:
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        # Uncomment the next line to enable the admin:
+        # 'django.contrib.admin',
+        # Uncomment the next line to enable admin documentation:
+        # 'django.contrib.admindocs',
+    )
+
+By default, ``INSTALLED_APPS`` contains the following apps, all of which come with Django:
 
 * django.contrib.auth -- An authentication system.
 * django.contrib.contenttypes -- A framework for content types.
@@ -152,16 +209,16 @@ the tables in the database before we can use them. To do that, run the following
 
     python manage.py syncdb
 
-The syncdb command looks at the INSTALLED_APPS setting and creates any necessary 
-database tables according to the database settings in your settings.py file. You'll see a 
+The syncdb command looks at the ``INSTALLED_APPS`` setting and creates any necessary 
+database tables according to the database settings in your ``settings.py`` file. You'll see a 
 message for each database table it creates, and you'll get a prompt asking you if you'd 
 ike to create a superuser account for the authentication system. Go ahead and do that.
 
 Part 2: Creating polls
 ========================
 
-Creating models
--------------------------
+Creating some data *models*
+-----------------------------
 
 Now that your environment -- a "project" -- is set up, you're set to start building the poll.
 
@@ -170,19 +227,35 @@ somewhere on your Python path, that follows a certain convention.
 Django comes with a utility that automatically generates the basic directory 
 structure of an app, so you can focus on writing code rather than creating directories.
 
-Projects vs. apps
--------------------------
+Projects and Apps
+---------------------------------
 
-We've talked a little about Django ''apps'' and ''projects''. You might be 
+We've talked a little about Django **apps** and **projects**. You might be 
 wondering what the difference is.
 
 Here are the things to know:
 
-* An ''app'' is component of a website that does something. For example, the ''Django administration'' app is something you'll see later in this tutorial.
-* A ''project'' corresponds to a website: it contains a '''settings.py''' file, so it has a corresponding database.
+* An **app** is component of a website that does something. For example, the **Django administration** app is something you'll see later in this tutorial.  So will our ``polls`` app.  
+* A **project** corresponds to a website: it contains a ``settings.py`` file, so it has a corresponding database.
 
-Django apps can live anywhere on the "Python path." That just means that you 
-have to be able to ''import'' them when your Django project runs.
+Django apps can live anywhere on the **Python path**.  The **python path** is 
+a list of paths where the python interpreter looks for modules.  To see yours
+(for the curious):
+
+.. code-block:: bash
+
+    $ python
+    >>> import sys
+    >>> sys.path
+    ['', '/Users/gregg/mydir/pystar/lib/python2.6/site-packages/setuptools-0.6c11-py2.6.egg', 
+    '/Users/gregg/mydir/pystar/lib/python2.6/site-packages/pip-0.8.3-py2.6.egg', 
+    '/Users/gregg/mydir/pystar/lib/python26.zip', 
+    '/Users/gregg/mydir/pystar/lib/python2.6', 
+    '/Users/gregg/mydir/pystar/lib/python2.6/plat-darwin', 
+    '/Users/gregg/mydir/pystar/lib/python2.6/plat-mac' ... ]
+
+To be importable (seeable by Python), your Django app must be in one of the folders
+on *your* path.
 
 In this tutorial, we'll create our poll app in the myproject directory for 
 simplicity. In the future, when you decide that the world needs to be able to 
@@ -219,7 +292,7 @@ Django follows the DRY ("Don't Repeat Yourself") Principle. The goal is to
 define your data model in one place and automatically derive things from it.
 
 (If you've used SQL before, you might be interested to know that each 
-Django ''model'' corresponds to a SQL ''table''.)
+Django ``model`` corresponds to a SQL ``table``.)
 
 In our simple poll app, we'll create two models: polls and choices. 
 A poll has a question and a publication date. A choice has two fields: the 
@@ -228,7 +301,7 @@ text of the choice and a vote tally. Each choice is associated with a poll.
 These concepts are represented by Python classes. 
 Edit the polls/models.py file so it looks like this:
 
-.. code-block:: bash
+.. code-block:: python
 
      from django.db import models
      
@@ -282,7 +355,7 @@ you can distribute apps, because they don't have to be tied to a given Django in
 Edit the settings.py file again, and change the INSTALLED_APPS setting to 
 include the string 'polls'. So it'll look like this:
 
-.. code-block:: bash
+.. code-block:: python
 
     INSTALLED_APPS = (
         'django.contrib.auth',
@@ -307,13 +380,13 @@ If you care about SQL, you can try the following command:
 
     python manage.py sql polls
 
-For now, let's just Django's ''syncdb'' tool to create the database tables for Poll objects:
+For now, let's just Django's ``syncdb`` tool to create the database tables for Poll objects:
 
 .. code-block:: bash
 
     python manage.py syncdb
 
-The syncdb looks for ''apps'' that have not yet been set up. To set them up, 
+The syncdb looks for ``apps`` that have not yet been set up. To set them up, 
 it runs the necessary SQL commands against your database. This creates all the 
 tables, initial data and indexes for any apps you have added to your project since 
 the last time you ran syncdb. syncdb can be called as often as you like, and it 
@@ -334,7 +407,7 @@ the free API Django gives you. To invoke the Python shell, use this command:
 We're using this instead of simply typing "python", because manage.py sets 
 up the project's environment for you. "Setting up the environment" involves two things:
 
-# Making sure ''polls'' is on the right path to be imported.
+# Making sure ``polls`` is on the right path to be imported.
 # Setting the DJANGO_SETTINGS_MODULE environment variable, which gives Django the path to your settings.py file.
 
 Once you're in the shell, explore the database API:
@@ -399,7 +472,7 @@ Finally, we can also ask Django to show a list of all the Poll objects available
      [<Poll: Poll object>]
 
 Wait a minute. <Poll: Poll object> is an utterly unhelpful representation of this object. Let's fix that by editing the polls model
-Use your '''text editor''' to open the polls/models.py file and adding a __unicode__() method to both Poll and Choice::
+Use your ``'text editor``' to open the polls/models.py file and adding a __unicode__() method to both Poll and Choice::
 
     class Poll(models.Model):
         # ...
@@ -443,7 +516,7 @@ Check it out: our __unicode__() addition worked::
      >>> Poll.objects.all()
      [<Poll: What's up?>]
 
-If you want to search your database, you can do it using the '''filter''' method on the ''objects'' attribute of Poll. For example::
+If you want to search your database, you can do it using the ``'filter``' method on the ``objects`` attribute of Poll. For example::
 
      >>> polls = Poll.objects.filter(question="What's up?")
      >>> polls
@@ -451,7 +524,7 @@ If you want to search your database, you can do it using the '''filter''' method
      >>> polls[0].id
      1
 
-If you try to search for a poll that does not exist, ''filter'' will give you the empty list. The '''get''' method will always return one hit, or raise an exception.
+If you try to search for a poll that does not exist, ``filter`` will give you the empty list. The ``'get``' method will always return one hit, or raise an exception.
 
 .. code-block:: python
 
@@ -476,20 +549,20 @@ Right now, we have a Poll in the database, but it has no Choices. See::
 
 So let's create three choices::
 
- >>> p.choice_set.create(choice='Not much', votes=0)
- <Choice: Not much>
- >>> p.choice_set.create(choice='The sky', votes=0)
- <Choice: The sky>
- >>> c = p.choice_set.create(choice='Just hacking again', votes=0)
- >>> c
- <Choice: Just hacking again>
+    >>> p.choice_set.create(choice='Not much', votes=0)
+    <Choice: Not much>
+    >>> p.choice_set.create(choice='The sky', votes=0)
+    <Choice: The sky>
+    >>> c = p.choice_set.create(choice='Just hacking again', votes=0)
+    >>> c
+    <Choice: Just hacking again>
 
 Every Choice can find the Poll that it belongs to::
 
- >>> c.poll
- <Poll: What's up?>
+    >>> c.poll
+    <Poll: What's up?>
 
-We just used this, but now I'll explain it: Because a Poll can have more than one Choice, Django creates the '''choice_set''' attribute on each Poll. You can use that to look at the list of available Choices, or to create them.
+We just used this, but now I'll explain it: Because a Poll can have more than one Choice, Django creates the ``'choice_set``' attribute on each Poll. You can use that to look at the list of available Choices, or to create them.
 
 .. code-block:: python
 
@@ -504,25 +577,25 @@ Visualize the database in SQLite Manager
 This is optional, but interesting if you want to see your database in a GUI and/or
 know how to access your database.db from outside the project.
 
-When you call ''.save()'' on a model instance, Django saves that to the database.
+When you call ``.save()`` on a model instance, Django saves that to the database.
 (Remember, Django is a web programming framework built around the idea of 
 saving data in a SQL database.)
 
-Where ''is'' that database? Take a look at '''settings.py''' in your text editor. You 
-can see that ''database.db'' is the filename. In '''settings.py''' Python calculates
+Where ``is`` that database? Take a look at ``'settings.py``' in your text editor. You 
+can see that ``database.db`` is the filename. In ``'settings.py``' Python calculates
 the path to the current file.
 
 So now:
 
 * Open up Firefox
-* Find SQLite Manager in '''Tools'''->'''SQLite Manager'''
-* In the SQLite Manager menus, choose: '''Database'''->'''Connect Database'''
-* Find the '''pystar/django_projects/myproject/database.db''' file.
+* Find SQLite Manager in ``'Tools``'->``'SQLite Manager``'
+* In the SQLite Manager menus, choose: ``'Database``'->``'Connect Database``'
+* Find the ``'pystar/django_projects/myproject/database.db``' file.
 
 Browse your tables! This is another way of looking at the data you just created.
 
-'''Note''': In order to find the ''database.db'' file, you might need to ask SQLite 
-Manager to show you all files, not just the ''\*.sqlite'' files.
+``'Note``': In order to find the ``database.db`` file, you might need to ask SQLite 
+Manager to show you all files, not just the ``\*.sqlite`` files.
 
 Now you know that you be able to find this
 database file. Browse around! Hooray.
@@ -534,9 +607,9 @@ Save and share our work
 
 We've done something! Let's share it with the world.
 
-We'll do that with ''git'' and ''Github''. On your own computer, get to a Terminal or a GitBash.
+We'll do that with ``git`` and ``Github``. On your own computer, get to a Terminal or a GitBash.
 
-Use '''cd''' to get into the '''myproject''' directory. If it's a fresh Terminal, this is what you'll do:
+Use ``'cd``' to get into the ``'myproject``' directory. If it's a fresh Terminal, this is what you'll do:
 
 .. code-block:: bash
 
@@ -566,33 +639,33 @@ Now you want to go to github.com and create a new repository called "myproject".
 
     git add -A
 
-And use ''git commit'' to ''commit'' those files:
+And use ``git commit`` to ``commit`` those files:
 
 .. code-block:: bash
 
     git commit -m "Initial commit of django app project from the PyStar workshop"
 
-Finally, connect the remote github repo to your local one, and use ''git push'' to push those up to your Github repository:
+Finally, connect the remote github repo to your local one, and use ``git push`` to push those up to your Github repository:
 
 .. code-block:: bash
 
     git remote add origin git@github.com:username/myproject.git
     git push origin master
 
-Go to your Github account. Find the ''myproject'' repository. Do you see your files?
+Go to your Github account. Find the ``myproject`` repository. Do you see your files?
 
 If so, proceed!
 
 Enough databases for now
 -----------------------------------------
 
-In the next section of the tutorial, you'll write ''views'' that let other people look at your polls.
+In the next section of the tutorial, you'll write ``views`` that let other people look at your polls.
 
 Part 3: Letting the (local) world see your polls, with views
 ===================================================================
 
 We have all these polls in our database. However, no one can see them, because we never 
-made any web pages that ''render'' the polls into HTML.
+made any web pages that ``render`` the polls into HTML.
 
 Let's change that with Django views.
 
@@ -646,18 +719,18 @@ categorize them into different kinds of
 `Dive into Python guide to regular expressions <http://diveintopython.org/regular_expressions/index.html>`_ sometime. 
 Or you can look at this `comic <http://xkcd.com/208/>`_.)
 
-In addition to ''matching'' text, regular expressions can ''capture'' text: regexps use 
+In addition to ``matching`` text, regular expressions can ``capture`` text: regexps use 
 parentheses to wrap the parts they're capturing.
 
 For Django, when a regular expression matches the URL that a web surfer requests, 
 Django extracts the captured values and passes them to a function of your choosing. 
-This is the role of the ''callback function'' above.
+This is the role of the ``callback function`` above.
 
 Adding URLs to urls.py
 ------------------------
 
 When we ran django-admin.py startproject myproject to create the project, 
-Django created a default URLconf. Take a look at '''settings.py''' for this line:
+Django created a default URLconf. Take a look at ``'settings.py``' for this line:
 
 .. code-block:: bash
 
@@ -667,20 +740,20 @@ That means that the default URLconf is myproject/urls.py.
 
 Time for an example. Edit the file myproject/urls.py so it looks like this:
 
-.. code-block:: bash
+.. code-block:: python
+
+    from django.conf.urls.defaults import *
     
-     from django.conf.urls.defaults import *
-    
-     urlpatterns = patterns('',
-         (r'^polls/$', 'polls.views.index'),
-         (r'^polls/(\d+)/$', 'polls.views.detail'),
-         (r'^polls/(\d+)/results/$', 'polls.views.results'),
-         (r'^polls/(\d+)/vote/$', 'polls.views.vote'),
-     )
-    
-    
+    urlpatterns = patterns('',
+     (r'^polls/$', 'polls.views.index'),
+     (r'^polls/(\d+)/$', 'polls.views.detail'),
+     (r'^polls/(\d+)/results/$', 'polls.views.results'),
+     (r'^polls/(\d+)/vote/$', 'polls.views.vote'),
+    )
+
+
 This is worth a review. When somebody requests a page from your Web site 
--- say, "/polls/23/", Django will load the ''urls.py'' Python module, because it's 
+-- say, "/polls/23/", Django will load the ``urls.py`` Python module, because it's 
 pointed to by the ROOT_URLCONF setting. It finds the variable named urlpatterns 
 and traverses the regular expressions in order. When it finds a regular expression that 
 matches -- r'^polls/(\d+)/$' -- it loads the function detail() from polls/views.py. Finally, 
@@ -692,7 +765,7 @@ it calls that detail() function like so:
 
 The '23' part comes from (\d+). Using parentheses around a pattern "captures" the
 text matched by that pattern and sends it as an argument to the view function; the
-\d+ is a regular expression to match a sequence of ''digits'' (i.e., a number).
+\d+ is a regular expression to match a sequence of ``digits`` (i.e., a number).
 
 (In Django, you have total control over the way your URLs look. People on the web 
 won't see cruft like .py or .php at the end of your URLs.)
@@ -800,15 +873,15 @@ code. So let's use Django's template system to separate the design from Python:
 
 To recap what this does:
 
-* Creates a variable called ''latest_poll_list''. Django queries the database for ''all'' Poll objects, ordered by ''pub_date'' with most recent first, and uses ''slicing'' to get the first five.
-* Creates a variable called ''context'' that is a dictionary with one key.
-* Evaluates the ''render_to_response'' function with two arguments, and returns whatever that returns.
+* Creates a variable called ``latest_poll_list``. Django queries the database for ``all`` Poll objects, ordered by ``pub_date`` with most recent first, and uses ``slicing`` to get the first five.
+* Creates a variable called ``context`` that is a dictionary with one key.
+* Evaluates the ``render_to_response`` function with two arguments, and returns whatever that returns.
 
-''render_to_response'' loads the template called "polls/index.html" and passes it a 
-value as ''context''. The context is a dictionary mapping template variable names to 
+``render_to_response`` loads the template called "polls/index.html" and passes it a 
+value as ``context``. The context is a dictionary mapping template variable names to 
 Python objects.
 
-If you can read this this ''view'' function without being overwhelmed, then you understand 
+If you can read this this ``view`` function without being overwhelmed, then you understand 
 the basics of Django views. Now is a good time to reflect and make sure you do. (If you have 
 questions, ask a volunteer for help.)
 
@@ -822,7 +895,7 @@ Reload the page. Now you'll see an error:
 Ah. There's no template yet. Let's make one.
 
 First, let's make a directory where templates will live. We'll need a templates 
-directory right alongside the ''views.py'' for the ''polls'' app. This is what I would do:
+directory right alongside the ``views.py`` for the ``polls`` app. This is what I would do:
 
 .. code-block:: bash
 
@@ -853,7 +926,7 @@ Raising 404
 ------------------
 
 Now, let's tackle the poll detail view -- the page that displays the question for a
-given poll. Continue editing the ''views.py'' file. This view uses Python ''exceptions'':
+given poll. Continue editing the ``views.py`` file. This view uses Python ``exceptions``:
 
 .. code-block:: python
 
@@ -870,7 +943,7 @@ The new concept here: The view raises the Http404 exception if a poll with the
 requested ID doesn't exist.
 
 If you'd like to quickly get the above example working, just create a new template 
-file and name it ''detail.html''. Enter in it just one line of code:
+file and name it ``detail.html``. Enter in it just one line of code:
 
 .. code-block:: html
 
@@ -886,9 +959,9 @@ pretty 404 error: http://127.0.0.1:8000/polls/32/
 Adding more detail
 -----------------------------
 
-Let's give the detail view some more '''detail'''.
+Let's give the detail view some more ``'detail``'.
 
-We pass in a variable called '''poll''' that points to an instance of the Poll class. 
+We pass in a variable called ``'poll``' that points to an instance of the Poll class. 
 So you can pull out more information by writing this into the "polls/detail.html" template:
 
 .. code-block:: html
@@ -902,9 +975,9 @@ So you can pull out more information by writing this into the "polls/detail.html
     
 
 The template system uses dot-lookup syntax to access variable attributes. 
-Django's template language is a bit sloppy: in pure Python, the '''.''' (dot) only 
+Django's template language is a bit sloppy: in pure Python, the ``'.``' (dot) only 
 lets you get attributes from objects. In this example, we are just doing attribute 
-lookup, but in general if you're not sure how to get data out of an object in Django, try '''dot'''.
+lookup, but in general if you're not sure how to get data out of an object in Django, try ``'dot``'.
 
 Method-calling happens in the {% for %} loop: poll.choice_set.all is interpreted as the 
 Python code poll.choice_set.all(), which returns a sequence of Choice objects and is 
@@ -941,7 +1014,7 @@ last tutorial so that the template contains an HTML <form> element:
 There is a lot going on there. A quick rundown:
 
 * The above template displays a radio button for each poll choice. The value of each radio button is the associated poll choice's ID. The name of each radio button is "choice". That means, when somebody selects one of the radio buttons and submits the form, the form submission will represent the Python dictionary {'choice': '3'}. That's the basics of HTML forms; you can learn more about them.
-* We set the form's action to /polls/{{ poll.id }}/vote/, and we set method="post". Normal web pages are requested using ''GET'', but the standards for HTTP indicate that if you are changing data on the server, you must use the ''POST'' method. (Whenever you create a form that alters data server-side, use method="post". This tip isn't specific to Django; it's just good Web development practice.)
+* We set the form's action to /polls/{{ poll.id }}/vote/, and we set method="post". Normal web pages are requested using ``GET``, but the standards for HTTP indicate that if you are changing data on the server, you must use the ``POST`` method. (Whenever you create a form that alters data server-side, use method="post". This tip isn't specific to Django; it's just good Web development practice.)
 * Since we're creating a POST form (which can have the effect of modifying data), we need to worry about Cross Site Request Forgeries. Thankfully, you don't have to worry too hard, because Django comes with a very easy-to-use system for protecting against it. In short, all POST forms that are targeted at internal URLs should use the {% csrf_token %} template tag.
 
 The {% csrf_token %} tag requires information from the request object, which is not 
@@ -1007,7 +1080,7 @@ This code includes a few things we haven't covered yet in this tutorial:
 
 As the Python comment above points out, you should always return an HttpResponseRedirect
 after successfully dealing with POST data. This tip isn't specific to Django; it's just good Web 
-development practice. That way, if the web surfer hits ''reload'', they get the success page again,
+development practice. That way, if the web surfer hits ``reload``, they get the success page again,
 rather than re-doing the action.
 
 We are using the reverse() function in the HttpResponseRedirect constructor in this example. 
@@ -1071,7 +1144,7 @@ This is a great time to COMMIT!
 Part 6: Editing your polls in the Django admin interface
 =============================================================
 
-So far, you've been adding data to your database using the ''manage.py shell''.
+So far, you've been adding data to your database using the ``manage.py shell``.
 This is a flexible way to add data, but it has some drawbacks:
 
 * It's not on the web.
@@ -1098,8 +1171,8 @@ Activate the admin site
 The Django admin site is not activated by default – it’s an opt-in thing. 
 To activate the admin site for your installation, do these three things:
 
-* Open up '''myproject/settings.py''' and uncomment "django.contrib.admin" and "django.contrib.admindocs" in your INSTALLED_APPS setting.
-* Edit your '''myproject/urls.py''' file and uncomment the lines that reference the admin – there are four lines in total to uncomment.
+* Open up ``'myproject/settings.py``' and uncomment "django.contrib.admin" and "django.contrib.admindocs" in your INSTALLED_APPS setting.
+* Edit your ``'myproject/urls.py``' file and uncomment the lines that reference the admin – there are four lines in total to uncomment.
 
 .. code-block:: bash
 
@@ -1133,7 +1206,7 @@ http://127.0.0.1:8000/admin/ should show you the admin site's login screen.
 Enter the admin site
 ---------------------------------
 
-Now, try logging in. (You created a superuser account earlier, when running ''syncdb'' for 
+Now, try logging in. (You created a superuser account earlier, when running ``syncdb`` for 
 the fist time. If you didn't create one or forgot the password you can create another one.) 
 You should see the Django admin index page.
 
@@ -1159,7 +1232,7 @@ interface. To do this, create a file called admin.py in your polls directory, an
 You'll need to restart the development server to see your changes. Normally, 
 the server auto-reloads code every time you modify a file, but the action of
 creating a new file doesn't trigger the auto-reloading logic. You can stop it by 
-typing '''Ctrl-C''' ('''Ctrl-Break''' on Windows); then use the '''up''' arrow on your
+typing ``'Ctrl-C``' (``'Ctrl-Break``' on Windows); then use the ``'up``' arrow on your
 keyboard to find the command again, and hit enter.
 
 Explore the free admin functionality
@@ -1209,7 +1282,7 @@ admin just as we did with Poll. That's easy:
     admin.site.register(Choice)
     
 
-Now "Choices" is an available option in the Django admin. Check out the '''Add Choice''' form.
+Now "Choices" is an available option in the Django admin. Check out the ``'Add Choice``' form.
 
 In that form, the "Poll" field is a select box containing every poll in the database. 
 Django knows that a ForeignKey should be represented in the admin as a <select> 
@@ -1291,7 +1364,7 @@ sorting by the output of an arbitrary method is not supported.
 Also note that the column header for was_published_today is, 
 by default, the name of the method (with underscores replaced with spaces). 
 
-This is shaping up well. Let's add some search capability. Add this to '''class PollAdmin''':
+This is shaping up well. Let's add some search capability. Add this to ``'class PollAdmin``':
 
 .. code-block:: python
      
