@@ -28,13 +28,13 @@ Register here: http://pystar-mpls-1.eventbrite.com/
 PyStar SanFrancisco
 --------------------
 
-Tentative Dates: Friday April  22nd (6 - 8pm) and Saturday 
-April 23rd (9am - 4pm) at the Mozilla office in Mountain View
+Dates: Friday April  29th (6 - 8pm) and Saturday 
+April 30th (9am - 4pm) at the Mozilla office in Mountain View
 
 650 Castro St, Suite 300
 Mountain View, CA 94043
 
-Please check back for confirmation and event registration
+Please check back for event registration link
 
 PyStar Boston
 ---------------------
