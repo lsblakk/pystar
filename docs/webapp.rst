@@ -4,7 +4,7 @@
 Intro to Programming Python: Web App
 =============================================
 
-This section will look at writing and deploying a web application. 
+This tutorial will look at writing and deploying a web application. 
 The app is an online poll where visitors can view choices
 (a bit of text) and vote the option up and down.
 We will cover local deployment as well as deploying your web application to the world,
@@ -16,15 +16,11 @@ workshop.
 
 If you would like to see an example of this completed tutorial, `Lukas did it <https://github.com/lsblakk/myproject>`_
 
-Part 1: Configuring your Django App
+Part 1: Create your Django App
 =======================================
 
-This tutorial walks you through the creation of a basic poll application.
+Goal:  Configure and explore a basic Django "out of the box app".
 
-It’ll consist of two parts:
-
-* A public site that lets people view polls and vote in them.
-* An admin site that lets you add, change and delete polls.
 
 Create necessary directories, activate virtualenv
 ----------------------------------------------------
@@ -49,7 +45,7 @@ In your terminal, starting from somewhere reasonable (here, ``mydir``)
 Switch to the right directory
 -------------------------------------------
 
-In a terminal (or GitBash), get into the django_projects directory 
+In a terminal (or GitBash), get into the ``django_projects`` directory 
 we created in the Friday setup portion of the tutorial. 
 
 You can do that by typing this into your terminal:
@@ -84,138 +80,268 @@ look like this:
 
 These files are:
 
-* ``__init__.py``: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, you can use ``import`` to ``import myproject``.
-* ``manage.py``: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.
+* ``__init__.py``: An empty file that tells Python that this directory should be considered a Python module. Because of the ``__init__.py`` file, you can use ``import`` to ``import myproject``.
+* ``manage.py``: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about ``manage.py`` in ``django-admin.py`` and ``manage.py``.
 * ``settings.py``: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
 * ``urls.py``: The URL declarations for this Django project; a "table of contents" of your Django-powered site. You can read more about URLs in URL dispatcher.
 
 Start the Development (Local) Server
 -------------------------------------
 
-Let's verify this worked. Run the command:
-
-.. code-block:: bash
-
-    python manage.py runserver
-
-
-You'll see the following output on the command line:
-
-.. code-block:: bash
-
-    Validating models...
-    0 errors found.
+#. Verify the development server will start. 
     
-    Django version 1.2, using settings 'myproject.settings'
-    Development server is running at http://127.0.0.1:8000/
-    Quit the server with CONTROL-C.
+    a)  Run the command:
+
+        .. code-block:: bash
+
+            python manage.py runserver
+
+    b) Review the output in your terminal.  It should look similar to:
+
+        .. code-block:: bash
+
+            Validating models...
+            0 errors found.
+            
+            Django version 1.2, using settings 'myproject.settings'
+            Development server is running at http://127.0.0.1:8000/
+            Quit the server with CONTROL-C.
+
+      .. note: 
+        
+        You've started the Django development server, a lightweight web server written in 
+        Python. The Django maintainers include this web server, but on a "deployment" like 
+        http://alwaysdata.com/, you typically tie Django into an existing server like Apache.
+
+#.  Now that the server's running, visit http://127.0.0.1:8000/ with your Web browser. 
+    You'll see a "Welcome to Django" page, in pleasant, light-blue pastel. It worked!
+
+#.  Exit the server 
+
+    #. return to the terminal instance where the development server is running
+   
+    #. pressing CONTROL-C on your keyboard
+
+    #. VERIFY your server is shut down.  How do you do this?  [:ref:`answer <webapp_answers_verify_shutdown>`]
 
 
-You've started the Django development server, a lightweight web server written purely in 
-Python. The Django maintainers include this web server, but on a "deployment" like 
-alwaysdata.com, you typically tie Django into an existing server like Apache.
+Part 2: Test your Django App
+=======================================
 
-Now that the server's running, visit http://127.0.0.1:8000/ with your Web browser. 
-You'll see a "Welcome to Django" page, in pleasant, light-blue pastel. It worked!
+[TODO]
 
-Exit the server by pressing CONTROL-C on your keyboard, when back at your 
-terminal.
+1.  Get the test file!
+2.  Run the test!
+
+
+Part 3: Save your work!
+=======================================
+
+
+We've are making progress! Let's share it with the world.
+
+We'll do that with ``git`` and ``Github``. On your own computer, get to a Terminal or a GitBash.
+
+#.  ``cd`` to get into the ``myproject`` directory. If it's a fresh Terminal, this is what you'll do:
+
+    .. code-block:: bash
+
+         cd ~/django_projects/myproject
+
+#.  Is this new project?  If so:
+
+
+    #. create a git repository in the project directory:
+
+        .. code-block:: bash
+
+            # in myproject
+            git init
+
+    #.  Tell git to ignore any files that end with .pyc (compiled python code) when we push
+        to our repo so we need to add that to ``.git/info/exclude``:
+
+        .. code-block:: bash
+
+            # in myproject directory
+            gedit .git/info/exclude
+            
+            # add this line to the end of the file
+            .pyc
+
+    #.  Create your project on GitHub.  Go to http://github.com/ and create a new repository called "myproject". On the main dashboard page, click on "New Repository" fill out the necessary information. 
+
+#.  Add all your files to the repo, in the local directory:
+
+    .. code-block:: bash
+
+        git add -A
+
+    Now git is aware of your files.  Use ``git status`` to see them there in
+    the *staging* area (the index).
+
+#.  ``git commit`` to ``commit`` those files:
+
+    .. code-block:: bash
+
+        git commit -m "Initial commit of django app project from the PyStar workshop"
+
+    Look at your changes with  ``git log`` to see your history.
+
+
+#   Connect the remote github repo to your local one, and use ``git push`` to push those up to your Github repository:
+
+    .. code-block:: bash
+
+        git remote add origin git@github.com:username/myproject.git
+        git push origin master
+
+#   Go to your Github account in your browser. Find the ``myproject`` repository. Do you see your files?
+
+
+
+
+Workflow!
+------------------
+
+Make this your work flow:
+
+1.  Design a feature, and criteria for acceptance.
+2.  Test your feature!
+3.  When it works (or you make good progress) [:ref:`save your work! <webapp_answers_verify_shutdown>`]
+
+
+
+Part 4: Create your Django App
+=======================================
+
+
 
 Fix security settings
 ------------------------------------
 
 Right now, everyone in the workshop has the same "SECRET_KEY". According to the 
-Django documentation, that is bad. So open up settings.py in your editor.
+Django documentation, that is bad. 
 
-``settings.py`` is a Python script that only contains variable definitions. 
-(Django looks at the values of these variables when it runs your web app.)
+#. Open  ``settings.py`` in your editor.  ``settings.py`` is a Python script that only contains variable definitions.  Django looks at the values of these variables when it runs your web app.
 
-Open ``settings.py`` in your text editor.
-Find the variable named ``SECRET_KEY`` and set it to whatever string 
-you want. Go on, we'll wait.
+#. Find the variable named ``SECRET_KEY`` and set it to whatever string 
+   you want. 
 
-.. code-block:: python
+#. Verify it looks something like:
 
-    # change this to something arbitrary.
-    SECRET_KEY = '6yl8d1u0+ogcz!0@3_%au)_&ty$%1jcs2hy-!&v&vv2#@pq^(h'
+    .. code-block:: python
 
+        # change this to something arbitrary.
+        SECRET_KEY = '6yl8d1u0+ogcz!0@3_%au)_&ty$%1jcs2hy-!&v&vv2#@pq^(h'
+
+#. What if we wanted a single-quote (\') in our SECRET_KEY?  [:ref:`answer <webapp_answers_single_quote>`]
+
+#. save the file.
 
 Set up the Database
 ------------------------
 
-Keep looking at ``settings.py``: The DATABASES variable is a dictionary with one key: default.
+#.  Keep looking at ``settings.py``: The ``DATABASES`` variable is a dictionary 
+    (note the '{}' characters) with one key: ``default``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': '',                      # Or path to database file if using sqlite3.
-            'USER': '',                      # Not used with sqlite3.
-            'PASSWORD': '',                  # Not used with sqlite3.
-            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+                'NAME': '',                      # Or path to database file if using sqlite3.
+                'USER': '',                      # Not used with sqlite3.
+                'PASSWORD': '',                  # Not used with sqlite3.
+                'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+                'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+            }
         }
-    }
 
-The value is itself another dictionary with information about the site's default 
-database. We're going to set our app to use an ``sqlite`` database.
-Sqlite is great for development because is stores its data in one normal file on 
-your system and therefore is really simple to move around with your app.
+#.  Notice that the value of ``default`` is itself another dictionary with information about the site's default  database. We're going to set our app to use a ``sqlite`` database.
+    Sqlite is great for development because is stores its data in one normal file on 
+    your system and therefore is really simple to move around with your app.
 
-Edit the lines in your settings.py to match the lines below:
+    ..  note::
 
-.. code-block:: bash
+        In production, Sqlite has issues because only one process can *write* to it
+        as a time.  **Discuss** the implications of this with your group.
 
-    'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-    'NAME': 'database.db', 
-    
-You can see from the ``NAME`` that the Django project now uses a file called 
-``database.db`` to store information.
+#.  Edit the lines in your settings.py to match the lines below:
 
-**Pop quiz**: Does database.db exist right now?
+    .. code-block:: bash
 
-While you're editing ``settings.py``, take note of the ``INSTALLED_APPS`` setting towards the 
-bottom of the file. That variable (a tuple) holds the names of all Django applications that are 
-activated in this Django instance. Apps can be used in multiple projects, and you can 
-package and distribute them for use by others in their projects.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'database.db', 
 
-.. code-block:: python
+    The ``NAME`` key tells the Django project to use a file called ``database.db`` to store information for this project.
 
-    INSTALLED_APPS = (
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
-        'django.contrib.messages',
-        # Uncomment the next line to enable the admin:
-        # 'django.contrib.admin',
-        # Uncomment the next line to enable admin documentation:
-        # 'django.contrib.admindocs',
-    )
+#.  **Pop quiz**: Does ``database.db`` exist right now?  Find out!  [:ref:`answer <webapp_answers_database_db_exists>`]
 
-By default, ``INSTALLED_APPS`` contains the following apps, all of which come with Django:
+#.  Notice the ``INSTALLED_APPS`` setting towards the 
+    bottom of the ``settings.py``. That variable (a tuple... note the '()' symbols) 
+    holds the names of all Django applications that are activated in this Django instance. 
+    **Apps** can be used in multiple projects, and you can 
+    package and distribute them for use by others in their projects.  
 
-* django.contrib.auth -- An authentication system.
-* django.contrib.contenttypes -- A framework for content types.
-* django.contrib.sessions -- A session framework.
-* django.contrib.sites -- A framework for managing multiple sites with one Django installation.
-* django.contrib.messages -- A messaging framework.
+    .. code-block:: python
 
-These applications are included by default as a convenience.  Each of these applications makes use of at least one database table, so we need to create 
-the tables in the database before we can use them. To do that, run the following command:
+        INSTALLED_APPS = (
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.sites',
+            'django.contrib.messages',
+            # Uncomment the next line to enable the admin:
+            # 'django.contrib.admin',
+            # Uncomment the next line to enable admin documentation:
+            # 'django.contrib.admindocs',
+        )
 
-.. code-block:: bash
+    What do you think these various **apps** do?  Why does it make sense
+    for them to come in a standard configuration?  
+    [:ref:`answer <webapp_answers_django_standard_apps>`]
 
-    python manage.py syncdb
+#.  Each of these applications makes use of at least one database table, so we need to create 
+    the tables in the database before we can use them. To do that, run the following command:
 
-The syncdb command looks at the ``INSTALLED_APPS`` setting and creates any necessary 
-database tables according to the database settings in your ``settings.py`` file. You'll see a 
-message for each database table it creates, and you'll get a prompt asking you if you'd 
-ike to create a superuser account for the authentication system. Go ahead and do that.
+    .. code-block:: bash
 
-Part 2: Creating polls
-========================
+        python manage.py syncdb
+
+    The syncdb command looks at the ``INSTALLED_APPS`` setting and creates any necessary 
+    database tables according to the database settings in your ``settings.py`` file. You'll see a 
+    message for each database table it creates, and you'll get a prompt asking you if you'd 
+    ike to create a superuser account for the authentication system. Go ahead and do that.
+
+    Does this seem magical?  [:ref:`answer <webapp_answers_django_magical>`]
+
+
+#.  **Pop quiz**: Does ``database.db`` exist right now?  Find out!  [:ref:`answer <webapp_answers_database_db_exists_after_sync>`]
+
+#.  Drink some tea and take a stretch break.  
+
+
+
+
+Part 2:  Philosphy Break!
+===========================
+
+????
+
+
+
+Part 2: Build The Polls Application
+========================================
+
+
+This tutorial (as a whole) walks you through the creation of a basic poll application.
+
+It’ll consist of two parts:
+
+* A public site that lets people view polls and vote in them.
+* An admin site that lets you add, change and delete polls.
+
 
 Creating some data *models*
 -----------------------------
@@ -602,59 +728,7 @@ database file. Browse around! Hooray.
 
 When you're satisfied with your Poll data, you can close it.
 
-Save and share our work
----------------------------------------
-
-We've done something! Let's share it with the world.
-
-We'll do that with ``git`` and ``Github``. On your own computer, get to a Terminal or a GitBash.
-
-Use ``'cd``' to get into the ``'myproject``' directory. If it's a fresh Terminal, this is what you'll do:
-
-.. code-block:: bash
-
-     cd ~/pystar/django_projects/myproject
-
-First you will create a git repository in the project directory, then add the content of your files to git:
-
-.. code-block:: bash
-
-    # in myproject
-    git init
-
-We're going to want git to ignore any files that end with .pyc (compiled python code) when we push
-to our repo so we need to add that to .git/info/exclude:
-
-.. code-block:: bash
-
-    # in myproject directory
-    gedit .git/info/exclude
-    
-    # add this line to the end of the file
-    .pyc
-
-Now you want to go to github.com and create a new repository called "myproject". On the main dashboard page, click on "New Repository" fill out the necessary information. Now back in your myproject directory you will add all your files to the repo:
-
-.. code-block:: bash
-
-    git add -A
-
-And use ``git commit`` to ``commit`` those files:
-
-.. code-block:: bash
-
-    git commit -m "Initial commit of django app project from the PyStar workshop"
-
-Finally, connect the remote github repo to your local one, and use ``git push`` to push those up to your Github repository:
-
-.. code-block:: bash
-
-    git remote add origin git@github.com:username/myproject.git
-    git push origin master
-
-Go to your Github account. Find the ``myproject`` repository. Do you see your files?
-
-If so, proceed!
+!!!! Save your WORK!!!!!!!
 
 Enough databases for now
 -----------------------------------------
