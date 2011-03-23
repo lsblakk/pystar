@@ -385,7 +385,7 @@ Set up the Database
 
 
 #.  Save *and commit* your work (don't save ``database.db`` -- 
-    why not?  [:ref:`answer <webapp_answers_why_not_save_database_db>`]::
+    why not?  [:ref:`answer <webapp_answers_why_not_save_database_db>`])::
 
         git status 
         # will show settings.py is changed, and a new 'untracked' 
@@ -410,13 +410,13 @@ Set up the Database
 Part XX, In Which You Save You From Yourself, Using Git.
 =========================================================
 
-Your work is saved right?
+Your work is saved and commited (in git!) right?
 
 **Right?**
 
 Good. Because you got a case of the accidental deletes and you've deleted your ``settings.py`` file!
 
-#.  No really. Go and delete ``settings.py``. Throw it in the trash. Or the recycling bin. Or `rm` from the command line.  Make sure it's *really gone* using ``ls``.
+#.  No really. Go and delete ``settings.py``. Throw it in the trash. Or the recycling bin. Or ``rm`` from the command line.  Make sure it's *really gone* using ``ls``.
 
 #.  Try running your dev server. What happens? Why?
 
@@ -431,9 +431,9 @@ Good. Because you got a case of the accidental deletes and you've deleted your `
 
         $ git checkout settings.py
 
-#.  Look at your project folder again, using ``ls``. Lo and behold, ``settings.py``! Back from beyond the grave! Cool, huh? Open it up, and verify it is exactly as you left it.
+#.  Look at your project folder again, using ``ls``. Lo and behold, ``settings.py``! Back from beyond the grave! Cool, huh? Open it up, and verify it is exactly as you left it.  Isn't that magical?  [:ref:`answer <webapp_answers_git_magical>`].
 
-    But what of ``settings.pyc``? Start your dev server. It works, right? Stop your dev server and look at the files in your project. Do you see ``settings.pyc``? How did it get there?  [:ref:` <_webapp_answers_why_only_restore_py_not_pyc>`]
+    But what of ``settings.pyc``? Start your dev server. It works, right? Stop your dev server and look at the files in your project. Do you see ``settings.pyc``? How did it get there?  [:ref:`answer  <webapp_answers_why_only_restore_py_not_pyc>`]
 
 
 

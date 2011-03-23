@@ -77,6 +77,14 @@ Yes, this is all somewhat magical.  Eventually, that should start to worry
 you, but for now, accept that it mostly works, most of the time. 
 
 
+.. _webapp_answers_git_magical:
+
+Is Git magical?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Django is magical.  ``git`` is *creepy*.  
+
+
 .. _webapp_answers_dev_server_still_works:
 
 Why does the dev server still work when settings.py has been deleted?
@@ -136,19 +144,23 @@ under version control.
 Is Polls Importable?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+We don't know. Is it?  It *should* be.
+
 ::
+
     $ cd myproject
     $ python
     >>> import polls
 
-If you got an ``ImportError``, it's just as it sounds!
+If you got an ``ImportError``, it's just as it sounds!  Check ``sys.path``, file
+permissions, and the like.
 
 
 
 .. _webapp_answers_pyc_files:
 
 What are these .pyc files anyway?
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From `PEP 3147 <http://www.python.org/dev/peps/pep-3147/#background>`_:
 
