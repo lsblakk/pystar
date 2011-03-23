@@ -76,6 +76,11 @@ def get(url):
     response = c.get(url)
     return response
 
+def fail(self):
+    self.assertFalse(True)
+
+def ok_(self):
+    self.assertTrue(True)
 
 class Test_urls(unittest.TestCase):
     def test_root_responds(self):
@@ -91,6 +96,14 @@ class Test_urls(unittest.TestCase):
         response = get('/polls/')
         self.assertEqual(response.status_code, 200)
 
+    def test_non_exist_poll_404s(self):
+        # get a non-existent poll, then 404!
+        fail(self)
+    
+    def test_poll_post_without_choice_is_error(self):
+        # Verify that if you submit the form without having chosen a 
+        # choice, you should see the error message.
+        fail(self)
 
 class Test_index(unittest.TestCase):
     pass
@@ -116,6 +129,11 @@ class Test_voting(unittest.TestCase):
         if not models_importable :
             self.assertTrue()
     
+    def test_after_vote_redirect_to_poll_details(self):
+        ## after voting in a poll, it should redirect to that poll
+        # get(post=....).redirects to whatever!
+        self.assertFalse(True)
+
 class Test_models(unittest.TestCase):
     def setUp(self):
         if models_importable :
@@ -128,6 +146,7 @@ class Test_models(unittest.TestCase):
 
     def test_choice_has_right_fields(self):
         self.assertFalse(True)
+
 
 
 ## polls need to have pubdate and text

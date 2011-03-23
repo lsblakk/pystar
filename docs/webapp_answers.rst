@@ -77,12 +77,7 @@ Yes, this is all somewhat magical.  Eventually, that should start to worry
 you, but for now, accept that it mostly works, most of the time. 
 
 
-.. _webapp_answers_git_magical:
 
-Is Git magical?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Django is magical.  ``git`` is *creepy*.  
 
 
 .. _webapp_answers_dev_server_still_works:
@@ -99,7 +94,9 @@ Because ``settings.pyc`` still exists, and that's what the machine is actually l
 Does ``database.db`` exist *now*?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It should!  That is one of the magical bits of ``dbsync``.  Use ``ls`` to find out!
+**Now** it should!  That is one of the magical bits of ``dbsync``.  
+
+Use ``ls`` to verify it!
 
 
 
@@ -110,6 +107,15 @@ What are the Implications of Sqlite only Handling One Writer?
 
 * performance is blocked by how fast that one writer can write
 * multiple processes can clobber each others' data.
+
+
+.. _webapp_answers_git_magical:
+
+Is Git magical?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Django is magical.  ``git`` is *creepy*.  
+
 
 
 
@@ -205,6 +211,28 @@ You are completely correct -- gold star!
 
 
 
+.. _webapp_answers_polls_vs_admin:
+
+Why not admin for **everything**:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Why not, indeed!?
+
+The ``django.admin`` app is one django's killer apps!  It's 
+easy to use, powerful, decently extensible.  Many sites are
+just  ``admin`` sites, dressed in nicer clothes, and given 
+nicer ``URLConf``'s.
+
+There are some concerns though:
+
+* users and permissions
+  (ensuring the right people can edit the right things)
+* the admin site relies heavily on ``django.models`` to work right.
+  If your needs aren't met by them, admin doesn't work.
+
+
+
+
 .. _webapp_answers_no_like_django:
 
 Why Don't People Like Django
@@ -271,5 +299,18 @@ The rest `polls/23/results/`  fails to match first two, but does match
 ``r'^polls/(\d+)/results/$'``, which **captures** the 23.  
 
 Thus ``polls.views.results`` is called with the argument ``23``.  
+
+
+.. _webapp_answers_request_post_values_strings:
+
+Why are ``request.POST`` values always strings?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Think about the interaction process with websites.  You enter text,
+  and it goes off for processing.  
+* Strings are the universal currency of computing!  
+* Even when something looks like an int, it is better not to guess (e.g. ZIP codes).
+* `Explicit is better than Implicit` is part of the `Zen of Python <http://www.python.org/dev/peps/pep-20/>`_ .  SNARK:  `Django isn't always very explicit <webapp_answers_django_magical>`.
+
 
 
