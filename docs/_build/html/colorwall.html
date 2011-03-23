@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Intro to Programming Python: Color Wall &mdash; PyStar: Programming Workshops for Women and Their Friends</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pystar_flaming_32_150px.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="top" title="PyStar: Programming Workshops for Women and Their Friends" href="index.html" />
+    <link rel="next" title="Intro to Data Types" href="datatypes.html" />
+    <link rel="prev" title="Answers for Webapp Questions" href="webapp_answers.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+          <p class="logo"><a href="index.html">
+            <img class="logo" src="_static/pystar_flaming_160_150px.png" alt="Logo"/>
+          </a></p>
+        <h1><a href="index.html">PyStar: Programming Workshops for Women and Their Friends</a></h1>
+        <div class="rel">
+          <a href="webapp_answers.html" title="Answers for Webapp Questions"
+             accesskey="P">previous</a> |
+          <a href="datatypes.html" title="Intro to Data Types"
+             accesskey="N">next</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="intro-to-programming-python-color-wall">
+<span id="coiorwall-label"></span><h1>Intro to Programming Python: Color Wall<a class="headerlink" href="#intro-to-programming-python-color-wall" title="Permalink to this headline">¶</a></h1>
+<p>The ColorWall is a framework for implementing and displaying
+effects for a wall of pixels. During this workshop, you will write
+your own ColorWall and design effects for it.</p>
+<img alt="_images/rainbow.png" src="_images/rainbow.png" />
+<img alt="_images/matrix.png" src="_images/matrix.png" />
+<img alt="_images/twinkle.png" src="_images/twinkle.png" />
+<p>You can also see the ColorWall in action here: <a class="reference external" href="http://vimeo.com/16522975">http://vimeo.com/16522975</a>.</p>
+<p>Download the files you will need here:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Linux/Mac Users</dt>
+<dd><ul class="first last simple">
+<li><a class="reference download internal" href="_downloads/ColorWall.tar.gz"><tt class="xref download docutils literal"><span class="pre">ColorWall.tar.gz</span></tt></a></li>
+<li><a class="reference download internal" href="_downloads/WorkshopExercises.zip"><tt class="xref download docutils literal"><span class="pre">WorkshopExercises.tar.gz</span></tt></a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Windows Users</dt>
+<dd><ul class="first last simple">
+<li><a class="reference download internal" href="_downloads/ColorWall.zip"><tt class="xref download docutils literal"><span class="pre">ColorWall.zip</span></tt></a></li>
+<li><a class="reference download internal" href="_downloads/WorkshopExercises.tar.gz"><tt class="xref download docutils literal"><span class="pre">WorkshopExercises.zip</span></tt></a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="section" id="basic-programming">
+<h2>Basic Programming<a class="headerlink" href="#basic-programming" title="Permalink to this headline">¶</a></h2>
+<p>First let&#8217;s work through some basic terminal exercises to learn how
+we use Python to work with numbers &amp; text.</p>
+<p><a class="reference internal" href="datatypes.html"><em>Data Types</em></a></p>
+</div>
+<div class="section" id="workshop-exercises">
+<h2>Workshop Exercises<a class="headerlink" href="#workshop-exercises" title="Permalink to this headline">¶</a></h2>
+<p>Unzip/Untar the workshop exercises and go through them.</p>
+</div>
+<div class="section" id="layout">
+<h2>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<p>The ColorWall code consists of 3 files:</p>
+<ul class="simple">
+<li>run.py &#8211; takes arguments from your environment (like a specified width and height for the wall), set up the wall and effects, and run them.</li>
+<li>wall.py &#8211; the logic behind the matrix of squares that make up the wall. This file has a comment block at the top that summarize the interface that you will use when programming your own effects.</li>
+<li>effects.py &#8211; where effects live. This is the main file that you&#8217;ll be editing during the workshop.</li>
+</ul>
+</div>
+<div class="section" id="run-the-colorwall">
+<h2>Run the ColorWall<a class="headerlink" href="#run-the-colorwall" title="Permalink to this headline">¶</a></h2>
+<p>If you want to try doing a git clone, you can grab
+the ColorWall code from <a class="reference external" href="https://github.com/jesstess/ColorWall">Git Hub</a>
+and run it from there, otherwise go into the directory that was created when
+you unzipped/untarred the ColorWall download.</p>
+<p>Run the example effects:</p>
+<p>On Windows, assuming the ColorWall software was downloaded to C:UsersyourusernameDesktopColorWall</p>
+<div class="highlight-bash"><div class="highlight"><pre>run <span class="se">\P</span>ython27<span class="se">\p</span>ython.exe <span class="s2">&quot;C:\Users\yourusername\Desktop\colorwall\ColorWall\run.py&quot;</span>
+</pre></div>
+</div>
+<p>On OS X, assuming the ColorWall software was downloaded to ~/Desktop/colorwall/ColorWall run</p>
+<div class="highlight-bash"><div class="highlight"><pre>python ~/Desktop/colorwall/ColorWall/run.py
+</pre></div>
+</div>
+<p>On Linux, assuming the ColorWall software was downloaded to ~/Desktop/colorwall/ColorWall run</p>
+<div class="highlight-bash"><div class="highlight"><pre>python ~/Desktop/colorwall/ColorWall/run.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-resources">
+<h2>Other Resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall">http://openhatch.org/wiki/Boston_Python_workshop/Friday_handout#Setting_up_the_ColorWall</a></p>
+<p><a class="reference external" href="https://lsblakk&#64;github.com/lsblakk/ColorWall.git">https://lsblakk&#64;github.com/lsblakk/ColorWall.git</a> ColorWall code on GitHub</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a> has the
+explanation for what HSV color space means. What it boils down
+to for the purposes of our project is this: each pixel gets 3
+values: hue (e.g. am I red, green, or blue), saturation
+(am I pale or intense), and value (am I bright or dark).
+effects.py has example effects that
+exercise hue, saturation, and value independently.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_machine.html">Setup Your Machine!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webapp.html">Intro to Programming Python: Web App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webapp_answers.html">Answers for Webapp Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webapp_answers.html#how-do-i-save-my-work">How Do I save my work?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webapp_answers.html#how-do-i-test-my-work">How Do I test my work?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Intro to Programming Python: Color Wall</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-programming">Basic Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workshop-exercises">Workshop Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layout">Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-colorwall">Run the ColorWall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-resources">Other Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Intro to Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brainstorming.html">Brainstorming</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="webapp_answers.html" title="Answers for Webapp Questions"
+             >previous</a> |
+          <a href="datatypes.html" title="Intro to Data Types"
+             >next</a>
+            <br/>
+            <a href="_sources/colorwall.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+      Last updated on Mar 22, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
