@@ -525,38 +525,45 @@ that your app plays nicely with other apps, you can publish that directory separ
 
 
 
-Part XX Test your Django App
+Part XX Test your Django Project 
 =======================================
 
-#.  Copy :download:`test_polls.py` into your project directory (i.e., in ``myproject``)
-
-#.  Add it into your project code git repo:
-
-    ..  code-block:: bash
-        
-        git add test_polls.py
-        # messages can be multiline, but watch quotes!
-        git add test_polls.py
-        git commit tests_polls.py -m "added tests"
-
-#.  Run the tests
+#.  Run the default Django tests
 
     ..  code-block:: bash
 
         python manage.py test
 
-#.  Examine ``polls_tests.py`` in your editor.  This file (provided by us)
-    gives tests for many of the points on the original spec sheet.  Normally
+#.  Examine the output.  If there are errors, what are they?  [:ref:`answer <webapp_answers_django_project_testing_results>`]
+
+#.  Copy :download:`test_polls.py` into ``polls`` directory 
+
+#.  Add it into your project code git repo:
+
+    ..  code-block:: bash
+        
+        git add polls/test_polls.py
+        git commit -m "added tests"
+
+#.  Examine ``test_polls.py`` in your editor.  This file (provided by us)
+    gives acceptance tests for many of the points on the original spec sheet.  Normally
     this is the sort of thing you would write yourself, after reading your 
-    spec, and deciding on acceptence criteria.  
+    spec, and deciding on acceptence criteria.  We done it here to help you
+    along, and provide an example for your work in the future!
+
+    Writing good tests *is hard*!
 
 #.  Discuss with your groups why testing matters.  [:ref:`answer <webapp_answers_why_testing_matters>`]
+
+
+We will return to testing throughout this document as we add new features.
+
 
 .. seealso::
 
     http://docs.djangoproject.com/en/dev/topics/testing/, which
-    goes into this in much greater detail.  In particualar,
-    
+    goes into this in much greater detail.  
+
 
 Part XX: Refine Your Workflow!
 ==================================
@@ -575,119 +582,124 @@ the features that our protype spec outlined.
 Part XX  Philosphy Break!
 ===========================
 
-[Not done!]
+In the following sections, there will be **Django Philosophy** breaks to 
+highlight major ideas of the Django framework.  Other web
+frameworks might make these choices or use these terms differently.  Who is right?
+[:ref:`answer <webapp_answers_the_right_framework>`]
 
 
 
 Part XX Poll and Choice Models
 ========================================
 
+Remember those files from **Create The Poll App** above?  Let's tackle ``models.py`` 
+This will contain our **models**, which correspond to our database layout, with additional metadata.
 
-The first step in writing a database Web app in Django is to 
-define your models -- essentially, your database layout, with additional metadata.
+    ..  admonition:: Django-Philosophy
 
-Django Philosophy
-------------------
+        A model is the single, definitive source of data about your data.
+        It contains the essential fields and behaviors of the data you're storing. 
+        Django follows the DRY ("Don't Repeat Yourself") Principle. The goal is to 
+        define your data model in one place and automatically derive things from it.
 
-A model is the single, definitive source of data about your data.
-It contains the essential fields and behaviors of the data you're storing. 
-Django follows the DRY ("Don't Repeat Yourself") Principle. The goal is to 
-define your data model in one place and automatically derive things from it.
+        (If you've used SQL before, you might be interested to know that each 
+        Django ``model`` corresponds to a SQL ``table``.  This simple correspondence
+        between models and tables is a design choice, and not everyone likes it. [:ref:`discussion <webapp_answers_no_like_django>`])
 
-(If you've used SQL before, you might be interested to know that each 
-Django ``model`` corresponds to a SQL ``table``.)
+In our simple poll app, we'll create two models: polls and choices.
 
-In our simple poll app, we'll create two models: polls and choices. 
-A poll has a question and a publication date. A choice has two fields: the 
-text of the choice and a vote tally. Each choice is associated with a poll. 
+* A poll has 
+    
+    * a question
+    * a publication date. 
+
+* A choice has two fields:
+    
+    * the text of the choice 
+    * a vote tally. 
+
+Each choice is associated with a poll. 
 
 These concepts are represented by Python classes. 
-Edit the polls/models.py file so it looks like this:
 
-.. code-block:: python
+#. Edit the ``polls/models.py`` file so it looks like this:
 
-     from django.db import models
-     
-     class Poll(models.Model):
-         question = models.CharField(max_length=200)
-         pub_date = models.DateTimeField()
-     
-     class Choice(models.Model):
-         poll = models.ForeignKey(Poll)
-         choice = models.CharField(max_length=200)
-         votes = models.IntegerField()
+    .. code-block:: python
 
-Save the models.py file.
+         from django.db import models
+         
+         class Poll(models.Model):
+             question = models.CharField(max_length=200)
+             pub_date = models.DateTimeField()
+         
+         class Choice(models.Model):
+             poll = models.ForeignKey(Poll)
+             choice = models.CharField(max_length=200)
+             votes = models.IntegerField()
+
+#. Save the ``models.py`` file.
 
 All models in Django code are represented by a class that subclasses 
-django.db.models.Model. Each model has a number of class variables, 
+``django.db.models.Model``. Each model has a number of class variables, 
 each of which represents a database field in the model.
 
-Each field is represented by an instance of a Field class -- e.g., CharField
-for character fields and DateTimeField for datetimes. This tells Django 
+.. seealso::  http://docs.djangoproject.com/en/dev/topics/db/models/
+
+Each field is represented by an instance of a Field class -- e.g., ``CharField``
+for character fields and ``DateTimeField`` for datetimes. This tells Django 
 what type of data each field holds.
 
 The name of each Field instance (e.g. question or pub_date) is the field's 
 name, in machine-friendly format. You'll use this value in your Python code, 
 and your database will use it as the column name.
 
-Some Field classes have required elements. CharField, for example, requires
-that you give it a max_length. That's used not only in the database schema, 
+Some Field classes have required elements. ``CharField``, for example, requires
+that you give it a ``max_length``. That's used not only in the database schema, 
 but in validation, as we'll soon see.
 
-Finally, note a relationship is defined, using ForeignKey. That tells Django each
-Choice is related to a single Poll. Django supports all the common database
+Finally, note a relationship is defined, using ``ForeignKey``. That tells Django each
+``Choice`` is related to a single ``Poll``. Django supports all the common database
 relationships: many-to-ones, many-to-manys and one-to-ones.
 
-Activating models
-------------------
+Activate The Models
+------------------------
 
-That small bit of model code gives Django a lot of information. With it, Django is able to:
+``models.py`` gives Django a lot of information. With it, Django is able to:
 
-* Create a database schema (CREATE TABLE statements) for this app.
-* Create a Python database-access API for accessing Poll and Choice objects.
+* Create a database schema (``CREATE TABLE`` statements) for this app.
+* Create a Python database-access API for accessing ``Poll`` and ``Choice`` objects.
 
 But first we need to tell our project that the polls app is installed.
 
-Django Philosophy
-------------------
+#.  Edit the ``settings.py`` file again, and change the ``INSTALLED_APPS`` setting to 
+    include the string 'polls' as the last entry.  [:ref:`answer <webapp_answers_added_polls>`]
 
-Django apps are "pluggable": You can use an app in multiple projects, and 
-you can distribute apps, because they don't have to be tied to a given Django installation.
 
-Edit the settings.py file again, and change the INSTALLED_APPS setting to 
-include the string 'polls'. So it'll look like this:
+#.  Save  ``settings.py`` file.
 
-.. code-block:: python
 
-    INSTALLED_APPS = (
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
-        'django.contrib.messages',
-        # Uncomment the next line to enable the admin:
-        # 'django.contrib.admin',
-        # Uncomment the next line to enable admin documentation:
-        # 'django.contrib.admindocs',
-         'polls',
-     )
+Commit!
+---------
 
-Save the settings.py file.
+Add and commit all your work.
+
+
+Syncronise the Database
+--------------------------
 
 Now Django knows to include the polls app. 
 
-If you care about SQL, you can try the following command:
+#.  Examine the SQL produced by the following command:
 
-.. code-block:: bash
+    .. code-block:: bash
 
-    python manage.py sql polls
+        python manage.py sql polls
 
-For now, let's just Django's ``syncdb`` tool to create the database tables for Poll objects:
+#.  Create the tables for the ``polls`` app.
 
-.. code-block:: bash
+    .. code-block:: bash
 
-    python manage.py syncdb
+        python manage.py syncdb
 
 The syncdb looks for ``apps`` that have not yet been set up. To set them up, 
 it runs the necessary SQL commands against your database. This creates all the 
@@ -697,7 +709,7 @@ will only ever create the tables that don't exist.
 
 `More info`: Read the django-admin.py `documentation <http://docs.djangoproject.com/en/dev/ref/django-admin/>`_ for full information on what the manage.py utility can do.
 
-Playing with the API
+Play with the API
 ------------------------------
 
 Now, let's hop into the interactive Python shell and play around with 
@@ -710,43 +722,52 @@ the free API Django gives you. To invoke the Python shell, use this command:
 We're using this instead of simply typing "python", because manage.py sets 
 up the project's environment for you. "Setting up the environment" involves two things:
 
-# Making sure ``polls`` is on the right path to be imported.
-# Setting the DJANGO_SETTINGS_MODULE environment variable, which gives Django the path to your settings.py file.
+#.  Making sure ``polls`` is on the right path to be imported.
+#.  Setting the ``DJANGO_SETTINGS_MODULE`` environment variable, which gives Django the path to your ``settings.py`` file.
 
 Once you're in the shell, explore the database API:
 
-Let's import the model classes we just wrote:
+#.  import the model classes we just wrote:
 
-.. code-block:: python
+    .. code-block:: python
 
-    >>> from polls.models import Poll, Choice
+        >>> from polls.models import Poll, Choice
 
-To list all the current Polls:
+#.   list all the current Polls:
 
-.. code-block:: python
+    .. code-block:: python
 
-    >>> Poll.objects.all()
-    []
+        >>> Poll.objects.all()
+        []
 
-It is an empty list because there are no polls. Let's add one!
+    How many polls is this?  
 
-.. code-block:: python
+#.  Add a ``Poll``.
 
-     >>> import datetime
-     >>> p = Poll(question="What's up?", pub_date=datetime.datetime.now())
+    .. code-block:: python
 
-Then we'll save the object into the database. You have to call save() explicitly.
+         >>> import datetime
+         >>> p = Poll(question="What's up?", pub_date=datetime.datetime.now())
 
-.. code-block:: python
+#.  Save the ``Poll`` instance into the database. You have to call save() explicitly.
 
-    >>> p.save()
+    .. code-block:: python
 
-Great. Now, because it's been saved, it has an ID in the database. You can see that by typing this into the Python shell::
+        >>> p.save()
 
-.. code-block:: python
+#.  Get the ``id`` of the Poll instance. Because it's been saved, it has an ID in the database
 
-     >>> p.id
-     1
+    .. code-block:: python
+
+         >>> p.id
+         1
+
+#.  What other methods and attributes does this ``Poll`` instance have?
+
+    .. code-block:: python
+
+        >>> dir(p)
+        >>> help(p)
 
 You can also access the database columns (Fields, in Django parlance) as Python attributes::
 
@@ -905,12 +926,13 @@ database file. Browse around! Hooray.
 
 When you're satisfied with your Poll data, you can close it.
 
-!!!! Save your WORK!!!!!!!
 
 Enough databases for now
 -----------------------------------------
 
 In the next section of the tutorial, you'll write ``views`` that let other people look at your polls.
+
+
 
 
 
@@ -922,12 +944,12 @@ made any web pages that ``render`` the polls into HTML.
 
 Let's change that with Django views.
 
-Philosophy
-----------------
+    ..  admonition:: Django-Philosophy
 
-A view is a “type” of Web page in your Django application that generally serves a specific 
-function and has a specific template. For example, in a Weblog application, you might 
-have the following views:
+        A view is a “type” of Web page in your Django application that generally serves a specific 
+        function and has a specific template. 
+
+For example, in a Weblog application, you might have the following views:
 
 * Blog homepage – displays the latest few entries.
 * Entry “detail” page – permalink page for a single entry.
@@ -1246,6 +1268,7 @@ suitable for use in the {% for %} tag.
 Load the new detail page in your browser: http://127.0.0.1:8000/polls/1/  
 The poll choices now appear.
 
+
 Part XX Let the people vote
 ============================================
 
@@ -1400,6 +1423,8 @@ This is a great time to COMMIT!
     git add -A
     git commit -m "My voting app works"
     git push origin master
+
+
 
 Part XX Editing your polls in the Django admin interface
 =============================================================
@@ -1653,6 +1678,8 @@ years. Then it drills down to months and, ultimately, days.
 That's the basics of the Django admin interface!
 
 Create a poll! Create some choices. Find your views, and show them to the world.
+
+
 
 Part XX Commit, again!
 ================================

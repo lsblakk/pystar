@@ -170,6 +170,21 @@ When you import or otherwise run a piece of Python code, it will create a .pyc f
 
 
 
+
+.. _webapp_answers_django_project_testing_results:
+
+What is the result of the standard ``test``?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some that we got when we ran things:
+
+.. include::  test_log_default.txt
+
+Note the missing templates, which make some sense.  We think the 
+``ERROR: test_password_change_fails_with_invalid_old_password`` has to do 
+with sqlite, but who knows?  We probably *should know*.  
+
+
 .. _webapp_answers_why_only_restore_py_not_pyc:
 
 
@@ -179,5 +194,47 @@ Why do I only need to restore settings.py and not settings.pyc?
 Well first off, remember how we set up git to exclude ``.pyc`` files from the repo? So ``settings.pyc`` was never put into the repo and therefore cannot be recovered from it. Not to worry though. When you restore ``settings.py`` and restart the dev server, ``settings.pyc`` is built automatically. Nifty!
 
 
+.. _webapp_answers_the_right_framework:
 
+Which Framework is Right?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Which one do **you** think is right?  Why is that, again?
+
+You are completely correct -- gold star!
+
+
+
+.. _webapp_answers_no_like_django:
+
+Why Don't People Like Django
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* It's too magical.  Too many mysterious files
+* ``django.models`` is limited.  Not everything is expressable as a 1:1 
+  mapping with a db table.  What if I want to store in other types of 
+  data stores?  
+* (insert more reasons here!)
+
+
+
+.. _webapp_answers_added_polls:
+
+With Polls Added
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        # Uncomment the next line to enable the admin:
+        # 'django.contrib.admin',
+        # Uncomment the next line to enable admin documentation:
+        # 'django.contrib.admindocs',
+         'polls',
+     )
 
