@@ -71,7 +71,6 @@ To support these pages, you need these abstractions (models, objects):
 
 #. Polls
 #. Choices
-#. Votes
 
 
 
@@ -375,14 +374,30 @@ Set up the Database
 
     The syncdb command looks at the ``INSTALLED_APPS`` setting and creates any necessary 
     database tables according to the database settings in your ``settings.py`` file. You'll see a 
-    message for each database table it creates, and you'll get a prompt asking you if you'd 
-    ike to create a superuser account for the authentication system. Go ahead and do that.
+    message for each database table it creates.
 
-    Does this seem magical?  [:ref:`answer <webapp_answers_django_magical>`]
+#.  When prompted, you'll get a prompt asking you if you'd like to create a superuser account for the authentication system. Say yes!  Use 'super' as your password::
+
+        You just installed Django's auth system, which means you don't have any superusers defined.
+        Would you like to create one now? (yes/no): yes
+        Username (Leave blank to use 'barack'): super
+        E-mail address: super@super.com
+        Password: 
+        Password (again): 
+        Superuser created successfully.
+        Installing index for auth.Permission model
+        Installing index for auth.Group_permissions model
+        Installing index for auth.User_user_permissions model
+        Installing index for auth.User_groups model
+        Installing index for auth.Message model
+        Installing index for polls.Choice model
+        No fixtures found.
+
+
+#.  Does this seem magical?  [:ref:`answer <webapp_answers_django_magical>`]
 
 
 #.  **Pop quiz**: Does ``database.db`` exist right now?  Find out!  [:ref:`answer <webapp_answers_database_db_exists_after_sync>`]
-
 
 #.  Save *and commit* your work (don't save ``database.db`` -- 
     why not?  [:ref:`answer <webapp_answers_why_not_save_database_db>`])::
@@ -588,355 +603,7 @@ frameworks might make these choices or use these terms differently.  Who is righ
 [:ref:`answer <webapp_answers_the_right_framework>`]
 
 
-
-Part XX Poll and Choice Models
-========================================
-
-Remember those files from **Create The Poll App** above?  Let's tackle ``models.py`` 
-This will contain our **models**, which correspond to our database layout, with additional metadata.
-
-    ..  admonition:: Django-Philosophy
-
-        A model is the single, definitive source of data about your data.
-        It contains the essential fields and behaviors of the data you're storing. 
-        Django follows the DRY ("Don't Repeat Yourself") Principle. The goal is to 
-        define your data model in one place and automatically derive things from it.
-
-        (If you've used SQL before, you might be interested to know that each 
-        Django ``model`` corresponds to a SQL ``table``.  This simple correspondence
-        between models and tables is a design choice, and not everyone likes it. [:ref:`discussion <webapp_answers_no_like_django>`])
-
-In our simple poll app, we'll create two models: polls and choices.
-
-* A poll has 
-    
-    * a question
-    * a publication date. 
-
-* A choice has two fields:
-    
-    * the text of the choice 
-    * a vote tally. 
-
-Each choice is associated with a poll. 
-
-These concepts are represented by Python classes. 
-
-#. Edit the ``polls/models.py`` file so it looks like this:
-
-    .. code-block:: python
-
-         from django.db import models
-         
-         class Poll(models.Model):
-             question = models.CharField(max_length=200)
-             pub_date = models.DateTimeField()
-         
-         class Choice(models.Model):
-             poll = models.ForeignKey(Poll)
-             choice = models.CharField(max_length=200)
-             votes = models.IntegerField()
-
-#. Save the ``models.py`` file.
-
-All models in Django code are represented by a class that subclasses 
-``django.db.models.Model``. Each model has a number of class variables, 
-each of which represents a database field in the model.
-
-.. seealso::  http://docs.djangoproject.com/en/dev/topics/db/models/
-
-Each field is represented by an instance of a Field class -- e.g., ``CharField``
-for character fields and ``DateTimeField`` for datetimes. This tells Django 
-what type of data each field holds.
-
-The name of each Field instance (e.g. question or pub_date) is the field's 
-name, in machine-friendly format. You'll use this value in your Python code, 
-and your database will use it as the column name.
-
-Some Field classes have required elements. ``CharField``, for example, requires
-that you give it a ``max_length``. That's used not only in the database schema, 
-but in validation, as we'll soon see.
-
-Finally, note a relationship is defined, using ``ForeignKey``. That tells Django each
-``Choice`` is related to a single ``Poll``. Django supports all the common database
-relationships: many-to-ones, many-to-manys and one-to-ones.
-
-Activate The Models
-------------------------
-
-``models.py`` gives Django a lot of information. With it, Django is able to:
-
-* Create a database schema (``CREATE TABLE`` statements) for this app.
-* Create a Python database-access API for accessing ``Poll`` and ``Choice`` objects.
-
-But first we need to tell our project that the polls app is installed.
-
-#.  Edit the ``settings.py`` file again, and change the ``INSTALLED_APPS`` setting to 
-    include the string 'polls' as the last entry.  [:ref:`answer <webapp_answers_added_polls>`]
-
-
-#.  Save  ``settings.py`` file.
-
-
-Commit!
----------
-
-Add and commit all your work.
-
-
-Syncronise the Database
---------------------------
-
-Now Django knows to include the polls app. 
-
-#.  Examine the SQL produced by the following command:
-
-    .. code-block:: bash
-
-        python manage.py sql polls
-
-#.  Create the tables for the ``polls`` app.
-
-    .. code-block:: bash
-
-        python manage.py syncdb
-
-The syncdb looks for ``apps`` that have not yet been set up. To set them up, 
-it runs the necessary SQL commands against your database. This creates all the 
-tables, initial data and indexes for any apps you have added to your project since 
-the last time you ran syncdb. syncdb can be called as often as you like, and it 
-will only ever create the tables that don't exist.
-
-`More info`: Read the django-admin.py `documentation <http://docs.djangoproject.com/en/dev/ref/django-admin/>`_ for full information on what the manage.py utility can do.
-
-Play with the API
-------------------------------
-
-Now, let's hop into the interactive Python shell and play around with 
-the free API Django gives you. To invoke the Python shell, use this command:
-
-.. code-block:: bash
-
-    python manage.py shell
-
-We're using this instead of simply typing "python", because manage.py sets 
-up the project's environment for you. "Setting up the environment" involves two things:
-
-#.  Making sure ``polls`` is on the right path to be imported.
-#.  Setting the ``DJANGO_SETTINGS_MODULE`` environment variable, which gives Django the path to your ``settings.py`` file.
-
-Once you're in the shell, explore the database API:
-
-#.  import the model classes we just wrote:
-
-    .. code-block:: python
-
-        >>> from polls.models import Poll, Choice
-
-#.   list all the current Polls:
-
-    .. code-block:: python
-
-        >>> Poll.objects.all()
-        []
-
-    How many polls is this?  
-
-#.  Add a ``Poll``.
-
-    .. code-block:: python
-
-         >>> import datetime
-         >>> p = Poll(question="What's up?", pub_date=datetime.datetime.now())
-
-#.  Save the ``Poll`` instance into the database. You have to call save() explicitly.
-
-    .. code-block:: python
-
-        >>> p.save()
-
-#.  Get the ``id`` of the Poll instance. Because it's been saved, it has an ID in the database
-
-    .. code-block:: python
-
-         >>> p.id
-         1
-
-#.  What other methods and attributes does this ``Poll`` instance have?
-
-    .. code-block:: python
-
-        >>> dir(p)
-        >>> help(p)
-
-You can also access the database columns (Fields, in Django parlance) as Python attributes::
-
-.. code-block:: python
-
-     >>> p.question
-     "What's up?"
-     >>> p.pub_date
-     datetime.datetime(2007, 7, 15, 12, 00, 53)
-
-We can time travel back in time! Or at least, we can send the Poll back in time::
-
-.. code-block:: python
-
-     # Change values by changing the attributes, then calling save().
-     >>> p.pub_date = datetime.datetime(2007, 4, 1, 0, 0)
-     >>> p.save()
-     >>> p.pub_date
-     datetime.datetime(2007, 4, 1, 0, 0)
-
-Finally, we can also ask Django to show a list of all the Poll objects available::
-
-.. code-block:: python
-
-     >>> Poll.objects.all()
-     [<Poll: Poll object>]
-
-Wait a minute. <Poll: Poll object> is an utterly unhelpful representation of this object. Let's fix that by editing the polls model
-Use your ``'text editor``' to open the polls/models.py file and adding a __unicode__() method to both Poll and Choice::
-
-    class Poll(models.Model):
-        # ...
-        def __unicode__(self):
-            return self.question
-
-    class Choice(models.Model):
-        # ...
-        def __unicode__(self):
-            return self.choice
-
-It's important to add __unicode__() methods to your models, not only for your own sanity when dealing with the interactive prompt, but also because objects' representations are used throughout Django's automatically-generated admin.
-
-(If you're using to Python programming from a time in the past, you might have seen __str__(). Django prefers you use __unicode__() instead.)
-
-Note these are normal Python methods. Let's add a custom method, just for demonstration::
-
-     import datetime
-     # ...
-     class Poll(models.Model):
-         # ...
-         def was_published_today(self):
-             return self.pub_date.date() == datetime.date.today()
-
-Note the addition of import datetime to reference Python's standard datetime module. This allows
-us to use the datetime library module in models.py by calling it with datetime. To see what functions
-come with a module, you can test it in the interactive shell:
-
-.. code-block:: python
-
-    >>> dir(datetime)
-    ['MAXYEAR', 'MINYEAR', '__doc__', '__file__', '__name__', '__package__', 'date', 'datetime',
-    'datetime_CAPI', 'time', 'timedelta', 'tzinfo']
-
-Save these changes to the models.py file, and then start a new Python interactive shell by running python manage.py shell again::
-
-    >>> from polls.models import Poll, Choice
-
-Check it out: our __unicode__() addition worked::
-
-     >>> Poll.objects.all()
-     [<Poll: What's up?>]
-
-If you want to search your database, you can do it using the ``'filter``' method on the ``objects`` attribute of Poll. For example::
-
-     >>> polls = Poll.objects.filter(question="What's up?")
-     >>> polls
-     [<Poll: What's up?>]
-     >>> polls[0].id
-     1
-
-If you try to search for a poll that does not exist, ``filter`` will give you the empty list. The ``'get``' method will always return one hit, or raise an exception.
-
-.. code-block:: python
-
-     >>> Poll.objects.filter(question="What time is it?")
-     []
-    
-     >>> Poll.objects.get(id=1)
-     <Poll: What's up?>
-     >>> Poll.objects.get(id=2)
-     Traceback (most recent call last):
-         ...
-     DoesNotExist: Poll matching query does not exist.
-
-Adding choices
-------------------------
-
-Right now, we have a Poll in the database, but it has no Choices. See::
-
-     >>> p = Poll.objects.get(id=1)
-     >>> p.choice_set.all()
-     []
-
-So let's create three choices::
-
-    >>> p.choice_set.create(choice='Not much', votes=0)
-    <Choice: Not much>
-    >>> p.choice_set.create(choice='The sky', votes=0)
-    <Choice: The sky>
-    >>> c = p.choice_set.create(choice='Just hacking again', votes=0)
-    >>> c
-    <Choice: Just hacking again>
-
-Every Choice can find the Poll that it belongs to::
-
-    >>> c.poll
-    <Poll: What's up?>
-
-We just used this, but now I'll explain it: Because a Poll can have more than one Choice, Django creates the ``'choice_set``' attribute on each Poll. You can use that to look at the list of available Choices, or to create them.
-
-.. code-block:: python
-
-     >>> p.choice_set.all()
-     [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]
-     >>> p.choice_set.count()
-     3
-
-Visualize the database in SQLite Manager
---------------------------------------------------------------
-
-This is optional, but interesting if you want to see your database in a GUI and/or
-know how to access your database.db from outside the project.
-
-When you call ``.save()`` on a model instance, Django saves that to the database.
-(Remember, Django is a web programming framework built around the idea of 
-saving data in a SQL database.)
-
-Where ``is`` that database? Take a look at ``'settings.py``' in your text editor. You 
-can see that ``database.db`` is the filename. In ``'settings.py``' Python calculates
-the path to the current file.
-
-So now:
-
-* Open up Firefox
-* Find SQLite Manager in ``'Tools``'->``'SQLite Manager``'
-* In the SQLite Manager menus, choose: ``'Database``'->``'Connect Database``'
-* Find the ``'pystar/django_projects/myproject/database.db``' file.
-
-Browse your tables! This is another way of looking at the data you just created.
-
-``'Note``': In order to find the ``database.db`` file, you might need to ask SQLite 
-Manager to show you all files, not just the ``\*.sqlite`` files.
-
-Now you know that you be able to find this
-database file. Browse around! Hooray.
-
-When you're satisfied with your Poll data, you can close it.
-
-
-Enough databases for now
------------------------------------------
-
-In the next section of the tutorial, you'll write ``views`` that let other people look at your polls.
-
-
-
-
-
-Part XX Letting the (local) world see your polls, with views
+Part XX Views (Mockups!)
 ===================================================================
 
 We have all these polls in our database. However, no one can see them, because we never 
@@ -1006,7 +673,6 @@ Django extracts the captured values and passes them to a function of your choosi
 This is the role of the ``callback function`` above.  When a regular expression
 matches the url, Django calls the associated ``callback function`` with any 
 *captured* parts as parameters.  This will much clearer after the next section.
-
 
 Adding URLs to urls.py
 ------------------------
@@ -1110,8 +776,451 @@ Save the views.py file. Now take a look in your browser at "/polls/34/". It'll r
 detail() method and display whatever ID you provide in the URL. Try "/polls/34/results/" 
 and "/polls/34/vote/" too -- these will display the placeholder results and voting pages.
 
-Write views that actually do something
------------------------------------------------------------
+Adding more detail (mocked up!)
+----------------------------------
+
+Let's give the detail view some more ``'detail``'.
+
+We pass in a variable called ``'poll``' that points to an instance of the Poll class. 
+So you can pull out more information by writing this into the "polls/detail.html" template:
+
+.. code-block:: html
+
+    <h1>{{ poll.question }}</h1>
+    <ul>
+    {% for choice in poll.choice_set.all %}
+        <li>{{ choice.choice }}</li>
+    {% endfor %}
+    </ul>
+    
+
+The template system uses dot-lookup syntax to access variable attributes. 
+Django's template language is a bit sloppy: in pure Python, the ``'.``' (dot) only 
+lets you get attributes from objects. In this example, we are just doing attribute 
+lookup, but in general if you're not sure how to get data out of an object in Django, try ``'dot``'.
+
+Method-calling happens in the {% for %} loop: poll.choice_set.all is interpreted as the 
+Python code poll.choice_set.all(), which returns a sequence of Choice objects and is 
+suitable for use in the {% for %} tag.
+
+Load the new detail page in your browser: http://127.0.0.1:8000/polls/1/  
+The poll choices now appear.
+
+
+
+
+
+Part XX Poll and Choice Models
+========================================
+
+Remember those files from **Create The Poll App** above?  Let's tackle ``models.py`` 
+This will contain our **models**, which correspond to our database layout, with additional metadata.
+
+    ..  admonition:: Django-Philosophy
+
+        A model is the single, definitive source of data about your data.
+        It contains the essential fields and behaviors of the data you're storing. 
+        Django follows the DRY ("Don't Repeat Yourself") Principle. The goal is to 
+        define your data model in one place and automatically derive things from it.
+
+        (If you've used SQL before, you might be interested to know that each 
+        Django ``model`` corresponds to a SQL ``table``.  This simple correspondence
+        between models and tables is a design choice, and not everyone likes it. [:ref:`discussion <webapp_answers_no_like_django>`])
+
+In our simple poll app, we'll create two models: polls and choices.  As per our 
+spec from the customer:
+
+* A poll has:
+    
+    * a question
+    * a publication date. 
+
+* A choice has two fields:
+    
+    * the text of the choice 
+    * a vote tally. 
+
+Each choice is associated with a poll. 
+
+These concepts are represented by Python classes. 
+
+#. Edit the ``polls/models.py`` file so it looks like this:
+
+    .. code-block:: python
+
+         from django.db import models
+         
+         class Poll(models.Model):
+             question = models.CharField(max_length=200)
+             pub_date = models.DateTimeField()
+         
+         class Choice(models.Model):
+             poll = models.ForeignKey(Poll)
+             choice = models.CharField(max_length=200)
+             votes = models.IntegerField()
+
+#. Save the ``models.py`` file.
+
+All models in Django code are represented by a class that subclasses 
+``django.db.models.Model``. Each model has a number of class variables, 
+each of which represents a database field in the model.
+
+.. seealso::  http://docs.djangoproject.com/en/dev/topics/db/models/
+
+Each field is represented by an instance of a Field class -- e.g., ``CharField``
+for character fields and ``DateTimeField`` for datetimes. This tells Django 
+what type of data each field holds.
+
+The name of each Field instance (e.g. question or pub_date) is the field's 
+name, in machine-friendly format. You'll use this value in your Python code, 
+and your database will use it as the column name.
+
+Some Field classes have required elements. ``CharField``, for example, requires
+that you give it a ``max_length``. That's used not only in the database schema, 
+but in validation, as we'll soon see.
+
+Finally, note a relationship is defined, using ``ForeignKey``. That tells Django each
+``Choice`` is related to a single ``Poll``. Django supports all the common database
+relationships: many-to-ones, many-to-manys and one-to-ones.
+
+Activate The Models
+------------------------
+
+``models.py`` gives Django a lot of information. With it, Django is able to:
+
+* Create a database schema (``CREATE TABLE`` statements) for this app.
+* Create a Python database-access API for accessing ``Poll`` and ``Choice`` objects.
+
+But first we need to tell our project that the polls app is installed.
+
+#.  Edit the ``settings.py`` file again, and change the ``INSTALLED_APPS`` setting to 
+    include the string 'polls' as the last entry.  [:ref:`answer <webapp_answers_added_polls>`]
+
+
+#.  Save  ``settings.py`` file.
+
+
+Commit!
+---------
+
+Add and commit all your work.
+
+
+Syncronise the Database
+--------------------------
+
+Now Django knows to include the polls app. 
+
+#.  Examine the SQL produced by the following command:
+
+    .. code-block:: bash
+
+        python manage.py sql polls
+
+#.  Create the tables for the ``polls`` app.
+
+    .. code-block:: bash
+
+        python manage.py syncdb
+
+The syncdb looks for ``apps`` that have not yet been set up. To set them up, 
+it runs the necessary SQL commands against your database. This creates all the 
+tables, initial data and indexes for any apps you have added to your project since 
+the last time you ran syncdb. syncdb can be called as often as you like, and it 
+will only ever create the tables that don't exist.
+
+`More info`: Read the django-admin.py `documentation <http://docs.djangoproject.com/en/dev/ref/django-admin/>`_ for full information on what the manage.py utility can do.
+
+Explore The Api
+------------------------------
+
+Now, let's hop into the interactive Python shell and play around with 
+the free API Django gives you. To invoke the Python shell, use this command:
+
+.. code-block:: bash
+
+    python manage.py shell
+
+We're using this instead of simply typing "python", because manage.py sets 
+up the project's environment for you. "Setting up the environment" involves two things:
+
+#.  Making sure ``polls`` is on the right path to be imported.
+#.  Setting the ``DJANGO_SETTINGS_MODULE`` environment variable, which gives Django the path to your ``settings.py`` file.
+
+Once you're in the shell, explore the database API:
+
+#.  import the model classes we just wrote:
+
+    .. code-block:: python
+
+        >>> from polls.models import Poll, Choice
+
+#.  list all the current Polls:
+
+    .. code-block:: python
+
+        >>> Poll.objects.all()
+        []
+
+    How many polls is this?  
+
+    `Zen koan:  Can one be a ``Choice`` for a ``Poll`` that doesn't yet exist?`
+
+#.  Add a ``Poll``.
+
+    .. code-block:: python
+
+         >>> import datetime
+         >>> p = Poll(question="What is the Weirdest Cookbook Ever", pub_date=datetime.datetime.now())
+
+#.  Save the ``Poll`` instance into the database. You have to call save() explicitly.
+
+    .. code-block:: python
+
+        >>> p.save()
+
+#.  Get the ``id`` of the Poll instance. Because it's been saved, it has an ID in the database
+
+    .. code-block:: python
+
+         >>> p.id
+         1
+
+#.  What other methods and attributes does this ``Poll`` instance have?
+
+    .. code-block:: python
+
+        >>> dir(p)
+        >>> help(p)
+
+#.  Access the database columns (Fields, in Django parlance) as Python attributes:
+
+    .. code-block:: python
+
+         >>> p.question
+         "What is the Weirdest Cookbook Ever?"
+         >>> p.pub_date
+         datetime.datetime(2007, 7, 15, 12, 00, 53)
+
+#.  Send the Poll back in time:
+
+    .. code-block:: python
+
+         # Change values by changing the attributes, then calling save().
+         >>> p.pub_date = datetime.datetime(2007, 4, 1, 0, 0)
+         >>> p.save()
+         >>> p.pub_date
+         datetime.datetime(2007, 4, 1, 0, 0)
+
+#.  Ask Django to show a list of all the Poll objects available:
+
+    .. code-block:: python
+
+         >>> Poll.objects.all()
+         [<Poll: Poll object>]
+
+Fix The Hideous Default Representation
+---------------------------------------------
+
+Wait a minute!  ``<Poll: Poll object>`` is an utterly unhelpful, truly wretched, beyond comtemptable representation of this object. Let's fix that by editing the ``Polls`` model.
+Use your ``'text editor``' to open the polls/models.py file and adding a ``__unicode__()`` method to both ``Poll`` and ``Choice``::
+
+    class Poll(models.Model):
+        # ...
+        def __unicode__(self):
+            return self.question
+
+    class Choice(models.Model):
+        # ...
+        def __unicode__(self):
+            return self.choice
+
+It's important to add ``__unicode__()`` methods to your models, not only for your own sanity when dealing with the interactive prompt, but also because objects' representations are used throughout Django's automatically-generated admin.  
+
+(If you're using to Python programming from a time in the past, you might have seen ``__str__()``. Django prefers you use __unicode__() instead.)
+
+#.  Enough of these `normal` python methods!  ::
+
+     import datetime
+     # ...
+     class Poll(models.Model):
+         # ...
+         def was_published_today(self):
+             return self.pub_date.date() == datetime.date.today()
+
+    Note the addition of ``import datetime`` to reference Python's standard ``datetime`` module. This allows
+    us to use the datetime library module in ``models.py`` by calling it with ``datetime``. To see what functions
+    come with a module, you can test it in the interactive shell:
+
+    .. code-block:: python
+
+        >>> dir(datetime)
+        ['MAXYEAR', 'MINYEAR', '__doc__', '__file__', '__name__', '__package__', 'date', 'datetime',
+        'datetime_CAPI', 'time', 'timedelta', 'tzinfo']
+
+#. Save these changes to the ``models.py`` file
+
+#. Start a new Python interactive shell by running ``python manage.py shell``::
+
+    >>> from polls.models import Poll, Choice
+
+#. Verify our __unicode__() addition worked::
+
+    >>> Poll.objects.all()
+    [<Poll: What is the Weirdest Cookbook Ever?>]
+
+#. Search your database using the ``'filter``' method on the ``objects`` attribute of Poll""
+
+
+    >>> polls = Poll.objects.filter(question="What is the Weirdest Cookbook Ever?")
+    >>> polls
+    [<Poll: What is the Weirdest Cookbook Ever?>]
+    >>> polls[0].id  # remember python lists start with element 0.
+    1
+
+    If you try to search for a poll that does not exist, ``filter`` will give you the empty list. The ``'get``' method will always return one hit, or raise an exception.
+
+    .. code-block:: python
+
+         >>> Poll.objects.filter(question="What is the Weirdest Cookbook Ever?")
+         []
+         
+         >>> Poll.objects.get(id=1)
+         <Poll: What is the Weirdest Cookbook Ever?>
+         >>> Poll.objects.get(id=2)
+         Traceback (most recent call last):
+             ...
+         DoesNotExist: Poll matching query does not exist.
+
+Add Choices
+------------------------
+
+#.  Observe, there is a Poll in the database, but it has no Choices.
+
+     >>> p = Poll.objects.get(id=1)
+     >>> p.choice_set.all()
+     []
+
+#.  Create three choices::
+
+        >>> p.choice_set.create(choice='To Serve Man', votes=0)
+        <Choice: To Serve Man>
+        >>> p.choice_set.create(choice='The Original Road Kill Cookbook', votes=0)
+        <Choice: The Original Road Kill Cookbook>
+        >>> c = p.choice_set.create(choice='Mini-Mart A La Carte', votes=0)
+        >>> c
+        <Choice: Mini-Mart A La Carte>
+
+#.  Go in reverse!  Find the poll a particular choice belongs to::
+
+        >>> c.poll
+        <Poll: What is the Weirdest Cookbook Ever?>
+
+    Because a Poll can have more than one Choice, Django creates the ``'choice_set``' attribute on each ``Poll``. You can use that to look at the list of available Choices, or to create them.
+
+    .. code-block:: python
+
+         >>> p.choice_set.all()
+         [<Choice: To Serve Man>, <Choice: The Original Road Kill Cookbook>, <Choice: Mini-Mart A La Carte>]
+         >>> p.choice_set.count()
+         3
+
+#.  No really.  Can one be a ``Choice`` for a ``Poll`` that doesn't yet exist?::
+
+    >>> koan = choice("Is this even a choice")
+    >>> koan.poll_id
+    >>> koan.poll
+
+
+Heavy Metal Polling!
+----------------------
+
+#.   From ``python manage.py shell``, run this block of TOTALLY METAL CODE:
+
+    .. code-block:: python
+
+        import datetime
+        import random
+
+        from polls.models import Choice,Poll
+
+        opinions = ['HEINOUS!', 'suxxors', 'rulez!', 
+        'AWESOME!', 'righTEOUS', 'HAVE MY BABY!!!!',
+        'BEYOND METAL','SUCKS','RULES', 'TOTALLY RULES']
+
+        band_names = '''
+        Abonos Meshuggah Xasthur Silencer Fintroll Beherit Basilisk Cryptopsy
+        Tvangeste Weakling Anabantha Behemoth Moonsorrow Morgoth Nattefrost
+        Aggaloch Enthroned Korpiklaani Nile Summoning Nocturnia Smothered
+        Scatered Summoning Wyrd Amesoeurs Solstafi Helrunar Vargnatt Agrypnie
+        Wyrd Agrypnie Blodsrit Burzum Chaostar Decadence Bathory Leviathan
+        Hellraiser Mayhem Katharsis Helheim Agalloch Therion Windir Ragnarok
+        Arckanum Durdkh Emperor Sulphur Tsjuder Ulver Marduk Luror Edguy
+        Enslaved Epica Gorgoroth Gothminister Immortal Isengard Kamelot
+        Kataklysm Kreator Maras Megadeath Metallica Moonspell Morgul Morok
+        Morphia Necrophagist Opeth Origin Pantera Pestilence Putrefy Vader
+        Runenblut Possessed Sanatorium Profanum Satyricon Antichrist Sepultura
+        Eluveitie Altare Gallhammer Sirenia Slavland Krada Tribulation Venom
+        ObituarObituarObituarObituarObituarObituarismember Vomitory
+        Suffocation Taake Testament ToDieFor Unleashed'''.strip.split()
+
+
+        def make_metal_poll(bandname,opinions):
+            pub = datetime.datetime.now()
+            marks = '?' * random.randint(1,5)
+            question = bandname + marks
+            chosen = random.sample(opinions,5)
+            choices = list()
+            for c in chosen:
+                votes = random.randint(1,1000)
+                choices.append(Choice(choice=c,votes=votes))
+            
+            p = Poll(question=bandname,pub_date=pub)
+            p.save()
+            p.choice_set=choices
+            return p
+
+        polls = [make_metal_poll(band,opinions) for band in band_names]
+
+#.   Discuss what this code does!
+
+
+Test the Models
+-------------------
+
+[TODO!!!!!!!!!!!!!!!]
+
+
+
+
+Explore the data!
+---------------------
+
+#.  Poke the database directly, using Python::
+
+    >>> import sqlite3
+    >>> db = sqlite3.connect('database.db')
+    >>> sorted(list(db.execute('select name from sqlite_master')))
+    >>> sorted(list(db.execute('select * from polls_choice')))
+
+
+Save and commit
+-------------------
+
+You know the drill!
+
+
+Forget about databases for now!
+------------------------------------
+
+#.  Did you eat lunch yet?
+
+#.  Maybe it's time for a snack?
+
+
+
+Part XX:  Write views that actually do something
+======================================================
 
 Each view is responsible for doing one of two things: Returning an HttpResponse 
 object containing the content for the requested page, or raising an exception such 
@@ -1201,7 +1310,7 @@ Put the following code in that template:
     
 
 Load the page "http://localhost:8000/polls/" into your Web browser again, and 
-you should see a bulleted-list containing the "What's up" poll from Tutorial 1. 
+you should see a bulleted-list containing the "What is the Weirdest Cookbook Ever" poll from Tutorial 1. 
 The link points to the poll's detail page.
 
 Raising 404
@@ -1526,7 +1635,7 @@ Explore the free admin functionality
 Now that we've registered Poll, Django knows that it should be displayed on the admin index page.
 
 Click "Polls." Now you're at the "change list" page for polls. This page displays all the polls 
-in the database and lets you choose one to change it. There's the "What's up?" poll we 
+in the database and lets you choose one to change it. There's the "What is the Weirdest Cookbook Ever?" poll we 
 created in the first tutorial.
 
 Things to note here:
