@@ -7,6 +7,7 @@ Intro to Programming Python: Web App
 This tutorial will look at writing and deploying a web application. 
 The app is an online poll where visitors can view choices
 (a bit of text) and vote the option up and down.
+
 We will cover local deployment as well as deploying your web application to the world,
 where other people can play with it, and where you can modify it.
 
@@ -16,7 +17,58 @@ workshop.
 
 If you would like to see an example of this completed tutorial, `Lukas did it <https://github.com/lsblakk/myproject>`_
 
-Part 1: Create your Django App
+
+Part XX:  If You Build It... They Will Pay You
+================================================
+
+
+The Client
+-------------
+
+VoteOnEverything, Ltd. (VOEL) is a web startup hoping to make some money on this
+"internet" thing the kids are talking about.  Their idea: **an app where people
+can easily create polls on their favorite subjects and vote on them!** 
+They are flush with cash, and have hired you (you're smart, right?) to help out!
+
+Example User Stories
+---------------------
+
+#. As a *poll creator*, it should be obvious and easy to create polls
+#. As a *visitor*, I want stable urls so I can share my polls easily
+#. As a *voter*, it should be easy to vote on polls!
+#. As *VOEL*, I want polls with lots of total votes to be on the front page.
+#. As *VOEL*, I want to keep track of visitor information, to sell to advertisers,
+   including their source ip, geography, etc.
+#. As a *user*, I want the application to keep track of polls I have created,
+   my voting history
+
+Designing The Prototype
+------------------------
+
+Time to make a prototype!
+After hearing about Python and the Django web framework from that 
+smart girl you know who works at Google, you have decided to try it out!
+
+Since this is a prototype, you have decided to eliminate many some features
+(logins, history tracking, demographic information, etc.) to focus on the 
+core applicaion:  polls and voting.
+
+You have decided to implement the following pages:
+
+#. Poll “index” page – displays the latest few polls.
+#. Poll “detail” page – displays a poll question, with no results but with a form to vote.
+#. Poll “results” page – displays results for a particular poll.
+#. Vote action – handles voting for a particular choice in a particular poll.
+
+To support these pages, you need these abstractions (models, objects):
+
+#. Polls
+#. Choices
+#. Votes
+
+
+
+Part XX Create your Django App
 =======================================
 
 Goal:  Configure and explore a basic Django "out of the box app".
@@ -116,6 +168,19 @@ Start the Development (Local) Server
 #.  Now that the server's running, visit http://127.0.0.1:8000/ with your Web browser. 
     You'll see a "Welcome to Django" page, in pleasant, light-blue pastel. It worked!
 
+    .. image:: images/itworks.png
+
+    Note how mouthy this is, and that it mentions ``DEBUG``, ``settings.py``, and
+    a lot more, which will be covered in later sections.  
+
+    .. code-block:: bash
+
+        Of course, you haven't actually done any work yet. Here's what to do next:
+        If you plan to use a database, edit the DATABASES setting in myproject/settings.py.
+        Start your first app by running python myproject/manage.py startapp [appname].
+        You're seeing this message because you have DEBUG = True in your Django settings 
+        file and you haven't configured any URLs. Get to work!
+
 #.  Exit the server 
 
     #. return to the terminal instance where the development server is running
@@ -124,21 +189,20 @@ Start the Development (Local) Server
 
     #. VERIFY your server is shut down.  How do you do this?  [:ref:`answer <webapp_answers_verify_shutdown>`]
 
+#.  **Experiment**:  These two commands are identical:
 
-Part 2: Test your Django App
+    .. code-block: bash
+
+        python manage.py runserver 
+        python manage.py runserver 8000
+
+    *Start* a server on port 8103, and *navigate* to it using your browser.
+
+
+Part XX Save your work!
 =======================================
 
-[TODO]
-
-1.  Get the test file!
-2.  Run the test!
-
-
-Part 3: Save your work!
-=======================================
-
-
-We've are making progress! Let's share it with the world.
+Before we do anything else, let's save our work and start it with the world.
 
 We'll do that with ``git`` and ``Github``. On your own computer, get to a Terminal or a GitBash.
 
@@ -148,8 +212,7 @@ We'll do that with ``git`` and ``Github``. On your own computer, get to a Termin
 
          cd ~/django_projects/myproject
 
-#.  Is this new project?  If so:
-
+#.  Is this new project?  (It is!)  So:
 
     #. create a git repository in the project directory:
 
@@ -167,15 +230,16 @@ We'll do that with ``git`` and ``Github``. On your own computer, get to a Termin
             gedit .git/info/exclude
             
             # add this line to the end of the file
+            # excludes all compiled python files, which aren't interesting.
             .pyc
 
-    #.  Create your project on GitHub.  Go to http://github.com/ and create a new repository called "myproject". On the main dashboard page, click on "New Repository" fill out the necessary information. 
+    #.  Create your project on GitHub.  Go to http://github.com/ and create a new repository called "myproject". On the main dashboard page, click on "New Repository" fill out the necessary information. cf:  http://help.github.com/create-a-repo/.
 
 #.  Add all your files to the repo, in the local directory:
 
     .. code-block:: bash
 
-        git add -A
+        git add *.py   # all .py files, using a wildcard match.
 
     Now git is aware of your files.  Use ``git status`` to see them there in
     the *staging* area (the index).
@@ -184,38 +248,30 @@ We'll do that with ``git`` and ``Github``. On your own computer, get to a Termin
 
     .. code-block:: bash
 
-        git commit -m "Initial commit of django app project from the PyStar workshop"
+        git commit -m "Initial commit of django project from the PyStar workshop"
 
     Look at your changes with  ``git log`` to see your history.
 
 
-#   Connect the remote github repo to your local one, and use ``git push`` to push those up to your Github repository:
+#.  Connect the remote github repo to your local one, and use ``git push`` to push those up to your Github repository:
 
     .. code-block:: bash
 
         git remote add origin git@github.com:username/myproject.git
         git push origin master
 
-#   Go to your Github account in your browser. Find the ``myproject`` repository. Do you see your files?
+#.  Go to your Github account in your browser. Find the ``myproject`` repository. Do you see your files?
+
+#.  Remember:
+
+    - "commit your work" means "add and commit it to the local repository
+    - "push your work" means "git push it to github"
 
 
+Part XX:  Configure your Django Project
+========================================
 
-
-Workflow!
-------------------
-
-Make this your work flow:
-
-1.  Design a feature, and criteria for acceptance.
-2.  Test your feature!
-3.  When it works (or you make good progress) [:ref:`save your work! <webapp_answers_verify_shutdown>`]
-
-
-
-Part 4: Create your Django App
-=======================================
-
-
+Now that we have a the scaffolding for our **project** in place, we can con
 
 Fix security settings
 ------------------------------------
@@ -322,16 +378,54 @@ Set up the Database
 #.  Drink some tea and take a stretch break.  
 
 
+Workflow!
+------------------
+
+Make this your work flow:
+
+1.  Design a feature, and criteria for acceptance.
+2.  Test your feature!
+3.  When it works (or you make good progress) [:ref:`save your work! <webapp_answers_verify_shutdown>`]
 
 
-Part 2:  Philosphy Break!
+Part XX Test your Django App
+=======================================
+
+
+#.  Copy :download:`test_polls.py` into your project directory (i.e., in ``myproject``)
+
+#.  Add it into your project code git repo:
+
+    ..  code-block:: bash
+        
+        git add tests_polls.py
+        git commit tests_polls.py
+
+#.  Run the tests
+
+    ..  code-block:: bash
+
+        python manage.py test
+
+#.  Examine ``polls_tests.py`` in your editor.  
+
+
+.. seealso::
+
+    http://docs.djangoproject.com/en/dev/topics/testing/, which
+    goes into this in much greater detail.  In particualar,
+    
+
+
+
+Part XX  Philosphy Break!
 ===========================
 
-????
+[Not done!]
 
 
 
-Part 2: Build The Polls Application
+Part XX Build The Polls Application
 ========================================
 
 
@@ -735,7 +829,9 @@ Enough databases for now
 
 In the next section of the tutorial, you'll write ``views`` that let other people look at your polls.
 
-Part 3: Letting the (local) world see your polls, with views
+
+
+Part XX Letting the (local) world see your polls, with views
 ===================================================================
 
 We have all these polls in our database. However, no one can see them, because we never 
@@ -773,8 +869,12 @@ The first step of writing views is to design your URL structure. You do this by 
 Python module, called a URLconf. URLconfs are how Django associates a given URL with 
 given Python code.
 
-When a user requests a Django-powered page, the system looks at the ROOT_URLCONF 
-setting, which contains a string in Python dotted syntax. Django loads that module and 
+When a user requests a Django-powered page, the system looks at the ``ROOT_URLCONF`` 
+setting, which contains a string in Python dotted syntax. 
+
+**Pop quiz**: what is the ``ROOT_URLCONF`` for your project?  
+
+Django loads that module and 
 looks for a module-level variable called urlpatterns, which is a sequence of tuples in the 
 following format:
 
@@ -787,7 +887,7 @@ the requested URL against each regular expression until it finds one that matche
 
 You might ask, "What's a regular expression?" Regular expressions are patterns for matching 
 text. In this case, we're matching the URLs people go to, and using regular expressions to 
-categorize them into different kinds of 
+match whole 'groups' of them at once.
 
 (If you'd like to learn more about regular expressions read the 
 `Dive into Python guide to regular expressions <http://diveintopython.org/regular_expressions/index.html>`_ sometime. 
@@ -798,7 +898,10 @@ parentheses to wrap the parts they're capturing.
 
 For Django, when a regular expression matches the URL that a web surfer requests, 
 Django extracts the captured values and passes them to a function of your choosing. 
-This is the role of the ``callback function`` above.
+This is the role of the ``callback function`` above.  When a regular expression
+matches the url, Django calls the associated ``callback function`` with any 
+*captured* parts as parameters.  This will much clearer after the next section.
+
 
 Adding URLs to urls.py
 ------------------------
@@ -1060,7 +1163,7 @@ suitable for use in the {% for %} tag.
 Load the new detail page in your browser: http://127.0.0.1:8000/polls/1/  
 The poll choices now appear.
 
-Part 4: Let the people vote
+Part XX Let the people vote
 ============================================
 
 Write a simple form
@@ -1203,7 +1306,7 @@ choice, you should see the error message.
 
 Does it work?! If so, show your neighbor!
 
-Part 5: Save that project!
+Part XX Save that project!
 ================================
 
 This is a great time to COMMIT!
@@ -1215,7 +1318,7 @@ This is a great time to COMMIT!
     git commit -m "My voting app works"
     git push origin master
 
-Part 6: Editing your polls in the Django admin interface
+Part XX Editing your polls in the Django admin interface
 =============================================================
 
 So far, you've been adding data to your database using the ``manage.py shell``.
@@ -1468,7 +1571,7 @@ That's the basics of the Django admin interface!
 
 Create a poll! Create some choices. Find your views, and show them to the world.
 
-Part 7: Commit, again!
+Part XX Commit, again!
 ================================
 
 You know what to do now, right? :)
