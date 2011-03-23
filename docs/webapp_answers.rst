@@ -238,3 +238,13 @@ With Polls Added
          'polls',
      )
 
+.. _webapp_answers_root_urlconf:
+
+What is the ``ROOT_URLCONF``?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Look in ``settings.py``::
+
+    ROOT_URLCONF = 'myproject.urls'
+
+ 

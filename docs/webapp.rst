@@ -435,7 +435,7 @@ Good. Because you got a case of the accidental deletes and you've deleted your `
 
 #.  Try running your dev server. What happens? Why?
 
-#.  Delete settings.pyc. Try running your dev server. What happens now? Why?  
+#.  Delete ``settings.pyc``. Try running your dev server. What happens now? Why?  
     [:ref:`answer <webapp_answers_dev_server_still_works>`]
 
 #.  Cry!  So they're gone right? No way back. And everything's broken!
@@ -603,11 +603,11 @@ frameworks might make these choices or use these terms differently.  Who is righ
 [:ref:`answer <webapp_answers_the_right_framework>`]
 
 
-Part XX Views (Mockups!)
+Part XX Mockups, Views, and URLs
 ===================================================================
 
-We have all these polls in our database. However, no one can see them, because we never 
-made any web pages that ``render`` the polls into HTML.
+Eventually, we will have polls in our database. 
+To make th
 
 Let's change that with Django views.
 
@@ -616,7 +616,7 @@ Let's change that with Django views.
         A view is a “type” of Web page in your Django application that generally serves a specific 
         function and has a specific template. 
 
-For example, in a Weblog application, you might have the following views:
+In a Weblog application, you might have the following views:
 
 * Blog homepage – displays the latest few entries.
 * Entry “detail” page – permalink page for a single entry.
@@ -638,21 +638,21 @@ Design your URLs
 ---------------------------
 
 The first step of writing views is to design your URL structure. You do this by creating a 
-Python module, called a URLconf. URLconfs are how Django associates a given URL with 
+Python module, called a ``URLconf``. ``URLconfs`` are how Django associates a given URL with 
 given Python code.
 
 When a user requests a Django-powered page, the system looks at the ``ROOT_URLCONF`` 
 setting, which contains a string in Python dotted syntax. 
 
-**Pop quiz**: what is the ``ROOT_URLCONF`` for your project?  
+**Pop quiz**: what is the ``ROOT_URLCONF`` for your project?  [:ref:`answer  webapp_answers_root_urlconf`]
 
-Django loads that module and 
-looks for a module-level variable called urlpatterns, which is a sequence of tuples in the 
+Django loads that module and looks for a module-level variable called ``urlpatterns``, which is a sequence of tuples in the 
 following format:
 
 .. code-block:: bash
 
      (regular expression, Python callback function [, optional dictionary])
+
 
 Django starts at the first regular expression and makes its way down the list, comparing 
 the requested URL against each regular expression until it finds one that matches.
@@ -663,9 +663,9 @@ match whole 'groups' of them at once.
 
 (If you'd like to learn more about regular expressions read the 
 `Dive into Python guide to regular expressions <http://diveintopython.org/regular_expressions/index.html>`_ sometime. 
-Or you can look at this `comic <http://xkcd.com/208/>`_.)
+Or you can look at this `xkcd <http://xkcd.com/208/>`_.)
 
-In addition to ``matching`` text, regular expressions can ``capture`` text: regexps use 
+In addition to ``matching`` text, regular expressions can ``capture`` text. Regexps  use 
 parentheses to wrap the parts they're capturing.
 
 For Django, when a regular expression matches the URL that a web surfer requests, 
@@ -674,19 +674,19 @@ This is the role of the ``callback function`` above.  When a regular expression
 matches the url, Django calls the associated ``callback function`` with any 
 *captured* parts as parameters.  This will much clearer after the next section.
 
-Adding URLs to urls.py
+Add URLs to urls.py
 ------------------------
 
-When we ran django-admin.py startproject myproject to create the project, 
+When we ran ``django-admin.py startproject myproject`` to create the project, 
 Django created a default URLconf. Take a look at ``'settings.py``' for this line:
 
 .. code-block:: bash
 
  ROOT_URLCONF = 'myproject.urls'
 
-That means that the default URLconf is myproject/urls.py.
+That means that the default URLconf is ``myproject/urls.py``.
 
-Time for an example. Edit the file myproject/urls.py so it looks like this:
+#.  Write our URL mapping. Edit the file ``myproject/urls.py`` so it looks like this:
 
 .. code-block:: python
 
@@ -699,6 +699,17 @@ Time for an example. Edit the file myproject/urls.py so it looks like this:
      (r'^polls/(\d+)/vote/$', 'polls.views.vote'),
     )
 
+#.  *POP QUIZ*, suppose a visitor goes to http://127.0.0.1/polls/23/vote/ .  
+
+    #. which regex pattern is tripped?
+    #. what function is then called?
+    #. what arguments is that function called with?
+
+#.  Save ``urls.py``.
+
+#.  Re-run the test suite.  What parts pass now that didn't before?
+
+#. 
 
 This is worth a review. When somebody requests a page from your Web site 
 -- say, "/polls/23/", Django will load the ``urls.py`` Python module, because it's 
@@ -715,8 +726,10 @@ The '23' part comes from (\d+). Using parentheses around a pattern "captures" th
 text matched by that pattern and sends it as an argument to the view function; the
 \d+ is a regular expression to match a sequence of ``digits`` (i.e., a number).
 
-(In Django, you have total control over the way your URLs look. People on the web 
-won't see cruft like .py or .php at the end of your URLs.)
+(**Rant**:  In Django, as in most modern frameworks, you have total control
+over the way your URLs look. People on the web 
+won't see cruft like .py or .php at the end of your URLs.  There is no
+excuse for that kind of stuff in the modern era!)
 
 Finally: Write your first view
 -----------------------------------------
