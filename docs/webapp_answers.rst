@@ -77,6 +77,14 @@ Yes, this is all somewhat magical.  Eventually, that should start to worry
 you, but for now, accept that it mostly works, most of the time. 
 
 
+.. _webapp_answers_dev_server_still_works:
+
+Why does the dev server still work when settings.py has been deleted?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Because ``settings.pyc`` still exists, and that's what the machine is actually looking at when you run the code that runs the dev server. That's why the dev server does not work when you also delete ``settings.pyc``. Now the computer has no idea what you're talking about, since the original code and the compiled byte code are both gone.
+
+
 
 .. _webapp_answers_database_db_exists_after_sync:
 
@@ -134,6 +142,30 @@ Is Polls Importable?
     >>> import polls
 
 If you got an ``ImportError``, it's just as it sounds!
+
+
+
+.. _webapp_answers_pyc_files:
+
+What are these .pyc files anyway?
+----------------------------------
+
+From `PEP 3147 <http://www.python.org/dev/peps/pep-3147/#background>`_:
+
+    CPython (the 'standard' variety of Python) compiles its source code into "byte code", and for performance reasons, it caches this byte code on the file system whenever the source file has changes. This makes loading of Python modules much faster because the compilation phase can be bypassed. When your source file is ``foo.py``, CPython caches the byte code in a ``foo.pyc`` file right next to the source.
+
+When you import or otherwise run a piece of Python code, it will create a .pyc file of the compiled byte code automatically when it can. 
+
+
+
+.. _webapp_answers_why_only_restore_py_not_pyc:
+
+
+Why do I only need to restore settings.py and not settings.pyc?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Well first off, remember how we set up git to exclude ``.pyc`` files from the repo? So ``settings.pyc`` was never put into the repo and therefore cannot be recovered from it. Not to worry though. When you restore ``settings.py`` and restart the dev server, ``settings.pyc`` is built automatically. Nifty!
+
 
 
 

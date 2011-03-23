@@ -229,8 +229,8 @@ We'll do that with ``git`` and ``Github``. On your own computer, get to a Termin
             # in myproject
             git init
 
-    #.  Tell git to ignore any files that end with .pyc (compiled python code) when we push
-        to our repo so we need to add that to ``.git/info/exclude``:
+    #.  Tell git to ignore any files that end with .pyc (why?  [:ref:`answer <webapp_answers_pyc_files>`]) when we push
+        to our repo .  Add an exclude rule to ``.git/info/exclude``:
 
         .. code-block:: bash
 
@@ -383,6 +383,7 @@ Set up the Database
 
 #.  **Pop quiz**: Does ``database.db`` exist right now?  Find out!  [:ref:`answer <webapp_answers_database_db_exists_after_sync>`]
 
+
 #.  Save *and commit* your work (don't save ``database.db`` -- 
     why not?  [:ref:`answer <webapp_answers_why_not_save_database_db>`]::
 
@@ -401,19 +402,38 @@ Set up the Database
         #
         #	database.db
         # file 'database.db'
-        
-        git diff   # will show changes!
-        git add settings.py
-        
-        # messages can be multiline, but watch quotes!
-        git commit  -m "configured settings.py
-
-        - added db
-        - changed 'secret key'"
-
 
 #.  Drink some tea and take a stretch break.  Then we can come back to 
     STRETCHING OUR MINDS.
+
+
+Part XX, In Which You Save You From Yourself, Using Git.
+=========================================================
+
+Your work is saved right?
+
+**Right?**
+
+Good. Because you got a case of the accidental deletes and you've deleted your ``settings.py`` file!
+
+#.  No really. Go and delete ``settings.py``. Throw it in the trash. Or the recycling bin. Or `rm` from the command line.  Make sure it's *really gone* using ``ls``.
+
+#.  Try running your dev server. What happens? Why?
+
+#.  Delete settings.pyc. Try running your dev server. What happens now? Why?  
+    [:ref:`answer <webapp_answers_dev_server_still_works>`]
+
+#.  Cry!  So they're gone right? No way back. And everything's broken!
+
+#.  Rejoice! Because we're using version control and version control is about to save your bacon!
+
+    .. code-block:: bash
+
+        $ git checkout settings.py
+
+#.  Look at your project folder again, using ``ls``. Lo and behold, ``settings.py``! Back from beyond the grave! Cool, huh? Open it up, and verify it is exactly as you left it.
+
+    But what of ``settings.pyc``? Start your dev server. It works, right? Stop your dev server and look at the files in your project. Do you see ``settings.pyc``? How did it get there?  [:ref:` <_webapp_answers_why_only_restore_py_not_pyc>`]
 
 
 
@@ -502,8 +522,6 @@ that your app plays nicely with other apps, you can publish that directory separ
 #.  Add and commit ``polls/*py``.  
 
 #.  Refill your tea!
-
-
 
 
 
