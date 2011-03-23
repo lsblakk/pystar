@@ -83,77 +83,57 @@ you, but for now, accept that it mostly works, most of the time.
 Does ``database.db`` exist *now*?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It should!  That is one of the magical bits of ``dbsync``  Use ``ls`` to find out!
-
-
-.. _webapp_answers_save_my_work:
-
-How Do I save my work?
----------------------------------------
-
-We've done something! Let's share it with the world.
-
-We'll do that with ``git`` and ``Github``. On your own computer, get to a Terminal or a GitBash.
-
-#.  ``cd`` to get into the ``myproject`` directory. If it's a fresh Terminal, this is what you'll do:
-
-    .. code-block:: bash
-
-         cd ~/django_projects/myproject
-
-#.  Is this new project?  If so:
-
-
-    #. create a git repository in the project directory:
-
-        .. code-block:: bash
-
-            # in myproject
-            git init
-
-    #   Tell git to ignore any files that end with .pyc (compiled python code) when we push
-        to our repo so we need to add that to ``.git/info/exclude``:
-
-        .. code-block:: bash
-
-            # in myproject directory
-            gedit .git/info/exclude
-            
-            # add this line to the end of the file
-            .pyc
-
-    #   Create your project on GitHub.
-
-        # Go to http://github.com/ and create a new repository called "myproject". On the main dashboard page, click on "New Repository" fill out the necessary information. 
-
-#   Add all your files to the repo, in the local directory:
-
-    .. code-block:: bash
-
-        git add -A
-
-    Now git is aware of your files.  Use ``git status`` to see them there in
-    the *staging* area (the index).  
-
-#   ``git commit`` to ``commit`` those files:
-
-    .. code-block:: bash
-
-        git commit -m "Initial commit of django app project from the PyStar workshop"
-
-#   Connect the remote github repo to your local one, and use ``git push`` to push those up to your Github repository:
-
-    .. code-block:: bash
-
-        git remote add origin git@github.com:username/myproject.git
-        git push origin master
-
-#   Go to your Github account in your browser. Find the ``myproject`` repository. Do you see your files?
+It should!  That is one of the magical bits of ``dbsync``.  Use ``ls`` to find out!
 
 
 
+.. _webapp_answers_sqlite_one_writer_implications:
 
-.. _webapp_answers_test_my_work:
+What are the Implications of Sqlite only Handling One Writer?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-How Do I test my work?
----------------------------------------
+* performance is blocked by how fast that one writer can write
+* multiple processes can clobber each others' data.
+
+
+
+.. _webapp_answers_why_testing_matters:
+
+Why Does Testing Matter?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Among other reasons:
+
+* ensure that the features actually work as expected.
+* help make it clear what "as expected" actually means.
+* stop code changes from breaking things that used to work.
+* keep code split into reasonable, understandable chunks
+  ("if I can't figure out how to test it, it's probably doing to much!").
+
+
+
+.. _webapp_answers_why_not_save_database_db:
+
+Why Don't We Commit ``database.db``?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Becuase ``database.db`` is just a 'test database' and doesn't have anything
+"real" in it, we don't care about it.  Generally files that are 'built', like
+``.pyc`` files, the build html files of this book, and the like aren't put
+under version control.  
+
+
+.. _webapp_answers_is_polls_importable:
+
+Is Polls Importable?
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+    $ cd myproject
+    $ python
+    >>> import polls
+
+If you got an ``ImportError``, it's just as it sounds!
+
+
+

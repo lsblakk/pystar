@@ -48,11 +48,17 @@ Designing The Prototype
 
 Time to make a prototype!
 After hearing about Python and the Django web framework from that 
-smart girl you know who works at Google, you have decided to try it out!
+smart woman you know who works at Google, you have decided to try it out!
 
 Since this is a prototype, you have decided to eliminate some features
 (logins, history tracking, demographic information, etc.) to focus on the 
 core applicaion:  polls and voting.
+
+
+The prototype will consist of two parts:
+
+#. A public site that lets people view polls and vote in them.
+#. An admin site that lets you add, change and delete polls.
 
 You have decided to implement the following pages:
 
@@ -84,6 +90,7 @@ In your terminal, starting from somewhere reasonable (here, ``mydir``)
 
 .. code-block:: bash
     
+    # remember in bash, # means comment -- don't type these :)
     cd mydir
     mkdir django_projects
     virtualenv --no-site-packages pystar
@@ -278,7 +285,7 @@ Fix security settings
 ------------------------------------
 
 Right now, everyone in the workshop has the same "SECRET_KEY". Since Django 
-uses this 
+uses this key for various sensitive things, you should change it.
 
 #. Open  ``settings.py`` in your editor.  ``settings.py`` is a Python script that only contains variable definitions.  Django looks at the values of these variables when it runs your web app.
 
@@ -322,7 +329,7 @@ Set up the Database
     ..  note::
 
         In production, Sqlite has issues because only one process can *write* to it
-        as a time.  **Discuss** the implications of this with your group.
+        as a time.  **Discuss** the implications of this with your group.  [:ref:`answer <webapp_answers_sqlite_one_writer_implications>`]
 
 #.  Edit the lines in your settings.py to match the lines below:
 
@@ -376,77 +383,49 @@ Set up the Database
 
 #.  **Pop quiz**: Does ``database.db`` exist right now?  Find out!  [:ref:`answer <webapp_answers_database_db_exists_after_sync>`]
 
-#.  Drink some tea and take a stretch break.  
+#.  Save *and commit* your work (don't save ``database.db`` -- 
+    why not?  [:ref:`answer <webapp_answers_why_not_save_database_db>`]::
 
-
-Workflow!
-------------------
-
-Make this your work flow:
-
-1.  Design a feature, and criteria for acceptance.
-2.  Test your feature!
-3.  When it works (or you make good progress) [:ref:`save your work! <webapp_answers_verify_shutdown>`]
-
-
-Part XX Test your Django App
-=======================================
-
-
-#.  Copy :download:`test_polls.py` into your project directory (i.e., in ``myproject``)
-
-#.  Add it into your project code git repo:
-
-    ..  code-block:: bash
+        git status 
+        # will show settings.py is changed, and a new 'untracked' 
+        # MacBook-Pro:myproject gregg$ git status
+        # On branch master
+        # Changed but not updated:
+        #   (use "git add <file>..." to update what will be committed)
+        #   (use "git checkout -- <file>..." to discard changes in working directory)
+        #
+        #	modified:   settings.py
+        #
+        # Untracked files:
+        #   (use "git add <file>..." to include in what will be committed)
+        #
+        #	database.db
+        # file 'database.db'
         
-        git add tests_polls.py
-        git commit tests_polls.py
+        git diff   # will show changes!
+        git add settings.py
+        
+        # messages can be multiline, but watch quotes!
+        git commit  -m "configured settings.py
 
-#.  Run the tests
-
-    ..  code-block:: bash
-
-        python manage.py test
-
-#.  Examine ``polls_tests.py`` in your editor.  
+        - added db
+        - changed 'secret key'"
 
 
-.. seealso::
-
-    http://docs.djangoproject.com/en/dev/topics/testing/, which
-    goes into this in much greater detail.  In particualar,
-    
-
-
-
-Part XX  Philosphy Break!
-===========================
-
-[Not done!]
+#.  Drink some tea and take a stretch break.  Then we can come back to 
+    STRETCHING OUR MINDS.
 
 
 
 Part XX Build The Polls Application
 ========================================
 
-
-This tutorial (as a whole) walks you through the creation of a basic poll application.
-
-It’ll consist of two parts:
-
-* A public site that lets people view polls and vote in them.
-* An admin site that lets you add, change and delete polls.
-
-
-Creating some data *models*
------------------------------
-
-Now that your environment -- a "project" -- is set up, you're set to start building the poll.
+Now that your environment -- a "project" -- is set up, you're set to start building the poll application.
 
 Each application you write in Django consists of a Python package, 
 somewhere on your Python path, that follows a certain convention. 
 Django comes with a utility that automatically generates the basic directory 
-structure of an app, so you can focus on writing code rather than creating directories.
+structure of an app (that Django expects), so you can focus on writing code!.
 
 Projects and Apps
 ---------------------------------
@@ -456,12 +435,18 @@ wondering what the difference is.
 
 Here are the things to know:
 
-* An **app** is component of a website that does something. For example, the **Django administration** app is something you'll see later in this tutorial.  So will our ``polls`` app.  
-* A **project** corresponds to a website: it contains a ``settings.py`` file, so it has a corresponding database.
+* An **app** is component of a website that does something. For example, the **Django administration** app is something you'll see later in this tutorial.  So is our ``polls`` app.  An app is:
+
+    * single purpose - login, passwords, polls, forum, etc.
+    * orthonogal to / independent of other apps - polls shouldn't have to
+      know the inside details of authentication, for example.
+
+* A **project** corresponds to a 'website': it contains a ``settings.py`` file, and 
+  it may have corresponding databases or other data stores
+  that the apps interact with.
 
 Django apps can live anywhere on the **Python path**.  The **python path** is 
-a list of paths where the python interpreter looks for modules.  To see yours
-(for the curious):
+a list of paths where the python interpreter looks for modules.  
 
 .. code-block:: bash
 
@@ -475,31 +460,110 @@ a list of paths where the python interpreter looks for modules.  To see yours
     '/Users/gregg/mydir/pystar/lib/python2.6/plat-darwin', 
     '/Users/gregg/mydir/pystar/lib/python2.6/plat-mac' ... ]
 
+
 To be importable (seeable by Python), your Django app must be in one of the folders
-on *your* path.
+on *your* path.  
+
+**Experiment**:  look at your Python Path!
+
+
+Create The Poll App
+---------------------
 
 In this tutorial, we'll create our poll app in the myproject directory for 
 simplicity. In the future, when you decide that the world needs to be able to 
-use your poll app and plug it into their own projects, you can publish that 
-directory separately.
+use your poll app and plug it into their own projects, and after you determine
+that your app plays nicely with other apps, you can publish that directory separately!
 
-To create your app, make sure you're in the myproject directory and type this command:
 
-.. code-block:: bash
+#.  open your terminal and navigate to ``myproject``
+#.  make scaffolding for the app
 
-    python manage.py startapp polls
+    .. code-block:: bash
 
-That'll create a directory polls, which is laid out like this:
+        python manage.py startapp polls
 
-.. code-block:: bash
+    That'll create a directory ``polls`` to house the poll application.
 
-     polls/
-        __init__.py
-        models.py
-        tests.py
-        views.py
+#.  Examine the layout of ``polls`` (we will do more of this in following sections).
 
-This directory structure will house the poll application.
+    ..  code-block:: bash
+
+         # remember not to type the '$', it just means the prompt'.  
+         $ ls polls
+         polls/
+            __init__.py
+            models.py
+            tests.py
+            views.py
+
+#.  Prove that ``polls`` is importable [:ref:`answer <webapp_answers_is_polls_importable>`]
+
+#.  Add and commit ``polls/*py``.  
+
+#.  Refill your tea!
+
+
+
+
+
+Part XX Test your Django App
+=======================================
+
+#.  Copy :download:`test_polls.py` into your project directory (i.e., in ``myproject``)
+
+#.  Add it into your project code git repo:
+
+    ..  code-block:: bash
+        
+        git add test_polls.py
+        # messages can be multiline, but watch quotes!
+        git add test_polls.py
+        git commit tests_polls.py -m "added tests"
+
+#.  Run the tests
+
+    ..  code-block:: bash
+
+        python manage.py test
+
+#.  Examine ``polls_tests.py`` in your editor.  This file (provided by us)
+    gives tests for many of the points on the original spec sheet.  Normally
+    this is the sort of thing you would write yourself, after reading your 
+    spec, and deciding on acceptence criteria.  
+
+#.  Discuss with your groups why testing matters.  [:ref:`answer <webapp_answers_why_testing_matters>`]
+
+.. seealso::
+
+    http://docs.djangoproject.com/en/dev/topics/testing/, which
+    goes into this in much greater detail.  In particualar,
+    
+
+Part XX: Refine Your Workflow!
+==================================
+
+Make this your work flow:
+
+1.  Design a feature, with criteria for acceptance.
+2.  Test your feature, to see if meets those criteria.
+3.  When it works (or you make good progress), *commit your work*.
+
+We will use this workflow throughout the following sections, as we add
+the features that our protype spec outlined.
+
+
+
+Part XX  Philosphy Break!
+===========================
+
+[Not done!]
+
+
+
+Part XX Poll and Choice Models
+========================================
+
 
 The first step in writing a database Web app in Django is to 
 define your models -- essentially, your database layout, with additional metadata.
