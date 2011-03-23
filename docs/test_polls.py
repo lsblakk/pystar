@@ -92,6 +92,12 @@ class Test_urls(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class Test_index(unittest.TestCase):
+    pass
+    '''which displays the latest 5 
+poll questions in the system, separated by commas, according to publication date. '''
+    
+
 class Test_voting(unittest.TestCase):
     def setUp(self):
         if models_importable:

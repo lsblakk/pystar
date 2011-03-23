@@ -247,4 +247,29 @@ Look in ``settings.py``::
 
     ROOT_URLCONF = 'myproject.urls'
 
- 
+
+
+
+.. _webapp_answers_urlconf_polls_vote:
+
+What is triggered by  http://127.0.0.1:8000/polls/23/results/ ?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Given::
+
+    urlpatterns = patterns('',
+     (r'^polls/$', 'polls.views.index'),
+     (r'^polls/(\d+)/$', 'polls.views.detail'),
+     (r'^polls/(\d+)/results/$', 'polls.views.results'),
+     (r'^polls/(\d+)/vote/$', 'polls.views.vote'),
+    )
+
+We ignore the http://127.0.0.1:8000/ bit.
+
+The rest `polls/23/results/`  fails to match first two, but does match
+``r'^polls/(\d+)/results/$'``, which **captures** the 23.  
+
+Thus ``polls.views.results`` is called with the argument ``23``.  
+
+

@@ -644,7 +644,7 @@ given Python code.
 When a user requests a Django-powered page, the system looks at the ``ROOT_URLCONF`` 
 setting, which contains a string in Python dotted syntax. 
 
-**Pop quiz**: what is the ``ROOT_URLCONF`` for your project?  [:ref:`answer  webapp_answers_root_urlconf`]
+**Pop quiz**: what is the ``ROOT_URLCONF`` for your project?  [:ref:`answer  <webapp_answers_root_urlconf>`]
 
 Django loads that module and looks for a module-level variable called ``urlpatterns``, which is a sequence of tuples in the 
 following format:
@@ -688,138 +688,175 @@ That means that the default URLconf is ``myproject/urls.py``.
 
 #.  Write our URL mapping. Edit the file ``myproject/urls.py`` so it looks like this:
 
-.. code-block:: python
+    .. code-block:: python
 
-    from django.conf.urls.defaults import *
-    
-    urlpatterns = patterns('',
-     (r'^polls/$', 'polls.views.index'),
-     (r'^polls/(\d+)/$', 'polls.views.detail'),
-     (r'^polls/(\d+)/results/$', 'polls.views.results'),
-     (r'^polls/(\d+)/vote/$', 'polls.views.vote'),
-    )
+        from django.conf.urls.defaults import *
+        
+        urlpatterns = patterns('',
+         (r'^polls/$', 'polls.views.index'),
+         (r'^polls/(\d+)/$', 'polls.views.detail'),
+         (r'^polls/(\d+)/results/$', 'polls.views.results'),
+         (r'^polls/(\d+)/vote/$', 'polls.views.vote'),
+        )
 
-#.  *POP QUIZ*, suppose a visitor goes to http://127.0.0.1/polls/23/vote/ .  
+#.  **POP QUIZ**, suppose a visitor goes to http://127.0.0.1:8000/polls/23/results/ , 
 
     #. which regex pattern is tripped?
     #. what function is then called?
     #. what arguments is that function called with?
+    #. [:ref:`answer <webapp_answers_urlconf_polls_vote>`
 
 #.  Save ``urls.py``.
 
-#.  Re-run the test suite.  What parts pass now that didn't before?
+#.  Start the dev server and try that url out!  What happens?
 
-#. 
+#.  Re-run the test suite ``python manage.py test polls``.  
+    What parts pass now that didn't before?  
 
-This is worth a review. When somebody requests a page from your Web site 
--- say, "/polls/23/", Django will load the ``urls.py`` Python module, because it's 
-pointed to by the ROOT_URLCONF setting. It finds the variable named urlpatterns 
-and traverses the regular expressions in order. When it finds a regular expression that 
-matches -- r'^polls/(\d+)/$' -- it loads the function detail() from polls/views.py. Finally, 
-it calls that detail() function like so:
+#.  Review:  When somebody requests a page from your Web site 
+    -- say, "/polls/23/", Django will load the ``urls.py`` Python module, because it's 
+    pointed to by the ``ROOT_URLCONF`` setting. It finds the variable named ``urlpatterns`` 
+    and traverses the regular expressions in order. When it finds a regular expression that 
+    matches -- ``r'^polls/(\d+)/$'`` -- it loads the function ``detail()`` from 
+    ``polls/views.py``. Finally, 
+    it calls that ``detail()`` function like so:
 
-.. code-block:: bash
+    .. code-block:: bash
 
-    detail(request=<HttpRequest object>, '23')
+        detail(request=<HttpRequest object>, '23')
 
-The '23' part comes from (\d+). Using parentheses around a pattern "captures" the
-text matched by that pattern and sends it as an argument to the view function; the
-\d+ is a regular expression to match a sequence of ``digits`` (i.e., a number).
+    The '23' part comes from ``(\d+)``. Using parentheses around a pattern "captures" the
+    text matched by that pattern and sends it as an argument to the view function; the
+    ``\d+`` is a regular expression to match a sequence of ``digits`` (i.e., a number).
 
-(**Rant**:  In Django, as in most modern frameworks, you have total control
-over the way your URLs look. People on the web 
-won't see cruft like .py or .php at the end of your URLs.  There is no
-excuse for that kind of stuff in the modern era!)
+#.  Does this seem magical?  [:ref:`answer <webapp_answers_django_magical>`]
+    Actually, this is less magical than some other things.  Regular Expressions,
+    though sometimes cryptic, are pretty common and useful skill among developers.
 
-Finally: Write your first view
+    The *idea* that a URL doesn't have to map onto a file, or some other sort
+    of static resource, is quite powerful.  The URL is just a way of giving
+    instructions to some server, somewhere.
+    
+    (**Rant**:  In Django, as in most modern frameworks, you have total control
+    over the way your URLs look. People on the web 
+    won't see cruft like .py or .php at the end of your URLs.  There is no
+    excuse for that kind of stuff in the modern era!)
+
+
+Write Views
 -----------------------------------------
 
-Well, we haven't created any views yet -- we just have the URLconf. But 
+Well, we haven't created any views yet -- we just have the ``URLConf``. But 
 let's make sure Django is following the URLconf properly.
 
-Fire up the Django development Web server:
+#.  Start the development server:  ``python manage.py runserver``
 
-.. code-block:: bash
+#.  Fetch "http://localhost:8000/polls/" in your browser. 
+    You should get a pleasantly-colored error page with the following message:
 
-    python manage.py runserver
+    .. code-block:: none
 
-Now go to "http://localhost:8000/polls/" in your Web browser. 
-You should get a pleasantly-colored error page with the following message:
+        ViewDoesNotExist at /polls/
 
-.. code-block:: bash
+        Tried index in module polls.views. Error was: 'module'
+        object has no attribute 'index'
 
-    ViewDoesNotExist at /polls/
+#.  Recall this line ``(r'^polls/$', 'polls.views.index')``.
 
-    Tried index in module polls.views. Error was: 'module'
-    object has no attribute 'index'
+#.  Explore this using your django-shell:  ``python manage.py shell``
 
-This error happened because you haven't written a function index() in the module polls/views.py.
-
-Try "/polls/23/", "/polls/23/results/" and "/polls/23/vote/". The error messages tell you which view
-Django tried (and failed to find, because you haven't written any views yet).
-
-Time to write the first view. Open the file polls/views.py and put the following Python code in it:
-
-.. code-block:: python
-
-    from django.http import HttpResponse
- 
-    def index(request):
-        return HttpResponse("Hello, world. You're at the poll index.")
-
-This is the simplest view possible. Save the views.py file, then go to "/polls/" in your
-browser, and you should see your text.
-
-Now let's add a few more views by adding to the views.py file. These views are slightly 
-different, because they take an argument (which, remember, is passed in from whatever 
-was captured by the regular expression in the URLconf):
-
-.. code-block:: python
-
-     def detail(request, poll_id):
-         return HttpResponse("You're looking at poll %s." % poll_id)
-     
-     def results(request, poll_id):
-         return HttpResponse("You're looking at the results of poll %s." % poll_id)
-     
-     def vote(request, poll_id):
-         return HttpResponse("You're voting on poll %s." % poll_id)
-
-Save the views.py file. Now take a look in your browser at "/polls/34/". It'll run the 
-detail() method and display whatever ID you provide in the URL. Try "/polls/34/results/" 
-and "/polls/34/vote/" too -- these will display the placeholder results and voting pages.
-
-Adding more detail (mocked up!)
-----------------------------------
-
-Let's give the detail view some more ``'detail``'.
-
-We pass in a variable called ``'poll``' that points to an instance of the Poll class. 
-So you can pull out more information by writing this into the "polls/detail.html" template:
-
-.. code-block:: html
-
-    <h1>{{ poll.question }}</h1>
-    <ul>
-    {% for choice in poll.choice_set.all %}
-        <li>{{ choice.choice }}</li>
-    {% endfor %}
-    </ul>
+    ..  code-block:: python
+        
+        >>> import polls         # imports fine!       
+        >>> import polls.views   # imports fine also!  polls/views.py
+        >>> dir(polls.views) # what is in there!
+        >>> 'index' in dir(polls.views)
+        False
+        >>> import inspect
+        >>> inspect.getsourcefile(polls.views)
+        # something like
+        '/Users/adalovelace/gits/myproject/polls/views.py'
     
+    So, a mystery?  Where is it!?  It's nowhere!  The URL parsing is going
+    fine, but there is no one at the other end of the phone!
+    This error happened because you haven't written a function index() in the module polls/views.py.
 
-The template system uses dot-lookup syntax to access variable attributes. 
-Django's template language is a bit sloppy: in pure Python, the ``'.``' (dot) only 
-lets you get attributes from objects. In this example, we are just doing attribute 
-lookup, but in general if you're not sure how to get data out of an object in Django, try ``'dot``'.
+    Try "/polls/23/", "/polls/23/results/" and "/polls/23/vote/", and you
+    will see similar messages. 
+    The error messages tell you which view Django tried 
+    (and failed to find, because you haven't written any views yet).
 
-Method-calling happens in the {% for %} loop: poll.choice_set.all is interpreted as the 
-Python code poll.choice_set.all(), which returns a sequence of Choice objects and is 
-suitable for use in the {% for %} tag.
+#.  Write some views. Open  ``polls/views.py`` and put the following Python code in it:
 
-Load the new detail page in your browser: http://127.0.0.1:8000/polls/1/  
-The poll choices now appear.
+    .. code-block:: python
+
+        from django.http import HttpResponse
+     
+        def index(request):
+            return HttpResponse("Hello, world. You're at the poll index.")
+
+    This is a very simple view. 
+
+#.  Save the views.py file, then go to "/polls/" in your
+    browser, and you should see your text.
+
+#.  RE-RUN YOUR TESTS.  **POP QUIZ**.  Do more pass?
+
+#.  Add a few more views by adding to the views.py file. These views are slightly 
+    different, because they take an argument (which, remember, is passed in from whatever 
+    was captured by the regular expression in the URLconf):
+
+    .. code-block:: python
+
+         # recall or note that %s means, "subsitute in a string"
+
+         def detail(request, poll_id):
+             return HttpResponse("You're looking at poll %s." % (poll_id,))
+         
+         def results(request, poll_id):
+             return HttpResponse("You're looking at the results of poll %s." % (poll_id,))
+         
+         def vote(request, poll_id):
+             return HttpResponse("You're voting on poll %s." % (poll_id,))
+
+#.  Save ``views.py``. 
+
+#.  Navigate to http://127.0.0.1:8000/polls/34/. It'll run the 
+    ``detail()`` method and display whatever ID you provide in the URL. 
+    Try http://127.0.0.1:8000/polls/34/results/
+    and http://127.0.0.1:8000/polls/34/vote/ too -- 
+    these will display the placeholder results and voting pages.
+
+#.  Add a little html to the 'results' view.  Wrap the poll_id in ``<strong> </strong>``
+    tags and **verify** that the view is indeed bold!
+
+#.  RE-RUN YOUR TESTS.  **POP QUIZ**.  Which ones now  pass?
+
+#.  Add and commit your code.
 
 
+Mockery, Mockery
+--------------------
+
+These views don't plug into *real* polls.  This is by design.
+
+* front-end (visual) and back-end (data) can happen simulatenously
+* demonstrating the UI of the product shouldn't rely on having full data in
+  the back end.
+* However, this all relies on the frontend and backend having a concensus view
+  of the **interface** between them.  What does a 'Poll' look like?  What data
+  and methods might it have?  If we knew this, we could construct **mock objects**
+  and work with them, instead!  
+
+
+We will come back to templates (and use Django's build-in templating facilities
+rather than simple python string formatting) after we build some models.
+
+
+Part XX:  Showing Off!
+=========================
+
+[remote deploy!]
 
 
 
@@ -827,7 +864,9 @@ Part XX Poll and Choice Models
 ========================================
 
 Remember those files from **Create The Poll App** above?  Let's tackle ``models.py`` 
-This will contain our **models**, which correspond to our database layout, with additional metadata.
+next and make some actual data for our views to see.
+
+Roughtly, **models** which correspond to our database layout, with additional metadata.
 
     ..  admonition:: Django-Philosophy
 
@@ -977,7 +1016,8 @@ Once you're in the shell, explore the database API:
 
     How many polls is this?  
 
-    `Zen koan:  Can one be a ``Choice`` for a ``Poll`` that doesn't yet exist?`
+
+#.  `Zen koan:  Can there be a Choice for a Poll that doesn't yet exist?`
 
 #.  Add a ``Poll``.
 
@@ -1148,7 +1188,7 @@ Add Choices
 Heavy Metal Polling!
 ----------------------
 
-#.   From ``python manage.py shell``, run this block of TOTALLY METAL CODE:
+#.  From ``python manage.py shell``, run this block of TOTALLY METAL CODE:
 
     .. code-block:: python
 
@@ -1176,8 +1216,8 @@ Heavy Metal Polling!
         Eluveitie Altare Gallhammer Sirenia Slavland Krada Tribulation Venom
         ObituarObituarObituarObituarObituarObituarismember Vomitory
         Suffocation Taake Testament ToDieFor Unleashed'''.strip.split()
-
-
+        
+        
         def make_metal_poll(bandname,opinions):
             pub = datetime.datetime.now()
             marks = '?' * random.randint(1,5)
@@ -1192,17 +1232,16 @@ Heavy Metal Polling!
             p.save()
             p.choice_set=choices
             return p
-
+        
         polls = [make_metal_poll(band,opinions) for band in band_names]
 
-#.   Discuss what this code does!
+#.  Discuss what this code does!
 
 
 Test the Models
 -------------------
 
-[TODO!!!!!!!!!!!!!!!]
-
+#.  Save your changes, and Re-run your tests.  What now passes?
 
 
 
@@ -1231,36 +1270,41 @@ Forget about databases for now!
 #.  Maybe it's time for a snack?
 
 
-
 Part XX:  Write views that actually do something
 ======================================================
 
-Each view is responsible for doing one of two things: Returning an HttpResponse 
-object containing the content for the requested page, or raising an exception such 
-as Http404. The rest is up to you.
+In Django, each view is responsible for doing one of two things: ``returning`` an ``HttpResponse`` 
+object containing the content for the requested page, or ``raise``-ing an exception such 
+as ``Http404``. What happens between Request and Response?  [:ref:`Magic! <webapp_answers_django_magical>`].  
 
 Your view can read records from a database, or not. It can use a template system such 
 as Django's -- or not. It can generate a PDF file, output XML, create a ZIP file on the fly, 
 anything you want, using whatever Python libraries you want.
 
-All Django wants is that HttpResponse. Or an exception.
+All Django wants is that at the end, it gets an ``HttpResponse`` or an ``exception``.
 
-Most of the Django views in the world use Django's own database API, which we covered in 
-Tutorial 1. Let's do that, too. Here's one stab at the index() view, which displays the latest 5 
-poll questions in the system, separated by commas, according to publication date. Continue
-editing the file views.py:
+Most of the Django views in the world use Django's own database API, which was touched on
+in the discuss of models.  (Sorry, I guess we can't forget about databases quite yet!)
 
-.. code-block:: python
 
-     from polls.models import Poll
-     from django.http import HttpResponse
-     
-     def index(request):
-         latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
-         output = ', '.join([p.question for p in latest_poll_list])
-         return HttpResponse(output)
+#.  Construct a new ``index()`` view.  To match the spec, it should
+    displays the latest 5 poll questions in the system, separated by commas, 
+    according to publication date. Continue
 
-Now go to "http://localhost:8000/polls/" in your Web browser. You should see the
+    In ``views.py``:
+
+    .. code-block:: python
+
+         from polls.models import Poll
+         from django.http import HttpResponse
+         
+         def index(request):
+             latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
+             output = ', '.join([p.question for p in latest_poll_list])
+             return HttpResponse(output)
+
+#.  Restart the dev server, and navigate to http://localhost:8000/polls/.
+You should see the
 text of the first poll. There's a problem here, though: The page's design is hard-coded 
 n the view. If you want to change the way the page looks, you'll have to edit this Python 
 code. So let's use Django's template system to separate the design from Python:
@@ -1807,3 +1851,26 @@ Part XX Commit, again!
 ================================
 
 You know what to do now, right? :)
+
+
+Part XX Takeways
+=====================
+
+By now, you have seen:
+
+* test-driven development
+* acceptence testing
+* user stories
+* specs and requirements
+* iterative development
+* git (and version control generally)
+* http on a local server
+* ports
+* django url parsing
+* regular expressions
+* templates / views
+* interacted with a sqlite db directly 
+* django models / orms (object-relational mappers)
+* remote deployment
+
+
