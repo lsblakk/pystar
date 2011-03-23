@@ -33,14 +33,15 @@ They are flush with cash, and have hired you (you're smart, right?) to help out!
 Example User Stories
 ---------------------
 
-#. As a *poll creator*, it should be obvious and easy to create polls
-#. As a *visitor*, I want stable urls so I can share my polls easily
+#. As a *poll creator*, it should be obvious and easy to create polls.
+#. As a *visitor*, I want stable urls so I can share my polls easily.
 #. As a *voter*, it should be easy to vote on polls!
 #. As *VOEL*, I want polls with lots of total votes to be on the front page.
 #. As *VOEL*, I want to keep track of visitor information, to sell to advertisers,
    including their source ip, geography, etc.
 #. As a *user*, I want the application to keep track of polls I have created,
-   my voting history
+   my voting history.
+#. (many many more)
 
 Designing The Prototype
 ------------------------
@@ -49,7 +50,7 @@ Time to make a prototype!
 After hearing about Python and the Django web framework from that 
 smart girl you know who works at Google, you have decided to try it out!
 
-Since this is a prototype, you have decided to eliminate many some features
+Since this is a prototype, you have decided to eliminate some features
 (logins, history tracking, demographic information, etc.) to focus on the 
 core applicaion:  polls and voting.
 
@@ -173,7 +174,7 @@ Start the Development (Local) Server
     Note how mouthy this is, and that it mentions ``DEBUG``, ``settings.py``, and
     a lot more, which will be covered in later sections.  
 
-    .. code-block:: bash
+    ::
 
         Of course, you haven't actually done any work yet. Here's what to do next:
         If you plan to use a database, edit the DATABASES setting in myproject/settings.py.
@@ -191,7 +192,7 @@ Start the Development (Local) Server
 
 #.  **Experiment**:  These two commands are identical:
 
-    .. code-block: bash
+    .. code-block:: bash
 
         python manage.py runserver 
         python manage.py runserver 8000
@@ -276,8 +277,8 @@ Now that we have a the scaffolding for our **project** in place, we can con
 Fix security settings
 ------------------------------------
 
-Right now, everyone in the workshop has the same "SECRET_KEY". According to the 
-Django documentation, that is bad. 
+Right now, everyone in the workshop has the same "SECRET_KEY". Since Django 
+uses this 
 
 #. Open  ``settings.py`` in your editor.  ``settings.py`` is a Python script that only contains variable definitions.  Django looks at the values of these variables when it runs your web app.
 
