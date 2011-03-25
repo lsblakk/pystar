@@ -1,6 +1,6 @@
 .. _pre_post_survey_label:
 
-Skill and Attitute Assessment
+Skill and Attitude Assessment
 ================================
 
 This is a short skills assessment to get an idea of where everyone is at the beginning and end of the workshop.
@@ -18,7 +18,7 @@ Name (psudonym is fine!):
 Email:
 
 
-Current work role:  
+Current work role:
 
 
 Desired work role:
@@ -62,7 +62,7 @@ Circle your selection. ('--': strongly disagree, '-': disagree, '+': agree, '++'
 
 #.  |ansbar|   Being called a programmer would make me feel good.
 
-Background:
+Background
 ^^^^^^^^^^^^^^
 
 (answer during pre-test only)
@@ -82,16 +82,38 @@ Three things I want from this workshop are...
 #.  
 
 
-Post:
-^^^^^^^^^
+Post-Workshop
+^^^^^^^^^^^^^^^^
 
 (answer after workshop)
 
+My group guide's name(s):  
+
+
+#.  |ansbar|   The curriculum worked for me.
+
+#.  |ansbar|   I felt safe asking the guide questions.
+
 #.  |ansbar|   I got what I expected from this workshop.
+
+#.  |ansbar|   I will continue to expand my programming skills after this workshop.
+
+Two things missing for me were:
+
+#.
+
+#.
+
+Two things I got from this workshop but didn't expect were:
+
+#.
+
+#.
 
 
 Please write any additional comments and suggestions for improving this workshop
-below, or on the back of this form.
+below, or on the back of this form.  (Suggestions might be:  parts that were
+confusing,  was it too magical? comments around the physical space)
 
 
 
