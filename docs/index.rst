@@ -57,5 +57,6 @@ Contents:
    colorwall
    datatypes
    brainstorming
+   survey
 
 
