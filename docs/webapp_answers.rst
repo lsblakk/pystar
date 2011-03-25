@@ -18,18 +18,28 @@ Answers for Webapp Questions
 
 
 
+.. _webapp_answers_8103:
+
+How do I start a server on port 8103 and navigate to it?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#.  ``http://127.0.0.1:8000/``
+#.  Navigate to http://127.0.0.1:8103/
+
+
+
 .. _webapp_answers_verify_shutdown:
 
-How To Verify Shutdown
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+How do I verify the server is shut down?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-go to http://127.0.0.1:8080/ and see if you get a 404, or 500!
+go to http://127.0.0.1:8000/ and see if you get a 404, or 500!
 
 
 .. _webapp_answers_single_quote:
 
-Single Quote
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+How do I put single quote in the SECRET_KEY?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Recall (or know!) that python can single-quote, double quote, or triple quote strings::
 
@@ -100,9 +110,27 @@ Use ``ls`` to verify it!
 
 
 
+.. _webapp_answers_know_what_saved:
+
+How do I know if my work is saved in git?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    $ git status
+    # nothing should be in 'untracked' that suprises you.
+    # if there are 'modified files', then let's see what is different
+    $ git diff
+    # shows the diffs between what is on disk and what git knows about
+    # If there *are* diffs: 
+    #    git add  # the files,
+    #    git commit -m "some message"  
+ 
+
+
 .. _webapp_answers_sqlite_one_writer_implications:
 
-What are the Implications of Sqlite only Handling One Writer?
+What are the implications of Sqlite only handling one writer?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * performance is blocked by how fast that one writer can write
@@ -121,7 +149,7 @@ Django is magical.  ``git`` is *creepy*.
 
 .. _webapp_answers_why_testing_matters:
 
-Why Does Testing Matter?
+Why does testing matter?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Among other reasons:
@@ -136,7 +164,7 @@ Among other reasons:
 
 .. _webapp_answers_why_not_save_database_db:
 
-Why Don't We Commit ``database.db``?
+Why don't we commit ``database.db``?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Becuase ``database.db`` is just a 'test database' and doesn't have anything
@@ -147,7 +175,7 @@ under version control.
 
 .. _webapp_answers_is_polls_importable:
 
-Is Polls Importable?
+Is polls importable?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We don't know. Is it?  It *should* be.
@@ -165,7 +193,7 @@ permissions, and the like.
 
 .. _webapp_answers_pyc_files:
 
-What are these .pyc files anyway?
+What are these ``.pyc`` files anyway?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From `PEP 3147 <http://www.python.org/dev/peps/pep-3147/#background>`_:
@@ -202,7 +230,7 @@ Well first off, remember how we set up git to exclude ``.pyc`` files from the re
 
 .. _webapp_answers_the_right_framework:
 
-Which Framework is Right?
+Which framework is right?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Which one do **you** think is right?  Why is that, again?
@@ -213,7 +241,7 @@ You are completely correct -- gold star!
 
 .. _webapp_answers_polls_vs_admin:
 
-Why not admin for **everything**:
+Why not admin for **everything**?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Why not, indeed!?
@@ -235,7 +263,7 @@ There are some concerns though:
 
 .. _webapp_answers_no_like_django:
 
-Why Don't People Like Django
+Why don't people like Django?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * It's too magical.  Too many mysterious files
@@ -248,8 +276,8 @@ Why Don't People Like Django
 
 .. _webapp_answers_added_polls:
 
-With Polls Added
-^^^^^^^^^^^^^^^^^^^^^^^^
+With polls added to the app
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
 
@@ -275,6 +303,28 @@ Look in ``settings.py``::
 
     ROOT_URLCONF = 'myproject.urls'
 
+This setting is  *for a python module*.  In those, ``.`` implies a directory structure,
+so Django will look at ``myproject/urls.py``.  :ref:`Magical? <webapp_answers_django_magical>`
+
+
+.. _webapp_answers_missing_choice:
+
+What writes the error message when a choice is missing?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Look in ``views.py``:
+
+.. code-block:: python
+
+
+    try:
+        selected_choice = p.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the poll voting form.
+        return render_to_response('polls/detail.html', {
+            'poll': p,
+            'error_message': "You didn't select a choice.",
+        }, context_instance=RequestContext(request))
 
 
 
@@ -310,7 +360,7 @@ Why are ``request.POST`` values always strings?
   and it goes off for processing.  
 * Strings are the universal currency of computing!  
 * Even when something looks like an int, it is better not to guess (e.g. ZIP codes).
-* `Explicit is better than Implicit` is part of the `Zen of Python <http://www.python.org/dev/peps/pep-20/>`_ .  SNARK:  `Django isn't always very explicit <webapp_answers_django_magical>`.
+* `Explicit is better than Implicit` is part of the `Zen of Python <http://www.python.org/dev/peps/pep-20/>`_ .  SNARK:  :ref:`Django isn't always very explicit <webapp_answers_django_magical>`.
 
 
 
