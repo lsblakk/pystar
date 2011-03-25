@@ -55,11 +55,14 @@ Contents:
    :maxdepth: 2
 
    about
+   for_learners
+   for_guides
    setup_machine
    webapp
    webapp_answers
    colorwall
    datatypes
    brainstorming
-
+   survey
+   safer_space
 
