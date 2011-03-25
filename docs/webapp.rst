@@ -15,7 +15,9 @@ This is based *heavily* on the official tutorial for the Django web programming 
 as well as the `Ruby on Rails for Women <http://www.wiki.devchix.com/index.php?title=Ruby_and_Rails_workshops_for_women>`_
 workshop.
 
-If you would like to see an example of this completed tutorial, `Lukas did it <https://github.com/lsblakk/myproject>`_
+If you would like to see an example of this completed tutorial, 
+`Gregg did it <https://github.com/gregglind/pystar-webapp/commits/master>`_, 
+`Lukas did it <https://github.com/lsblakk/myproject>`_
 
 
 Part 1: If You Build It... They Will Pay You
