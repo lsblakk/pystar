@@ -51,6 +51,8 @@ Contents:
    :maxdepth: 2
 
    about
+   for_learners
+   for_guides
    setup_machine
    webapp
    webapp_answers
@@ -58,5 +60,5 @@ Contents:
    datatypes
    brainstorming
    survey
-
+   safer_space
 
