@@ -1212,7 +1212,7 @@ Once you're in the shell, explore the database API:
     .. code-block:: python
 
          >>> import datetime
-         >>> p = Poll(question="What is the Weirdest Cookbook Ever", pub_date=datetime.datetime.now())
+         >>> p = Poll(question="What is the Weirdest Cookbook Ever?", pub_date=datetime.datetime.now())
 
 #.  Save the ``Poll`` instance into the database. You have to call save() explicitly.
 
