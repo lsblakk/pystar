@@ -30,7 +30,7 @@ First, install ``ez_setup`` to get ``easy_install`` (the *old* python
 package managers).  
 
 #.  Download and save: http://peak.telecommunity.com/dist/ez_setup.py
-#.  Open a terminal, and navigate to where it is downloaded.  
+#.  Open a terminal, and navigate to where it is downloaded. (If you don't know how to navigate, that's okay. Just ask a guide.) 
 #.  Install::
 
         python ez_setup.py
