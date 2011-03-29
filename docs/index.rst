@@ -6,12 +6,12 @@
 Welcome to PyStar!
 =========================================================
 
-The PyStar program is workshop designed to teach all women (including trans women) and their friends who are 
-looking to learn how to program in a friendly non-alpha geek environment.  The material on this site
+The PyStar program is a workshop designed to teach all women and their friends who are 
+looking to learn how to program in a friendly non-alpha-geek environment.  The material on this site
 builds on `Boston Python Workshop <https://openhatch.org/wiki/Boston_Python_workshop>`_ which 
 was held March 4/5, 2011. 
 
-If you would like to do a PyStar workshop in your area using this material, please get in touch by
+If you would like to hold a PyStar workshop in your area using this material, please get in touch by
 emailing the OpenHatch events list: events@lists.openhatch.org.
 
 PyStar Minneapolis
@@ -26,7 +26,8 @@ Minneapolis, MN 55414
 Register here: http://pystar-mpls-1.eventbrite.com/
 
 PyStar Bay Area
---------------------
+---------------
+
 In partnership with `CodeChix <http://groupspaces.com/codechix>`_
 
 Dates: Friday April  29th (6 - 8pm) and Saturday 
@@ -49,7 +50,7 @@ for more information on the course they gave.
 Stay tuned for future workshops.
 
 Contents:
------------
+---------
 
 .. toctree::
    :maxdepth: 2

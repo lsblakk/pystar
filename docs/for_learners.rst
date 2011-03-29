@@ -1,9 +1,9 @@
 .. for_learners:
 
 Advice for Learners
----------------------
+-------------------
 
-*   ask questions of each other first, then your guides
+*   ask questions of each other first, then your guides.
 *   if you are confused, or lost, back up, try again.  
 *   do experiments!
 *   break down tasks into repeatable, understandable parts.
@@ -14,13 +14,13 @@ Advice for Learners
 
 
 Troubleshooting Hints:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
 
 * are you where you think you are? --> ``pwd``, ``hostname`` 
 * restart the server
 * hard-refresh your web browser
 * try a different browser
-* reread the instructions
+* re-read the instructions
 * make some tea
 * check for spelling errors
 * examine the object in a python shell
