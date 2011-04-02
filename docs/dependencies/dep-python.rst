@@ -52,9 +52,12 @@ After starting up msys/mgit:
 
 ::  
 
-    $ echo '#!bin/sh\nC:/Python27/python.exe' > /bin/bash
+    $ echo '#!/bin/sh' > /bin/python
+    $ echo 'C:/Python27/python.exe $*' >> /bin/python
+    $ echo 'export PATH=$PATH:/c/Python27/Scripts' > ~/.profile
+    $ source ~/.profile
 
-From here on, if you are in the msys/mgit/mingw cli, you can type ``/bin/bash`` 
+From here on, if you are in the msys/mgit/mingw cli, you can type ``python`` 
 to get a python prompt, should you need one!
 
 
