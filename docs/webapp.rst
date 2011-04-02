@@ -1592,7 +1592,7 @@ given poll.
 
 #.  Verify your "detail" view works. Try it: http://127.0.0.1:8000/polls/1/
 
-#.  Re-run your tests.  Note that we get in ````, we get a pesky 
+#.  Re-run your tests.  Note that we get a pesky 
     ``TemplateDoesNotExist: 404.html`` message.  Let's fix that!
 
     Create ``polls/templates/404.html`` (the polls template root dir as:
