@@ -1,18 +1,18 @@
 .. _pre_post_survey_label:
 
 Skill and Attitude Assessment
-================================
+=============================
 
 This is a short skills assessment to get an idea of where everyone is at the beginning and end of the workshop.
-Add short notes if you want to elaborate on your answers (after the question)  
+Add short notes after the question if you want to elaborate on your answers.
 
-(This is a voluntary survey we use to assess the functioning of this workshop.
-Results may be used (in aggregate).  Any quotes will be anonymized).
+This is a voluntary survey we use to assess the functioning of this workshop.
+Results will only be used in aggregate.  Any quotes will be anonymized.
 
 Demographics
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 
-Name (psudonym is fine!):
+Name (pseudonym is fine!):
 
 
 Email:
@@ -28,7 +28,7 @@ Gender:
 
 
 Assessment
-^^^^^^^^^^^^^^
+^^^^^^^^^^
 
 Circle your selection. ('--': strongly disagree, '-': disagree, '+': agree, '++': strongly agree)  
 
@@ -50,11 +50,11 @@ Circle your selection. ('--': strongly disagree, '-': disagree, '+': agree, '++'
 
 #.  |ansbar|   I can write a 'hello, world' in a programming language of my choice.
 
-#.  |ansbar|   I understand the basics of how the internet works
+#.  |ansbar|   I understand the basics of how the internet works.
 
-#.  |ansbar|   I can solve problems using computers
+#.  |ansbar|   I can solve problems using computers.
 
-#.  |ansbar|   I know where to find help / additional resources for my computing questions.
+#.  |ansbar|   I know where to find help or additional resources for my computing questions.
 
 #.  |ansbar|   I feel excluded from programming communities.
 
@@ -63,11 +63,11 @@ Circle your selection. ('--': strongly disagree, '-': disagree, '+': agree, '++'
 #.  |ansbar|   Being called a programmer would make me feel good.
 
 Background
-^^^^^^^^^^^^^^
+^^^^^^^^^^
 
 (answer during pre-test only)
 
-#.  |ansbar|   Sexism has discouraged me from pursuing programming
+#.  |ansbar|   Sexism has discouraged me from pursuing programming.
 
 #.  |ansbar|   I have experienced active or passive sexism at technology conferences. 
 
@@ -83,7 +83,7 @@ Three things I want from this workshop are...
 
 
 Post-Workshop
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
 
 (answer after workshop)
 

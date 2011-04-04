@@ -1,7 +1,7 @@
 .. for_guides:
 
 Advice for Guides
---------------------
+-----------------
 
 Your role is to *support* the learners and help create a good learning enviroment.
 
