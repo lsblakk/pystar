@@ -19,13 +19,16 @@ Minneapolis, MN 55414
 
 Register here: http://pystar-mpls-1.eventbrite.com/
 
-PyStar SanFrancisco
+PyStar BayArea
 --------------------
 
-TBA!
+In partnership with CodeChix
 
+Dates: Friday April 29th (6 - 8pm) and Saturday April 30th (9am - 4pm)
 
+Location:Mozilla office in Mountain View
 
+650 Castro St, Suite 300 Mountain View, CA 94043
 
 About
 ===========
