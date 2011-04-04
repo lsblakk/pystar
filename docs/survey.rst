@@ -24,7 +24,7 @@ Current work role:
 Desired work role:
 
 
-Gender:  
+Gender:
 
 
 Assessment
@@ -67,7 +67,15 @@ Background
 
 (answer during pre-test only)
 
+<<<<<<< HEAD
 #.  |ansbar|   Sexism has discouraged me from pursuing programming.
+=======
+
+How did you hear about PyStar / this workshop?
+
+
+#.  |ansbar|   Sexism has discouraged me from pursuing programming
+>>>>>>> eb36396746ada3ae15cfa0d99561ef721fd9836a
 
 #.  |ansbar|   I have experienced active or passive sexism at technology conferences. 
 

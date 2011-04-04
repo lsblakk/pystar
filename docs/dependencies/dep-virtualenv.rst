@@ -31,9 +31,7 @@ Get ``virtualenv``!
 
 :: 
     
-    pip install virtualenv
-    # (optional) pip install virtualenvwrapper
-
+    $ pip install virtualenv
 
 .. _dep-virtualenv-verify-label:
 
@@ -43,11 +41,12 @@ Verify It Works!
 ::
 
     # assume you have created a directory D and moved to it!
-    virtualenv --no-site-packages testenv
-    . testenv/bin/activate  # windows -> . testenv\Scripts\activate.bat
+    $ virtualenv --no-site-packages testenv
+    $ . testenv/bin/activate  # windows -> . testenv\Scripts\activate.bat
     # your prompt should change to say (testenv)
-    deactivate
+    $ deactivate
     # remove the testenv directory
+    rmdir testenv
 
 
 * http://pypi.python.org/pypi/virtualenv

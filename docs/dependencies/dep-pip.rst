@@ -27,30 +27,20 @@ Get ``pip``!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First, install ``ez_setup`` to get ``easy_install`` (the *old* python
-package managers).  
+package managers).
 
-#.  Download and save: http://peak.telecommunity.com/dist/ez_setup.py
-#.  Open a terminal, and navigate to where it is downloaded.  
-#.  Install::
+#. Open a terminal and run these commands: ::
 
-        python ez_setup.py
-        easy_install pip
-        pip install virtualenv
+        $ curl http://peak.telecommunity.com/dist/ez_setup.py | python
+        $ easy_install pip
         
-        # or if those don't work!
-        
-        sudo python ez_setup.py
-        sudo easy_install pip
-        sudo pip install virtualenv
-
-
 .. _pip-verify-label:
 
 
 Verify It Works!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-After it installs, run ``pip`` .   You should see something like::
+Run ``pip`` .   You should see something like::
 
     $ pip
     Usage: pip COMMAND [OPTIONS]
