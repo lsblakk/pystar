@@ -38,7 +38,11 @@ Location:Mozilla office in Mountain View
 650 Castro St, Suite 300
 Mountain View, CA 94043
 
-Please check back for event registration link
+We need teachers and assistants! If you can make the workshop, please
+follow the registration link and register for the PyStar Volunteer ticket.
+You will be contacted with further information in the coming week or so.
+
+Registration is now open: http://www.eventbrite.com/event/1525890981
 
 
 PyStar Boston
