@@ -5,6 +5,7 @@ Safer Space
 
 PyStar is a Safer Space.  PyStar is a Learing Space.  
 
+*   all women are welcome, including trans women
 *   speak from your own experiences
 *   don't assume race, gender, identity or history of others
 
