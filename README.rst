@@ -12,12 +12,12 @@ looking to learn how to program in a friendly non-alpha-geek environment.
 PyStar Minneapolis
 ------------------
 
-The Minneapolis PyStar is March 25th (6 - 8pm) and 26th (9am - 4pm) 2011 at Clockwork Active Media Systems:
+The Minneapolis PyStar is April 23rd (9am - 4pm) 2011 at Clockwork Active Media Systems:
 
 1501 East Hennepin Avenue 
 Minneapolis, MN 55414
 
-Register here: http://pystar-mpls-1.eventbrite.com/
+Register here: http://pystar-mpls-2.eventbrite.com/
 
 PyStar BayArea
 --------------------
