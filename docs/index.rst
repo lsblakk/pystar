@@ -6,7 +6,7 @@
 Welcome to PyStar!
 =========================================================
 
-The PyStar program is a workshop designed to teach all women and their friends who are 
+The PyStar program is a workshop designed to teach all women (including trans women) and their friends who are 
 looking to learn how to program in a friendly non-alpha-geek environment.  The material on this site
 builds on `Boston Python Workshop <https://openhatch.org/wiki/Boston_Python_workshop>`_ which 
 was held March 4/5, 2011. 
