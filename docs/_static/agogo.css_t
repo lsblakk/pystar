@@ -15,30 +15,30 @@
 }
 
 body {
-  font-family: "Verdana", Arial, sans-serif;
+  font-family: {{ theme_bodyfont }};
   line-height: 1.4em;
   color: black;
-  background-color: #eeeeec;
+  background-color: {{ theme_bgcolor }};
 }
 
 
 /* Page layout */
 
 div.header, div.content, div.footer {
-  width: 70em;
+  width: {{ theme_pagewidth }};
   margin-left: auto;
   margin-right: auto;
 }
 
 div.header-wrapper {
-  background: url(bgtop.png) top left repeat-x;
+  background: {{ theme_headerbg }};
   border-bottom: 3px solid #2e3436;
 }
 
 
 /* Default body styles */
 a {
-  color: #ce5c00;
+  color: {{ theme_linkcolor }};
 }
 
 div.bodywrapper a, div.footer a {
@@ -70,19 +70,19 @@ div.bodywrapper a, div.footer a {
 }
 
 h1, h2, h3, h4 {
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: {{ theme_headerfont }};
   font-weight: normal;
-  color: #3465a4;
+  color: {{ theme_headercolor2 }};
   margin-bottom: .8em;
 }
 
 h1 {
-  color: #204a87;
+  color: {{ theme_headercolor1 }};
 }
 
 h2 {
   padding-bottom: .5em;
-  border-bottom: 1px solid #3465a4;
+  border-bottom: 1px solid {{ theme_headercolor2 }};
 }
 
 a.headerlink {
@@ -129,9 +129,9 @@ div.header {
 }
 
 div.header h1 {
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: {{ theme_bodyfont }};
   font-weight: normal;
-  font-size: 180%;
+  font-size: 140%;
   letter-spacing: .08em;
 }
 
@@ -144,7 +144,7 @@ div.header div.rel {
 }
 
 div.header div.rel a {
-  color: #fcaf3e;
+  color: {{ theme_headerlinkcolor }};
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -166,13 +166,13 @@ div.content-wrapper {
 }
 
 div.document {
-  width: 50em;
+  width: {{ theme_documentwidth }};
   float: left;
 }
 
 div.body {
   padding-right: 2em;
-  text-align: left;
+  text-align: {{ theme_textalign }};
 }
 
 div.document ul {
@@ -240,7 +240,7 @@ div.document ol {
 /* Sidebar */
 
 div.sidebar {
-  width: 20em;
+  width: {{ theme_sidebarwidth }};
   float: right;
   font-size: .9em;
 }
@@ -293,7 +293,7 @@ div.sidebar li.toctree-l2:last-child a {
 }
 
 div.sidebar li.toctree-l1.current a {
-  border-right: 5px solid #fcaf3e;
+  border-right: 5px solid {{ theme_headerlinkcolor }};
 }
 
 div.sidebar li.toctree-l1.current li.toctree-l2 a {
@@ -304,7 +304,7 @@ div.sidebar li.toctree-l1.current li.toctree-l2 a {
 /* Footer */
 
 div.footer-wrapper {
-  background: url(bgfooter.png) top left repeat-x;
+  background: {{ theme_footerbg }};
   border-top: 4px solid #babdb6;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -440,7 +440,7 @@ img.toggler {
 
 .viewcode-back {
     float: right;
-    font-family:: "Verdana", Arial, sans-serif;
+    font-family:: {{ theme_bodyfont }};
 }
 
 div.viewcode-block:target {
@@ -449,15 +449,4 @@ div.viewcode-block:target {
     background-color: #f4debf;
     border-top: 1px solid #ac9;
     border-bottom: 1px solid #ac9;
-}
-
-
-
-
-/* -- code highlighting improvements ---------------------------------------- */
-/* by the PyStar Team */
-div.highlight-python {
-    margin:  10px 0;
-    padding:  10px; 
-    border: 1px dashed #ac9;
 }

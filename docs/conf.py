@@ -96,10 +96,15 @@ html_theme = 'agogo'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-html_theme_options = {'textalign': 'left'}
+html_theme_options = dict(
+    textalign='left',
+    bodyfont = '"Helvetica", "Verdana", Arial, sans-serif',
+    pagewidth = '60em',
+    documentwidth = '40em',
+)
 
 # Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = []
+html_theme_path = ['']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
