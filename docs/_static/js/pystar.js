@@ -121,9 +121,5 @@ $(function() {
 });
 
 
-// add accordian style answers
-$(function(){
-    $('.answer-hidden').prepend('<span class="answerheader">Answer (click)</span>');
-    $('.answer-hidden').accordion({collapsible: true,active: false,header: 'span.answerheader'});
-})
+
 
