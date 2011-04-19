@@ -12,24 +12,10 @@ of the workshop.
 **Guides**:  When you verify the learner has completed install, give them a star!
 
 
-
-
 ..  toctree::
-    :maxdepth: 1 
-    :numbered:
+    :maxdepth: 2
 
-    dependencies/dep-yourcomputer.rst      
-    dependencies/dep-gedit.rst      
-    dependencies/dep-git.rst       
-    dependencies/dep-python.rst     
-    dependencies/dep-pip.rst        
-    dependencies/dep-virtualenv.rst
-    dependencies/dep-django.rst     
-
-
-
-
-
-
-
+    badges/badge_setup_linux.rst
+    badges/badge_setup_mac.rst
+    badges/badge_setup_win.rst
 
