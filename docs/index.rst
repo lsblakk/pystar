@@ -70,4 +70,5 @@ Contents:
    brainstorming
    survey
    safer_space
+   previous_pystars
 
