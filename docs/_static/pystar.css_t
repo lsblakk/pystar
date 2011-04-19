@@ -1,4 +1,8 @@
 
+pre {
+    overflow: auto;
+}
+
 .answerheader {
     color:  {{ theme_linkcolor }};
 
@@ -7,3 +11,5 @@
 .answer-hidden {
     border:  1px dotted {{ theme_linkcolor }};
 }
+
+
