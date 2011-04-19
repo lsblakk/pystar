@@ -77,6 +77,11 @@ In the preferences window
     * highlight matching bracket
     * highlight current line
 
+* **editor**:
+
+    * change tab with to 4
+    * check the box to insert spaces instead of tabs
+
 * **font & colors**:
 
     * choose a good monospace editor font
