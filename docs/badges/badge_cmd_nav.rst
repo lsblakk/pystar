@@ -3,7 +3,7 @@ Command Line Navigation Badge
 
 This badge is to learn how to navigate using the command line (CLI).
 
-    .. note:
+    ..  note::
 
         The command line is case sensitive. 
 
