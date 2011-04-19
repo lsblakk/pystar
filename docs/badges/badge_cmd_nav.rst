@@ -1,10 +1,11 @@
-Command Line Navigation
-=======================
+Command Line Navigation Badge
+================================
 
 This badge is to learn how to navigate using the command line (CLI).
 
-.. note:
-    The command line is case sensitive. 
+    .. note:
+
+        The command line is case sensitive. 
 
 Commands
 --------
@@ -69,9 +70,9 @@ Open a command line window. Explore your file system in the CLI using the follow
 Done
 ----
 
-Here's an example of what your CLI screen should look like after completing the above work:
+Here's an example of what your CLI screen might look like after completing the above work:
 
-.. code-block::
+.. code-block:: bash
 
     amanda-nyrens-macbook-pro:~ Amanda$ pwd
     /Users/Amanda
