@@ -70,6 +70,6 @@ Curriculum
    safer_space
    brainstorming
    survey
-
+   safer_space
    previous_pystars
 
