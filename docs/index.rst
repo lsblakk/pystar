@@ -68,6 +68,7 @@ Curriculum
    for_learners
    for_guides
    safer_space
+   schedule
    brainstorming
    survey
    safer_space
