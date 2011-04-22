@@ -70,6 +70,5 @@ Curriculum
    safer_space
    schedule
    survey
-   safer_space
    previous_pystars
 
