@@ -1,7 +1,7 @@
-.. _webapp-label:
+.. _badge_webapp:
 
 =============================================
-Intro to Programming Python: Web App
+Django Polls Webapp Tutorial
 =============================================
 
 This tutorial will look at writing and deploying a web application. 
@@ -178,7 +178,7 @@ Start the Development (Local) Server
 #.  Now that the server's running, visit http://127.0.0.1:8000/ with your Web browser. 
     You'll see a "Welcome to Django" page, in pleasant, light-blue pastel. It worked!
 
-    .. image:: images/itworks.png
+    .. image:: /images/itworks.png
 
     Note how mouthy this is, and that it mentions ``DEBUG``, ``settings.py``, and
     a lot more, which will be covered in later sections.  
@@ -995,17 +995,17 @@ and we are going to be guinea pigs for them!
 
     #.  Enter your GitHub url.
 
-        .. image:: images/djangozoom1.png
+        .. image:: /images/djangozoom1.png
 
     #.  Rename your project.
 
-        .. image:: images/djangozoom2.png
+        .. image:: /images/djangozoom2.png
 
     #.  Navigate to the URL you eventually get, like  http://p00000058.djangozoom.net/.
 
     #.  OHNOES!  There is no slash (root) view!
 
-        .. image:: images/djangozoom_noindex.png
+        .. image:: /images/djangozoom_noindex.png
 
     #.  See that '/polls/' looks just like how it does on your local machine.
 
@@ -1042,7 +1042,7 @@ and we are going to be guinea pigs for them!
 
 #.  Return to DjangoZoom and rebuild.
 
-    .. image:: images/djangozoom_build.png 
+    .. image:: /images/djangozoom_build.png 
 
     Your redeployed site should have a sensible '/' (that redirects to ``/polls``).
 
