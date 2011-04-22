@@ -69,7 +69,6 @@ Curriculum
    for_guides
    safer_space
    schedule
-   brainstorming
    survey
 
    previous_pystars
