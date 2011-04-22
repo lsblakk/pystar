@@ -1,14 +1,14 @@
-.. _datatypes-label:
+.. _badge_python_data_types:
 
 ===========================
-Intro to Data Types
+Tour The Python Data Types!
 ===========================
 
 Try these in your own Python interactive shell:
 
 .. code-block:: bash
 
-    python
+    $ python
 
 Numbers
 -------

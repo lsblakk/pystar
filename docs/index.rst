@@ -53,22 +53,23 @@ for more information on the course they gave.
 
 Stay tuned for future workshops.
 
-Contents:
----------
+
+Curriculum
+------------
+
+:ref:`our list of Badges <badge_index>`
 
 .. toctree::
    :maxdepth: 2
+   :hidden: 
 
    about
+   badges/index
    for_learners
    for_guides
-   setup_machine
-   webapp
-   webapp_answers
-   colorwall
-   datatypes
+   safer_space
    brainstorming
    survey
-   safer_space
+
    previous_pystars
 
