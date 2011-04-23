@@ -3,29 +3,29 @@
 Advice for Learners
 -------------------
 
-*   ask questions of each other first, then your guides.
-*   if you are confused, or lost, back up, try again.  
-*   do experiments!
-*   break down tasks into repeatable, understandable parts.
-*   even expert coders write lots of broken code.  mistakes are normal.
-*   the computer does exactly what you tell it to, not what you want it to do.
+*   Ask questions of each other first, then your guides.
+*   If you are confused, or lost, back up, try again.  
+*   Do experiments!
+*   Break down tasks into repeatable, understandable parts.
+*   Even expert coders write lots of broken code.  mistakes are normal.
+*   The computer does exactly what you tell it to, not what you want it to do.
 *   `your own pace` is the right pace.
-*   your background is a good background, and you have things to contribute.
+*   Your background is a good background, and you have things to contribute.
 
 
-Troubleshooting Hints:
+Troubleshooting Hints
 ^^^^^^^^^^^^^^^^^^^^^^
 
-* are you where you think you are? --> ``pwd``, ``hostname`` 
-* restart the server
-* hard-refresh your web browser
-* try a different browser
-* re-read the instructions
-* make some tea
-* check for spelling errors
-* examine the object in a python shell
-* view page source
-* have someone else look -- fresh eyes fix mistakes
+* Are you where you think you are? --> ``pwd``, ``hostname`` 
+* Restart the server.
+* Hard-refresh your web browser.
+* Try a different browser.
+* Re-read the instructions.
+* Make some tea.
+* Check for spelling errors.
+* Examine the object in a python shell.
+* View page source.
+* Have someone else look -- fresh eyes fix mistakes.
 
 .. include:: safer_space.rst
 
