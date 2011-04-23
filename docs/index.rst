@@ -69,6 +69,7 @@ Curriculum
    for_guides
    safer_space
    schedule
-   survey
+   Survey (Pre) <survey_pre>
+   Survey (Post) <survey_post>
    previous_pystars
 
