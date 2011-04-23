@@ -83,11 +83,43 @@ Macs come with a command line interface included!
 Verify It Works!
 ^^^^^^^^^^^^^^^^^
 
-1. Start up a Terminal. You can find the Terminal application through Spotlight, or navigate to `Applications/Utilities/Terminal`. In your terminal:
+1. Start up a Terminal. You can find the Terminal application through Spotlight, or navigate to `Applications/Utilities/Terminal`. In your terminal, type:
+
+   .. code-block:: bash
+
+      bash --version
+  
+  Output should look similar to:
 
    .. code-block:: bash
 
       $ bash --version
+      GNU bash, version 3.2.48(1)-release (x86_64-apple-darwin10.0)
+      Copyright (C) 2007 Free Software Foundation, Inc.
+
+
+.. _badge-setup-mac-terminal-label:
+
+Terminal
+--------
+
+While ``Terminal`` is a full-featured utility, its default configuration is a bit poor for programming usage.  Let's configure ``Terminal`` to be a bit more friendly.
+
+1. In your Terminal, copy and paste this command into your terminal and then hit enter.  All this yarnbarf is to enable a colored terminal prompt.
+  .. code-block:: bash
+
+    echo "export PS1='\[\e[0;33m\]\u\[\e[0;37m\]\[\e[0;36m\](\W)\[\e[0;0m\]\$ '" >> .bash_profile
+2. Click ``Terminal`` in the upper-left hand corner, and go to Preferences.
+3. Click on the Settings Section (right of Startup and left of Window Groups)
+  a. Highlight the Pro choice in the list on the left, and then click the Default button underneath
+4. Click the Window tab (left of Text and right of Shell)
+  a. Click the black block left of "Color" and drag the Opacity slider to the right (100%)
+  b. Set the number of Rows to 40, under the Window Size section.  Feel free to adjust taller or shorter to taste.
+5. Close your Preferences window and terminal, and then go to Shell > New Window
+
+Done properly, your new terminal should look like this:
+
+.. image:: /images/configured-terminal.app.png
 
 
 .. _badge-setup-mac-gedit-label:
@@ -157,7 +189,7 @@ OS X comes with Python installed!
 Verify It Works!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Start up a Terminal. You can find the Terminal application through Spotlight, or navigate to `Applications/Utilities/Terminal`
+1. Start up a Terminal. You can find the Terminal application through Spotlight, or navigate to `/Applications/Utilities/Terminal`
 2. Test your Python install at the command prompt. Type python and hit enter. You should see something like::
 
     Python 2.6.1 (r261:67515, Feb 11 2010, 00:51:29) 
