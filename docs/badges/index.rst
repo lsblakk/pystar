@@ -13,14 +13,16 @@ List of Badges!
     badge_setup_linux
     badge_setup_mac
     badge_setup_win
-    badge_cmd_nav
-    badge_inthebeginning
     badge_LPTHW
     badge_self_help
+    badge_cmd_nav
+    badge_inthebeginning
     badge_edit_html
     badge_python_data_types
+    badge_pip
     badge_colorwall
     badge_twitter_client
+    badge_matplotlib
     badge_LPTHW_2
     badge_djangoapp
     badge_python_tutorial

@@ -91,6 +91,8 @@ Learn the Keyboard!
     /        slash, forward slash
     \        backslash
     !        bang, exclamation point
+    |        pipe (vertical bar)
+    *        star, asterisk
     =======  ==============================
 
 
