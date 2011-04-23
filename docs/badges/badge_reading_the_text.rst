@@ -70,6 +70,30 @@ home directory
 
     Ex:  ``~someuser`` might expand to ``/Users/someuser`` (on OSX).   
 
+
+Learn the Keyboard!
+--------------------
+
+:: 
+
+    symbol   name (in programming)
+    =======  ==============================
+    #        octothorpe, hash, pound
+    ()       parens, parentheses
+    {}       left and right brace
+    []       left and right bracket
+    <>       greater than, less than
+    ~        tilde
+    `        backtick, backquote
+    ''       quote
+    ""       double quote
+    -        dash,hyphen (for programmers)
+    /        slash, forward slash
+    \        backslash
+    !        bang, exclamation point
+    =======  ==============================
+
+
 Common Actions
 ------------------
 
