@@ -14,6 +14,18 @@ was held March 4/5, 2011.
 If you would like to hold a PyStar workshop in your area using this material, please get in touch by
 emailing the OpenHatch events list: events@lists.openhatch.org.
 
+PyStar Philly
+--------------
+
+The Philadelphia PyStar is June 18, 2011 (9am to 4pm) 2011
+at Azavea:
+
+340 N. 12th Street
+Philadelphia, PA 19107
+
+Register here: http://phillypystar.eventbrite.com
+
+
 PyStar Minneapolis
 ------------------
 
