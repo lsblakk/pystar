@@ -9,6 +9,17 @@ PyStar - Programming Workshops for Women and Their Friends
 The PyStar program is a workshop designed to teach women and their friends who are 
 looking to learn how to program in a friendly non-alpha-geek environment. 
 
+PyStar Philly
+---------------
+
+The Philadelphia PyStar is June 18th (9am - 4pm) 2011 at Azavea:
+
+340 N. 12th Street 
+Philadelphia, PA 19107
+
+Register at http://phillypystar.eventbrite.com
+
+
 PyStar Minneapolis
 ------------------
 
