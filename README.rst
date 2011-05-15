@@ -7,28 +7,10 @@ PyStar - Programming Workshops for Women and Their Friends
 ==========================================================
 
 The PyStar program is a workshop designed to teach women and their friends who are 
-looking to learn how to program in a friendly non-alpha-geek environment. 
-
-PyStar Minneapolis
-------------------
-
-The Minneapolis PyStar is April 23rd (9am - 4pm) 2011 at Clockwork Active Media Systems:
-
-1501 East Hennepin Avenue 
-Minneapolis, MN 55414
-
-Register here: http://pystar-mpls-2.eventbrite.com/
-
-PyStar BayArea
---------------------
-
-In partnership with CodeChix
-
-Dates: Friday April 29th (6 - 8pm) and Saturday April 30th (9am - 4pm)
-
-Location:Mozilla office in Mountain View
-
-650 Castro St, Suite 300 Mountain View, CA 94043
+looking to learn how to program in a friendly non-alpha-geek environment. Currently there 
+are PyStar events taking place in Minneapolis, Philadelphia, and the Bay Area as well as similar
+workshops in Boston and LA.  To organaize events using this curriculum or to add to it in any way
+please join our Google group http://groups.google.com/group/pystar
 
 About
 =====
@@ -37,21 +19,21 @@ Goal
 ----
 
 The PyStar program is a workshop designed to teach 
-women and their friends 
+women (including trans women) and their friends 
 who are looking to learn how to program in a friendly non-alpha-geek
 environment. The goal of this program is to increase the number
-of women programming, especially in Python which is
-a very approachable language to get started with.
+of women in computer programming, especially in the Python language which is
+considered to be a very approachable language to get started with.
 
 Pedagogy
 --------
 
 The approach for this workshop is to have groups learning together
 with at least one guide or instructor who can lead where needed, 
-and help out as requested while participants work through the 
-tutorials. At present there are two streams for the one-day workshop
-participants: Web App or Color Wall.  One is more of a focus on the 
-basics of programming (Color Wall) and is well suited to students with
+and help out as requested while participants work through 
+badges at their level of learning. At present there are two streams for the one-day workshop
+participants: Learning to Program or Web Application (using Django).  One is more of a focus on the 
+basics of programming and is well suited to students with
 very little experience in programming.  The other is a bit more 
 involved and will require network access as it includes putting a Django site
 up on the web.
@@ -69,6 +51,7 @@ to come back and take the lead as soon as they feel ready.
 TODO
 ----
 
-- put up links for each technology on the friday page
-- installation instructions for each OS & technology that will be used
-- fill out & clean up the webapp and colorwall pages
+- arrange for distributed updates to pystar website
+- more badges at different levels of programming (tiered badges)
+- clean up & improve Windows set up instructions
+- modularize (or turn into badges) the Django web app
