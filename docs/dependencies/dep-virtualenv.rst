@@ -46,7 +46,7 @@ Verify It Works!
     # your prompt should change to say (testenv)
     $ deactivate
     # remove the testenv directory
-    rmdir testenv
+    rm -rf testenv
 
 
 * http://pypi.python.org/pypi/virtualenv
