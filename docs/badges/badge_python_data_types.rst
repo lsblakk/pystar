@@ -212,7 +212,7 @@ Copying
     >>> your_list
     ['Alice']
 
-Strings are lists too
+Strings can be manipulated like lists
 
 .. code-block:: bash
 
@@ -231,8 +231,8 @@ Strings are lists too
     >>> my_string
     'Hello Jessica'
 
-    >>> type(my_list)
-    <type 'list'>
+    >>> type(my_string)
+    <type 'str'>
 
 Dictionaries
 ------------

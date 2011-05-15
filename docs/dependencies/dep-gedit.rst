@@ -76,6 +76,7 @@ In the preferences window
     * display right margin
     * highlight matching bracket
     * highlight current line
+    * syntax-highlighting: Highlight Mode -> Scripts -> Python
 
 * **editor**:
 

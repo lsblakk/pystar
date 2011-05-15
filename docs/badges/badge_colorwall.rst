@@ -18,10 +18,10 @@ Download the files you will need here:
 
 - Linux/Mac Users
     - :download:`ColorWall.tar.gz </resources/ColorWall.tar.gz>` 
-    - :download:`WorkshopExercises.tar.gz </resources/WorkshopExercises.zip>`
+    - :download:`WorkshopExercises.tar.gz </resources/WorkshopExercises.tar.gz>`
 - Windows Users 
     - :download:`ColorWall.zip </resources/ColorWall.zip>`
-    - :download:`WorkshopExercises.zip </resources/WorkshopExercises.tar.gz>`
+    - :download:`WorkshopExercises.zip </resources/WorkshopExercises.zip>`
 
 
 Basic Programming
