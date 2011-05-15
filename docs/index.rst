@@ -31,42 +31,12 @@ Register at http://phillypystar.eventbrite.com
 PyStar Minneapolis
 ------------------
 
-The Minneapolis PyStar is April 23rd (9am - 4pm) 2011
-at Clockwork Active Media Systems:
-
-1501 East Hennepin Avenue 
-Minneapolis, MN 55414
-
-Register here: http://pystar-mpls-2.eventbrite.com/
+Another PyStar coming soon - stay tuned
 
 PyStar Bay Area
 ---------------
 
-In partnership with `CodeChix <http://groupspaces.com/codechix>`_
-
-Dates: Friday April  29th (6 - 8pm) and Saturday 
-April 30th (9am - 4pm)
-
-Location:Mozilla office in Mountain View
-
-650 Castro St, Suite 300
-Mountain View, CA 94043
-
-We need teachers and assistants! If you can make the workshop, please
-follow the registration link and register for the PyStar Volunteer ticket.
-You will be contacted with further information in the coming week or so.
-
-Registration is now open: http://www.eventbrite.com/event/1525890981
-
-
-PyStar Boston
----------------------
-
-Boston had the first workshop on March 4 & 5, 2011.  See `their wiki <https://openhatch.org/wiki/Boston_Python_workshop>`_
-for more information on the course they gave.
-
-Stay tuned for future workshops.
-
+Another PyStar coming soon - stay tuned
 
 Curriculum
 ------------
