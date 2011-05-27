@@ -3,12 +3,12 @@
 Advice for Guides
 -----------------
 
-Your role is to *support* the learners and help create a good learning enviroment.
+Your role is to *support* the learners and help create a good learning environment.
 
-*   Give answers that are appropriate for the stage of learning
+*   Give answers that are appropriate for the stage of learning.
 *   Ask if people want more detail before infodumping or editorializing.
 *   Speak from your experience.  Do not use the Voice of Authority.
-*   Assume learners are cabable, but inexperienced.
+*   Assume learners are capable, but inexperienced.
 *   Stay out of the way!  If you are tempted to type on a learner's keyboard,
     you are in danger!  They should do their own typing, and drive their
     own machines.

@@ -1,36 +1,93 @@
-In the Beginning was the Command Line Badge
+.. badge_inthebeginning:
+
+In the Beginning was the Command Line
 ===========================================
 
-In the Beginning was the Command Line is a book by Neal Stephenson. Unlike many of his other works, it is short and available for free (legal, even) download on the internet. The first part of this badge is to do just that; the second part of the badge is to read the section entitled "THE HOLE HAWG OF OPERATING SYSTEMS."
+History matters.  At first glance, many of the commands and idioms of 
+programming seem deliberately obscure.  But they are the culmination of 
+an evolutionary process, with twists and turns and dead-ends.  Knowing 
+some history, and in particular the history of the Unix operating system,
+sheds light on what is otherwise occult.
 
-If you just want to read the book already, [:ref:`skip to the end  <the_end>`]. Otherwise we will complete this badge the UNIX way:
+*In the Beginning Was the Command Line* is a book by Neal Stephenson. 
+Unlike many of his other works, it is short and available for (legal) free download on the internet. 
 
-.. code-block:: bash
-
-   $ curl 'http://www.cryptonomicon.com/command.zip' | gunzip | grep -A 22 "THE HOLE HAWG OF OPERATING SYSTEMS"
-
-Read the text that is on your screen the come back here for the breakdown on the command you just read.
-
-Let's look at this in chunks. The first chunk is the ``curl`` command. ``curl`` is a standard UNIX tool that transfers data to or from a server. You likely used ``curl`` to download ``pip`` during the setup. In essence, we are fetching the zip file hosted at www.cryptonomicon.com that contains a compressed version of the text. If you just run ``curl 'http://www.cryptonomicon.com/command.zip'`` you will see the contents of the zip file found at that url printed to standard out (aka, your screen). Not very interesting.
-
-(In fact, your screen will be filled with junk. Get rid of it by running ``clear``.)
-
-To make it interesting, we need to unzip it. The "it" here is what ``curl`` prints to standard out, which is the zip file. In UNIX, you can redirect the output of one command to the input of another using a handy character called "pipe" which looks like this: ``|``. In plain English, we will "pipe" the output of the ``curl`` comand into the UNIX unzip tool, which is called ``gunzip``. If you just run ``curl 'http://www.cryptonomicon.com/command.zip' | gunzip`` you will see the entire contents of the file contained in the zip file printed to your screen.
-
-Finally, we want to print to standard out just the section we want to read. To identify the "THE HOLE HAWG OF OPERATING SYSTEMS," we will us a UNIX tool called ``grep``, which finds text that matches a string you give it. In this case, we give it the string "THE HOLE HAWG OF OPERATING SYSTEMS" - the title of the section. The ``-A`` optional argument allows you to specify how many lines of text after the matched text ``grep`` should print to the screen. Here we tell ``grep`` to print 22 lines because that is how long the section of text is. 
-
-That's it.
-
-In short, we want to grab the zip file from the url using ``curl``, pipe it to ``gunzip`` to extract the actual text and pipe that to ``grep`` to print to standard out the section of interest. And all without actually downloading the file to your computer!
- 
-Even shorter, UNIX is awesome!
+#. For the entire plain text version you can go to his site: http://www.cryptonomicon.com/beginning.html
+#. Read the section entitled "THE HOLE HAWG OF OPERATING SYSTEMS." here: http://steve-parker.org/articles/others/stephenson/holehawg.shtml
 
 
-To download the whole text to your computer so you can read more, using the CLI::
-    
-    $ curl 'http://www.cryptonomicon.com/command.zip' | gunzip > command.txt
+.. note:: 
+
+    this badge is a bit incomplete, and you will benefit from having a 
+    guide around to help you through it)
 
 
-.. _the_end:
+Now that you have read the section, let's honor our shared history by using Unix 
+commands to do the same work for us.
 
-If you need a break from the CLI, download the book using this link: http://www.cryptonomicon.com/command.zip. 
+:: 
+
+    curl -s 'http://www.cryptonomicon.com/command.zip' | gunzip | grep -i -A22 'pipe' | less
+    # type 'q' to quit from 'less' when you are done.
+Let's break this down.
+
+#.  The ``|`` takes the text **output** from one command and **pipes** it into 
+    the **input** of the next command.
+#.  research curl:  ``man curl``.  What does curl do?  What about the
+    ``-s`` option?
+
+    ..  container:: answer-hidden
+        
+        Curl is a command line client for hitting urls.  We can use it
+        to download the web page.  ``-s`` makes it run 'silently'.
+
+#.  ``gunzip``?  What is does gunzip do?
+
+    ..  container:: answer-hidden
+        
+        it unzips the file :)  Nothing magical there!  
+
+#.  What file is ``gunzip`` operating on?
+
+    ..  container:: answer-hidden
+        
+        None, really.  Or rather it's operating on a special file called
+        ``stdin``, which is here attached to the ``stdout`` out of the curl
+        command, via the **pipe**.  
+
+#.  ``grep -i -A22 'pipe'`` .  ``grep`` is the *general regular expression
+    parser*, that is used to find lines in a file matching an expression.
+    Here, we have thrown on some special switches:
+
+    * ``-i`` for *case insensitive*
+    * ``-A22`` for 'show me the 22 lines *after* my match.  Since each
+      line in the original is a paragraph, this has the effect of getting us
+      the whole section.
+    * ``'pipe'`` is what to search on in the incoming stream.  
+
+#.  ``less`` is a **pager**, which is a program that takes a stream of text,
+    and turns it in 'screen-size' 'pages' for easier viewing.
+
+
+Exercises:
+
+#.  Look at all the lines including the word *pride* in *Pride and Prejudice*
+    (downloadable at http://www.gutenberg.org/files/1342/1342-h/1342-h.htm)
+
+    ..  container:: answer-hidden
+
+        ::
+
+            curl 'http://www.gutenberg.org/files/1342/1342-h/1342-h.htm' | grep -i 'pride' | less
+
+#.  Count those lines using the ``wc`` command.
+
+    ..  container:: answer-hidden
+
+        ::
+
+            curl 'http://www.gutenberg.org/files/1342/1342-h/1342-h.htm' | grep -i 'pride' | wc
+
+
+
+

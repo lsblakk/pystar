@@ -1,7 +1,7 @@
-.. _webapp-label:
+.. _badge_webapp:
 
 =============================================
-Intro to Programming Python: Web App
+Django Polls Webapp Tutorial
 =============================================
 
 This tutorial will look at writing and deploying a web application. 
@@ -178,7 +178,7 @@ Start the Development (Local) Server
 #.  Now that the server's running, visit http://127.0.0.1:8000/ with your Web browser. 
     You'll see a "Welcome to Django" page, in pleasant, light-blue pastel. It worked!
 
-    .. image:: images/itworks.png
+    .. image:: /images/itworks.png
 
     Note how mouthy this is, and that it mentions ``DEBUG``, ``settings.py``, and
     a lot more, which will be covered in later sections.  
@@ -438,7 +438,7 @@ Set up the Database
         You just installed Django's auth system, which means you don't have any superusers defined.
         Would you like to create one now? (yes/no): yes
         Username (Leave blank to use 'barack'): super
-        E-mail address: super@super.com
+        E-mail address: example@example.com
         Password: 
         Password (again): 
         Superuser created successfully.
@@ -651,7 +651,7 @@ Part 7: Test your Django Project
 
 #.  View ``polls/test.py``, and see the example test.
 
-#.  Copy :download:`test_polls.py` and move it into ``polls`` directory 
+#.  Copy :download:`test_polls.py <https://github.com/lsblakk/pystar/raw/master/docs/test_polls.py>`_ and move it into ``polls`` directory 
 
 #.  Edit ``polls`` to include the tests from ``test_polls.py`` to look like:
 
@@ -920,7 +920,7 @@ Write Some Views!
 
     This is a very simple view. 
 
-#.  Save the views.py file, then go to http://127.0.0.1/polls/ in your
+#.  Save the views.py file, then go to http://127.0.0.1:8000/polls/ in your
     browser, and you should see that text.
 
 #.  RE-RUN YOUR TESTS.  **POP QUIZ**.  Do more pass?  
@@ -995,17 +995,17 @@ and we are going to be guinea pigs for them!
 
     #.  Enter your GitHub url.
 
-        .. image:: images/djangozoom1.png
+        .. image:: /images/djangozoom1.png
 
     #.  Rename your project.
 
-        .. image:: images/djangozoom2.png
+        .. image:: /images/djangozoom2.png
 
     #.  Navigate to the URL you eventually get, like  http://p00000058.djangozoom.net/.
 
     #.  OHNOES!  There is no slash (root) view!
 
-        .. image:: images/djangozoom_noindex.png
+        .. image:: /images/djangozoom_noindex.png
 
     #.  See that '/polls/' looks just like how it does on your local machine.
 
@@ -1021,10 +1021,12 @@ and we are going to be guinea pigs for them!
 
     #.  in ``polls/views.py``:
 
-        from django.http import HttpResponseRedirect
-
-        def redirect_to_polls(request):
-            return HttpResponseRedirect('/polls/')
+        .. code-block:: python
+    
+            from django.http import HttpResponseRedirect
+    
+            def redirect_to_polls(request):
+                return HttpResponseRedirect('/polls/')
 
 #.  Restart your local server, and hit http://127.0.0.1/ .  
     What happened?  Look at your logging:
@@ -1042,7 +1044,7 @@ and we are going to be guinea pigs for them!
 
 #.  Return to DjangoZoom and rebuild.
 
-    .. image:: images/djangozoom_build.png 
+    .. image:: /images/djangozoom_build.png 
 
     Your redeployed site should have a sensible '/' (that redirects to ``/polls``).
 
@@ -1376,7 +1378,7 @@ Add Choices
 Heavy Metal Polling!
 ----------------------
 
-#.  From ``python manage.py shell``, run this block of TOTALLY METAL CODE:
+#. Paste this block of code into a separate file, run ``python manage.py shell``, import and run this block of TOTALLY METAL CODE:
 
     .. code-block:: python
 
