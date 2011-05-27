@@ -30,8 +30,12 @@ Register at http://phillypystar.eventbrite.com
 
 PyStar Minneapolis
 ------------------
+The next Minneapolis PyStar is Saturday, June 11, 2011 from 9:00 AM - 3:00 at Clockwork Active Media Systems:
 
-Another PyStar coming soon - stay tuned
+1501 East Hennepin Avenue 
+Minneapolis, MN 55414
+
+Register at http://pystar-mpls-3.eventbrite.com/
 
 PyStar Bay Area
 ---------------
