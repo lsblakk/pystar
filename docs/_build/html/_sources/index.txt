@@ -14,14 +14,6 @@ was held March 4/5, 2011.
 If you would like to hold a PyStar workshop in your area using this material, please get in touch by
 emailing the OpenHatch events list: events@lists.openhatch.org.
 
-PyStar Minneapolis
-------------------
-The next Minneapolis PyStar is Saturday, June 11, 2011 from 9:00 AM - 3:00 at Clockwork Active Media Systems:
-
-1501 East Hennepin Avenue 
-Minneapolis, MN 55414
-
-Register at http://pystar-mpls-3.eventbrite.com/
 
 PyStar Philly
 --------------
@@ -36,18 +28,14 @@ Philadelphia, PA 19107
 Register at http://phillypystar.eventbrite.com
 
 
-PyStar Paris
+PyStar Minneapolis
 ------------------
+The next Minneapolis PyStar is Saturday, June 11, 2011 from 9:00 AM - 3:00 at Clockwork Active Media Systems:
 
-Ls première atelier de PyStar à Paris aura lieu le Juin 22 (19 h-22 h) 2011
-au bureau de Mozilla Paris / The first PyStar in Paris will be on June 22 (7pm - 10pm) 2011
-at the Mozilla Paris office:
+1501 East Hennepin Avenue 
+Minneapolis, MN 55414
 
-28 boulevard Poissonnière
-75009 Paris
-France 
-
-Inscrivez-vous à/Register at http://fr.eventbrite.com/event/1796528465
+Register at http://pystar-mpls-3.eventbrite.com/
 
 PyStar Bay Area
 ---------------
