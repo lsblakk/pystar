@@ -204,7 +204,7 @@ Start the Development (Local) Server
 
         DATE  METHOD URL  PROTOCOL  RESPONSE_CODE  CONTENTSIZE
 
-#.  Navigate to http://127.0.0.1:8000/some/url/.  What changes in the 
+#.  Navigate to http://127.0.0.1:8000/some/url/.  What changes in the terminal log?
 
 #.  Exit the server 
 
@@ -221,11 +221,11 @@ Start the Development (Local) Server
         python manage.py runserver 
         python manage.py runserver 8000
 
-    *Start* a server on port 8103, and *navigate* to it using your browser
+    The '8000' number is the port on which the server runs, by default. *Start* a server on port 8103, and *navigate* to it using your browser
     [:ref:`answer <webapp_answers_8103>`].
 
 #.  Type ``python manage.py help``.  Speculate what some of these commands 
-    might do.  cf:  http://docs.djangoproject.com/en/dev/ref/django-admin/
+    might do.  For reference:  http://docs.djangoproject.com/en/dev/ref/django-admin/
 
 
 Part 3: Save your work!
@@ -252,18 +252,6 @@ We'll do that with ``git`` and ``Github``. On your own computer, get to a Termin
 
             # in myproject
             git init
-
-    #.  Tell git to ignore any files that end with .pyc (why?  [:ref:`answer <webapp_answers_pyc_files>`]) when we push
-        to our repo .  Add an exclude rule to ``.git/info/exclude``:
-
-        .. code-block:: bash
-
-            # in myproject directory
-            gedit .git/info/exclude
-            
-            # add this line to the end of the file
-            # excludes all compiled python files, which aren't interesting.
-            .pyc
 
     #.  Create your project on GitHub.  Go to http://github.com/ and create a new repository called "myproject". On the main dashboard page, click on "New Repository" fill out the necessary information. cf:  http://help.github.com/create-a-repo/.
 
@@ -319,8 +307,8 @@ We'll do that with ``git`` and ``Github``. On your own computer, get to a Termin
 
 #.  Remember:
 
-    - "commit your work" means "add and commit it to the local repository
-    - "push your work" means "git push it to github"
+    - "commit your work" means "add and commit it to the local repository on your computer"
+    - "push your work" means "git push it to github" (if your computer explodes, there will still be a copy of your code on github!)
 
 
 Part 4:  Configure your Django Project
@@ -329,15 +317,29 @@ Part 4:  Configure your Django Project
 Now that we have a the scaffolding for our **project** in place, we can get to 
 work!  It needs to be **configured**.
 
+Add yourself as an admin!
+------------------------------------
+
+#. Open  ``settings.py`` in your editor.  ``settings.py`` is a Python script that only contains variable definitions.  Django looks at the values of these variables when it runs your web app. The scaffold we wrote for you and Django's own 'startproject' command has specified some of these variables by default, though not all of them.
+
+#. Find ``ADMINS`` and replace ``Your Name`` and ``your_email@example.com`` with your name and your email address.
+
+#. Remove the pound mark from the front of the line to uncomment it out.
+
+#. git add and commit it:
+
+    .. code-block:: bash
+
+        git add settings.py
+        git commit -m "made myself an admin"
+
 Fix security settings
 ------------------------------------
 
 Right now, everyone in the workshop has the same "SECRET_KEY". Since Django 
 uses this key for various sensitive things, you should change it.
 
-#. Open  ``settings.py`` in your editor.  ``settings.py`` is a Python script that only contains variable definitions.  Django looks at the values of these variables when it runs your web app.
-
-#. Find the variable named ``SECRET_KEY`` and set it to whatever string 
+#. In ``settings.py,`` find the variable named ``SECRET_KEY`` and set it to whatever string 
    you want. 
 
 #. Verify it looks something like:
@@ -349,11 +351,11 @@ uses this key for various sensitive things, you should change it.
 
 #. How would we put a single-quote (\') in our SECRET_KEY?  [:ref:`answer <webapp_answers_single_quote>`]
 
-#. save the file.
+#. save the file
 
 #. git add and commit it:
 
-    .. code-block bash:
+    .. code-block:: bash
 
         git add settings.py
         git commit -m "changed SECRET_KEY"
@@ -369,8 +371,8 @@ Set up the Database
 
         DATABASES = {
             'default': {
-                'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-                'NAME': '',                      # Or path to database file if using sqlite3.
+                'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+                'NAME': 'database.db',                      # Or path to database file if using sqlite3.
                 'USER': '',                      # Not used with sqlite3.
                 'PASSWORD': '',                  # Not used with sqlite3.
                 'HOST': '',                      # Set to empty string for 127.0.0.1. Not used with sqlite3.
@@ -378,7 +380,7 @@ Set up the Database
             }
         }
 
-#.  Notice that the value of ``default`` is itself another dictionary with information about the site's default  database. We're going to set our app to use a ``sqlite`` database.
+#.  Notice that the value of ``default`` is itself another dictionary with information about the site's default  database. We've set our app to use a ``sqlite`` database, in the ``ENGINE`` attribute.
     Sqlite is great for development because is stores its data in one normal file on 
     your system and therefore is really simple to move around with your app.
 
@@ -386,13 +388,6 @@ Set up the Database
 
         In production, Sqlite has issues because only one process can *write* to it
         as a time.  **Discuss** the implications of this with your group.  [:ref:`answer <webapp_answers_sqlite_one_writer_implications>`]
-
-#.  Edit the lines in your settings.py to match the lines below:
-
-    .. code-block:: bash
-
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'database.db', 
 
     The ``NAME`` key tells the Django project to use a file called ``database.db`` to store information for this project.
 
@@ -456,8 +451,7 @@ Set up the Database
 
 #.  **Pop quiz**: Does ``database.db`` exist right now?  Find out!  [:ref:`answer <webapp_answers_database_db_exists_after_sync>`]
 
-#.  Save *and commit* your work (don't save ``database.db`` -- 
-    why not?  [:ref:`answer <webapp_answers_why_not_save_database_db>`])::
+#.  Save *and commit* your work ::
 
         git status 
         # will show settings.py is changed, and a new 'untracked' 
@@ -469,11 +463,7 @@ Set up the Database
         #
         #	modified:   settings.py
         #
-        # Untracked files:
-        #   (use "git add <file>..." to include in what will be committed)
-        #
-        #	database.db
-        # file 'database.db'
+        # 
 
 #.  Drink some tea and take a stretch break.  Then we can come back to 
     STRETCHING OUR MINDS.
@@ -482,7 +472,7 @@ Set up the Database
 Part 5: In Which You Save You From Yourself, Using Git.
 =========================================================
 
-Your work is saved and commited (in git!) right?
+Your work is saved and committed (in git!) right?
 
 **Right?**  How do you know?  [:ref:`answer <webapp_answers_know_what_saved>`]
 
@@ -492,7 +482,7 @@ Good. Because you got a case of the accidental deletes and you've deleted your `
 
 #.  Try running your dev server. What happens? Why?
 
-#.  Delete ``settings.pyc``. Try running your dev server. What happens now? Why?  
+#.  Delete your ``settings.pyc`` file. Try running your dev server. What happens now? Why?  
     [:ref:`answer <webapp_answers_dev_server_still_works>`]
 
 #.  Cry!  So they're gone right? No way back. And everything's broken!
