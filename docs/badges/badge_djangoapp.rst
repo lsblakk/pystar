@@ -411,6 +411,7 @@ Set up the Database
             # 'django.contrib.admin',
             # Uncomment the next line to enable admin documentation:
             # 'django.contrib.admindocs',
+              'south',
         )
 
     What do you think these various **apps** do?  Why does it make sense
@@ -442,7 +443,6 @@ Set up the Database
         Installing index for auth.User_user_permissions model
         Installing index for auth.User_groups model
         Installing index for auth.Message model
-        Installing index for polls.Choice model
         No fixtures found.
 
 
@@ -694,7 +694,7 @@ We will use this workflow throughout the following sections, as we add
 the features that our protype spec outlined.
 
 
-Part 9: Philosphy Break!
+Part 9: Philosophy Break!
 ===========================
 
 In the following sections, there will be **Django Philosophy** breaks to 
@@ -777,13 +777,7 @@ Add URLs to urls.py
 ------------------------
 
 When we ran ``django-admin.py startproject myproject`` to create the project, 
-Django created a default URLconf. Take a look at ``settings.py`` for this line:
-
-.. code-block:: bash
-
- ROOT_URLCONF = 'myproject.urls'
-
-That means that the default URLconf is ``myproject/urls.py``.
+Django created a default URLconf file called ```urls.py```.
 
 #.  Write our URL mapping. Edit the file ``myproject/urls.py`` so it looks like this:
 
@@ -848,7 +842,7 @@ That means that the default URLconf is ``myproject/urls.py``.
     
     (**Rant**:  In Django, as in most modern frameworks, you have total control
     over the way your URLs look. People on the web 
-    won't see cruft like .py or .php at the end of your URLs.  There is no
+    won't see cruft like .py or .php or even .html at the end of your URLs.  There is no
     excuse for that kind of stuff in the modern era!)
 
 #.  Exercise:  Think about another hypothetical website, "MyMagicToa.st", in which you use
@@ -959,13 +953,13 @@ These views don't plug into *real* polls.  This is by design.
 * demonstrating the UI of the product shouldn't rely on having full data in
   the back end.
 
-All of this relies on the frontend and backend having a concensus view
+All of this relies on the frontend and backend having a consensus view
 of the **interface** between them.  What does a 'Poll' look like?  What data
 and methods might it have?  If we knew this, we could construct **mock objects**
 and work with them, instead!  Keeping objects simple makes writing interfaces
 between different layers of the application stack easier.
 
-We will come back to templates (and use Django's build-in templating facilities
+We will come back to templates (and use Django's built-in templating facilities
 rather than simple python string formatting) after we build some models.
 
 
@@ -1119,6 +1113,29 @@ Finally, note a relationship is defined, using ``ForeignKey``. That tells Django
 ``Choice`` is related to a single ``Poll``. Django supports all the common database
 relationships: many-to-ones, many-to-manys and one-to-ones.
 
+Make the Models Migrate-able
+------------------------
+
+When you create your models, you might not always know exactly what fields your models will need in advance. Maybe someday your polls app will have multiple users, and you'll want to keep track of the author of each poll! Then you would want to add another field to the model to store that information.
+
+Unfortunately, Django (and most database-using software) can't figure out how to handle model changes very well on its own. Fortunately, a Django app called ```south``` can handle these changes--called 'migrations'--for us.
+
+Now that we've made our first version of our models file, let's set up our polls app to work with South so that we can make migrations with it in the future!
+
+#. On the command line, write:
+     
+    .. code-block:: bash
+        
+         $ python manage.py schemamigration polls --initial
+
+As you can see, that’s created a migrations directory for us, and made a new migration inside it. All we need to do now is apply our new migration:
+
+    .. code-block:: bash
+        
+         $ python manage.py migrate polls
+
+Great! Now our database file knows about polls and its new models, and if we need to change our models, South is set up to handle those change. We'll come back to South later.
+
 Activate The Models
 ------------------------
 
@@ -1138,24 +1155,18 @@ Commit!
 Add and commit all your work.
 
 
-Syncronise the Database
+Synchronize the Database
 --------------------------
 
 Now Django knows to include the polls app. 
 
-#.  Examine the SQL produced by the following command:
-
-    .. code-block:: bash
-
-        python manage.py sql polls
-
-#.  Create the tables for the ``polls`` app.
+#.  Let's make sure that our database is up to date.
 
     .. code-block:: bash
 
         python manage.py syncdb
 
-The syncdb looks for ``apps`` that have not yet been set up. To set them up, 
+The syncdb looks for ``apps`` that have not yet been set up, or have changed in ways that it can understand. To set them up, 
 it runs the necessary SQL commands against your database. This creates all the 
 tables, initial data and indexes for any apps you have added to your project since 
 the last time you ran syncdb. syncdb can be called as often as you like, and it 
