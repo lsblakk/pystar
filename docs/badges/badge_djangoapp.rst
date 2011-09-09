@@ -115,15 +115,10 @@ You can do that by typing this into your terminal:
 
     cd django_projects
 
-
 In the Friday setup portion of the workshop, you already saw how 
-to use the ``django-admin.py`` command to start a project. 
-Let's go into it and start looking around.
+to use the ``django-admin.py`` command to start a project. However, today, we're using a super basic Django project that has some of the less crucial settings already predefined. Download the files at `http://pystar.org/_downloads/myproject.tar.gz <http://pystar.org/_downloads/myproject.tar.gz>`_ and add the ``myproject`` folder to your ``django_projects`` directory.
 
-.. code-block:: bash
-
-    django-admin.py startproject myproject # if you haven't already got a my_project
-    cd myproject
+Let's go into ``myproject`` and start looking around.
 
 Look at the files
 -------------------------
@@ -2000,102 +1995,7 @@ interface.
     typing ``Ctrl-C`` (``Ctrl-Break`` on Windows); then use the ``up`` arrow on your
     keyboard to find the command again, and hit enter.
 
-Explore the free admin functionality
--------------------------------------------------------
 
-Now that we've registered Poll, Django knows that it should be displayed on the admin index page.
-
-#.  Click "Polls." Now you're at the "change list" page for polls. This page displays all the polls 
-    in the database and lets you choose one to change it. There's the "What is the Weirdest Cookbook Ever?" poll we created in the first tutorial.
-
-    Things to note here:
-
-    * The form is automatically generated from the ``Poll`` model.
-    * The different model field types (``DateTimeField``, ``CharField``) correspond to the appropriate HTML input widget. Each type of field knows how to display itself in the Django admin.
-    * Each ``DateTimeField`` gets free JavaScript shortcuts. Dates get a "Today" shortcut and calendar popup, and times get a "Now" shortcut and a convenient popup that lists commonly entered times.
-
-    The bottom part of the page gives you a couple of options:
-
-    * Save -- Saves changes and returns to the change-list page for this type of object.
-    * Save and continue editing -- Saves changes and reloads the admin page for this object.
-    * Save and add another -- Saves changes and loads a new, blank form for this type of object.
-    * Delete -- Displays a delete confirmation page.
-
-#.  Change the "Date published" 
-
-    #.  the "Today" and "Now" shortcuts. 
-    #.  click "Save and continue editing."
-    #.  click "History" in the upper right. You'll see a page
-        listing all changes made to this object via the Django admin, with the timestamp and 
-        username of the person who made the change
-
-Adding related objects
------------------------------------
-
-OK, we have our ``Poll`` admin page. But a ``Poll`` has multiple ``Choices``, and the admin 
-page doesn't display choices.
-
-Yet.
-
-There are two ways to solve this problem. The first is to register Choice with the 
-admin just as we did with Poll. That's easy:
-
-.. code-block:: python
-    
-    from polls.models import Choice
-    
-    admin.site.register(Choice)
-    
-
-Now "Choices" is an available option in the Django admin. Check out the ``Add Choice`` form.
-
-In that form, the "Poll" field is a select box containing every poll in the database. 
-Django knows that a ``ForeignKey`` should be represented in the admin as a ``<select>``
-box. In our case, only one poll exists at this point.
-
-Also note the "Add Another" link next to "Poll." Every object with a ``ForeignKey``
-relationship to another gets this for free. When you click "Add Another," you'll get a
-popup window with the "Add poll" form. If you add a poll in that window and click 
-"Save," Django will save the poll to the database and dynamically add it as the selected
-choice on the "Add choice" form you're looking at.
-
-But, really, this is an inefficient way of adding Choice objects to the system. It'd be better 
-if you could add a bunch of Choices directly when you create the Poll object. Let's make 
-that happen.
-
-#.  Remove the register() call for the Choice model. 
-
-#.  Edit the ``polls/admin.py``  to read:
-
-    .. code-block:: python
-        
-        from polls.models import Poll
-        from django.contrib import admin
-        
-        class ChoiceInline(admin.StackedInline):
-            model = Choice
-            extra = 3
-        
-        class PollAdmin(admin.ModelAdmin):
-            fieldsets = [
-                (None,               {'fields': ['question']}),
-                ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
-            ]
-            inlines = [ChoiceInline]
-        
-        admin.site.register(Poll, PollAdmin)
-        
-
-    This tells Django: "Choice objects are edited on the Poll admin page. 
-    By default, provide enough fields for 3 choices."
-
-#.  Restart your development server
-
-#.  Load the "Add poll" page to see how that looks
-
-    It works like this: There are three slots for related Choices
-    -- as specified by extra -- and each time you come back to
-    the "Change" page for an already-created object, you get another three extra slots.
 
 Customize the admin change list
 --------------------------------------------------
