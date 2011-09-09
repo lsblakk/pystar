@@ -267,10 +267,10 @@ We'll do that with ``git`` and ``Github``. On your own computer, get to a Termin
         # Untracked files:
         #   (use "git add <file>..." to include in what will be committed)
         #
-        #	__init__.py
-        #	manage.py
-        #	settings.py
-        #	urls.py
+        #   __init__.py
+        #   manage.py
+        #   settings.py
+        #   urls.py
         nothing added to commit but untracked files present (use "git add" to track)
 
     None of the files are **tracked**.  That is, ``git`` doesn't know about them!
@@ -461,7 +461,7 @@ Set up the Database
         #   (use "git add <file>..." to update what will be committed)
         #   (use "git checkout -- <file>..." to discard changes in working directory)
         #
-        #	modified:   settings.py
+        #   modified:   settings.py
         #
         # 
 
@@ -1436,16 +1436,33 @@ Test the Models
 
 
 
-Explore the data!
----------------------
+Change the models
+-------------------
 
-#.  Poke the database directly, using Python::
+Oh no! Your client, VOEL, has decided that they want to add a feature to the spec for the polling app. Namely, it's not enough for them to know the poll question and creation date -- they want it to be possible for polls to have closing dates, after which voting on the poll is closed. Which means we're going to have to change our model.
 
-    >>> import sqlite3
-    >>> db = sqlite3.connect('database.db')
-    >>> sorted(list(db.execute('select name from sqlite_master')))
-    >>> sorted(list(db.execute('select * from polls_choice')))
+#. Open polls/models.py and edit the Poll class:
 
+    .. code-block:: python
+
+         class Poll(models.Model):
+             question = models.CharField(max_length=200)
+             pub_date = models.DateTimeField()
+             end_date = models.DateTimeField(blank=True,null=True)
+
+By setting ``blank=True`` and ``null=True``, we're telling Django that this field is optional, so it's okay if it's empty and a poll doesn't have an end date.
+
+#. Make a migration so the database knows about the new ``end_date`` field.
+
+    .. code-block:: bash
+
+         $ python manage.py schemamigration polls --auto
+
+#. Apply the migration.
+
+    .. code-block:: bash
+
+         $ python manage.py migrate polls
 
 Save and commit
 -------------------
@@ -1453,7 +1470,7 @@ Save and commit
 You know the drill!
 
 
-Forget about databases for now!
+Forget about data models for now!
 ------------------------------------
 
 #.  Did you eat lunch yet?
@@ -1558,6 +1575,17 @@ in the discuss of models.  (Sorry, I guess we can't forget about databases quite
          {% else %}
              <p>No polls are available.</p>
          {% endif %}
+         
+#. Edit ``TEMPLATE_DIRS`` in ``settings.py`` to have the full path to the templates folder inside your new app. On my computer, this looks like:
+    
+    .. code-block:: python
+        
+         TEMPLATE_DIRS = (
+            # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+            # Always use forward slashes, even on Windows.
+            # Don't forget to use absolute paths, not relative paths.
+            '/karen/Code/pystarl/django-projects/myproject/polls/templates',
+        )
 
 #.  Reload http://127.0.0.1:8000/polls/ . 
     You should see a bulleted-list containing some of the HEAVY METAL POLLS.
@@ -1607,7 +1635,7 @@ given poll.
 #.  Load a poll page that does not exist, to test out the 
     pretty 404 error: http://127.0.0.1:8000/polls/100000000000/
 
-    #.  What?  It says DEBUG has to be False?  All right, set it, and 
+    #.  What?  It says DEBUG has to be False?  All right, set it (in ``settings.py``), and 
         try again!
 
     #.  (note:  Chrome 'eats' the 404.  Safari will show our created page.)
@@ -1623,7 +1651,7 @@ given poll.
     illustrative.  404 is a blunt tool.  In a real application, maybe we
     would redirect the user to the 'create a poll' page, or the search page.
     
-    **Discuss** in your group what behaviour *should* happen in this case.
+    **Discuss** in your group what behavior *should* happen in this case.
     
     #. Why did the user land here?
     #. What did they expect to find?
@@ -1648,8 +1676,8 @@ Add More Detail to the Details
         </ul>
 
 
-#.  The ``djanogo.template`` system uses dot-lookup syntax to access variable attributes. 
-    Django's template language is a bit looser than standar python.
+#.  The ``django.template`` system uses dot-lookup syntax to access variable attributes. 
+    Django's template language is a bit looser than standard python.
     In pure Python, the ``.`` (dot) only 
     lets you get attributes from objects, and we would need to use `[]` to 
     access parts of ``list``, ``tuple`` or ``dict`` objects. 
@@ -1729,7 +1757,7 @@ Create the form
         normally accessible from within the template context. To fix this, a small adjustment 
         needs to be made to the detail view in the ``views.py`` file.
 
-        #. Fix ``views.py`` to protect against CRSF hacking:
+        #. Fix ``views.py`` to protect against CSRF hacking:
 
         .. code-block:: python
             
