@@ -1379,7 +1379,7 @@ Add Choices
 Heavy Metal Polling!
 ----------------------
 
-#. Paste this block of code into a separate file, run ``python manage.py shell``, import and run this block of TOTALLY METAL CODE::
+#. Paste this block of code into a separate file, run ``python manage.py shell``, import and run this block of TOTALLY METAL CODE:
 
     .. code-block:: python
 
